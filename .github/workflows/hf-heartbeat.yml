@@ -10,19 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Ping the Space
-        env:
-          HF_SPACE_URL: ${{ secrets.HF_SPACE_URL }}
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          if [ -z "$HF_SPACE_URL" ]; then
-            echo "HF_SPACE_URL secret is missing"
-            exit 1
-          fi
-
-          if [ -n "$HF_TOKEN" ]; then
-            curl -fsS \
-              -H "Authorization: Bearer $HF_TOKEN" \
-              "$HF_SPACE_URL" >/dev/null
-          else
-            curl -fsS "$HF_SPACE_URL" >/dev/null
-          fi
+          curl --fail --show-error --silent --max-time 30 \
+            https://ps2109-n8n.hf.space/healthz >/dev/null
