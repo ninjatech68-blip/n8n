@@ -104,8 +104,11 @@ The production container imports the Instagram carousel workflow on startup with
 ```bash
 n8n import:workflow \
   --input=/opt/n8n/bootstrap/instagram-carousel-content-engine.workflow.json \
-  --projectId=eY86xW2dysjsQrAK \
-  --activeState=fromJson
+  --projectId=eY86xW2dysjsQrAK
+
+n8n update:workflow \
+  --id=9d0e57d8-6d16-4800-9e6a-8f0d4b05e88f \
+  --active=true
 ```
 
 This is idempotent by workflow id and is safe to run on every restart.
