@@ -52,6 +52,7 @@ N8N_PROXY_HOPS=1
 N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
 N8N_RUNNERS_ENABLED=true
 NODE_OPTIONS=--dns-result-order=ipv4first
+NODE_FUNCTION_ALLOW_EXTERNAL=sharp
 
 DB_TYPE=postgresdb
 DB_POSTGRESDB_HOST=aws-1-ap-south-1.pooler.supabase.com
@@ -67,6 +68,16 @@ DB_POSTGRESDB_SSL_MODE=require
 
 - `DB_POSTGRESDB_PASSWORD`
 - optionally `N8N_ENCRYPTION_KEY` if you want stable credential encryption across rebuilds
+
+## External module note
+
+The Instagram carousel renderer uses `sharp` inside an n8n Code node to convert slide SVG layouts into PNGs.
+
+For that to work in the hosted Space:
+
+- build with the repo's [Dockerfile](/Users/piyushsharma/Documents/n8n/Dockerfile)
+- keep `NODE_FUNCTION_ALLOW_EXTERNAL=sharp` in the Space environment
+- make sure the image builds with `sharp` installed into the n8n runtime
 
 ## Supabase pooler note
 
