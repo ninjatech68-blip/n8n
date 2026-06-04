@@ -1,0 +1,735 @@
+[
+  {
+    "id": "417b9afe-b8a1-4955-bc63-a07e42039153",
+    "name": "Instagram Carousel Trend Engine",
+    "active": true,
+    "nodes": [
+      {
+        "id": "30c56671-03f7-42c1-a22b-84c6aff75b3e",
+        "name": "Schedule Trigger",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.3,
+        "position": [
+          -1680,
+          -160
+        ],
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "hoursInterval": 8
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "e165e3e0-5152-4389-8e9b-3c7accd21ac4",
+        "name": "Instagram Slide Webhook",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          -1680,
+          320
+        ],
+        "parameters": {
+          "path": "instagram-carousel-slide",
+          "options": {},
+          "httpMethod": "GET",
+          "responseMode": "lastNode",
+          "responseData": "firstEntryBinary"
+        },
+        "webhookId": "a177171d-44f4-402f-b4c5-b1b53214e934"
+      },
+      {
+        "id": "bf7a199c-31ee-48e4-84a4-82197cc4530b",
+        "name": "Instagram Preview Webhook",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          -1680,
+          520
+        ],
+        "parameters": {
+          "path": "instagram-carousel-preview",
+          "options": {},
+          "httpMethod": "GET",
+          "responseMode": "lastNode",
+          "responseData": "firstEntryBinary"
+        },
+        "webhookId": "6a518e61-383e-4959-b1bc-e41eaf837e47"
+      },
+      {
+        "id": "ecb81de8-66ce-4c31-af85-2a239d073c59",
+        "name": "Build Source List",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -1440,
+          -160
+        ],
+        "parameters": {
+          "jsCode": "const sources = [\n  {\n    sourceName: 'RBI RSS',\n    sourceType: 'official',\n    feedUrl: 'https://www.rbi.org.in/Scripts/rss.aspx',\n    trustScore: 5,\n    category: 'finance',\n    notes: 'Anchor source for credit, EMIs, inflation, lending, and rates.',\n  },\n  {\n    sourceName: 'Reuters Business',\n    sourceType: 'news',\n    feedUrl: 'https://feeds.reuters.com/reuters/businessNews',\n    trustScore: 5,\n    category: 'business',\n    notes: 'Clean macro and business context.',\n  },\n  {\n    sourceName: 'Scroll',\n    sourceType: 'news',\n    feedUrl: 'https://scroll.in/feed',\n    trustScore: 4,\n    category: 'india',\n    notes: 'India context with readable editorial framing.',\n  },\n  {\n    sourceName: 'r/AmItheAsshole',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/AmItheAsshole/.rss',\n    trustScore: 2,\n    category: 'drama',\n    notes: 'Moral tension, conflict, and judgment bait.',\n  },\n  {\n    sourceName: 'r/relationship_advice',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/relationship_advice/.rss',\n    trustScore: 2,\n    category: 'relationships',\n    notes: 'Relationship friction and emotionally sticky situations.',\n  },\n  {\n    sourceName: 'r/tifu',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/tifu/.rss',\n    trustScore: 2,\n    category: 'drama',\n    notes: 'Mistakes, embarrassment, and human drama.',\n  },\n  {\n    sourceName: 'r/unpopularopinion',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/unpopularopinion/.rss',\n    trustScore: 2,\n    category: 'controversy',\n    notes: 'Hot takes and opinion tension.',\n  },\n  {\n    sourceName: 'r/mildlyinfuriating',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/mildlyinfuriating/.rss',\n    trustScore: 2,\n    category: 'viral',\n    notes: 'Small annoyances and relatable irritation.',\n  },\n  {\n    sourceName: 'r/interestingasfuck',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/interestingasfuck/.rss',\n    trustScore: 2,\n    category: 'curiosity',\n    notes: 'Fast curiosity hooks and shareable weirdness.',\n  },\n  {\n    sourceName: 'r/oddlysatisfying',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/oddlysatisfying/.rss',\n    trustScore: 2,\n    category: 'viral',\n    notes: 'Visual dopamine and oddly satisfying loops.',\n  },\n  {\n    sourceName: 'r/aww',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/aww/.rss',\n    trustScore: 2,\n    category: 'animals',\n    notes: 'Cute animal content for lighter dopamine breaks.',\n  },\n  {\n    sourceName: 'r/worldnews',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/worldnews/.rss',\n    trustScore: 2,\n    category: 'news',\n    notes: 'Broad current events signal and headline gravity.',\n  },\n];\n\nreturn sources.map((source) => ({ json: source }));"
+        }
+      },
+      {
+        "id": "76250868-1b85-40dc-bc9e-b346053f46ed",
+        "name": "Fetch RSS Feed",
+        "type": "n8n-nodes-base.rssFeedRead",
+        "typeVersion": 1.2,
+        "position": [
+          -1200,
+          -160
+        ],
+        "parameters": {
+          "url": "={{ $json.feedUrl }}",
+          "options": {
+            "customFields": "author,contentSnippet,content",
+            "ignoreSSL": false
+          }
+        }
+      },
+      {
+        "id": "13ce05c9-ef52-4c3b-94e0-e6e78a11c9c9",
+        "name": "Select Top Topic",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -960,
+          -160
+        ],
+        "parameters": {
+          "jsCode": "const items = $input.all();\n\nfunction normalize(value) {\n  return String(value || '')\n    .toLowerCase()\n    .replace(/<[^>]*>/g, ' ')\n    .replace(/[^a-z0-9]+/g, ' ')\n    .replace(/\\s+/g, ' ')\n    .trim();\n}\n\nfunction hostnameFromUrl(url) {\n  try {\n    return new URL(url).hostname.replace(/^www\\./, '');\n  } catch (error) {\n    return '';\n  }\n}\n\nfunction tokenize(text) {\n  return normalize(text)\n    .split(' ')\n    .filter(Boolean)\n    .filter((token) => token.length > 2)\n    .filter((token) => !['the','and','for','with','from','that','this','have','will','your','you','are','new','how','can','our','their','about','into','what','when','why','who','but','not','all','now','use','uses','used','india','indian'].includes(token));\n}\n\nfunction pickCategory(text) {\n  if (/cricket|match|ipl|bcci|world cup|sports?/.test(text)) return 'sports';\n  if (/food|restaurant|dosa|biryani|cafe|eat|chef|menu/.test(text)) return 'food';\n  if (/bollywood|actor|actress|movie|film|celebrity|star/.test(text)) return 'culture';\n  if (/startup|founder|business|funding|company|market|economy/.test(text)) return 'business';\n  if (/work|office|job|salary|manager|meeting|career|productivity/.test(text)) return 'work';\n  if (/dating|relationship|marriage|wedding|family|parent|parents|relative|single|breakup|divorce|situationship/.test(text)) return 'relationships';\n  if (/delhi|mumbai|bengaluru|bangalore|pune|hyderabad|chennai|kolkata|city|metro|traffic|weather/.test(text)) return 'cities';\n  if (/tax|invest|mutual fund|stock|price|money|inflation|budget|bank|loan/.test(text)) return 'finance';\n  if (/health|fitness|gym|workout|weight|body|skin|skincare|diet|sleep|mental|mindset|therapy|stress/.test(text)) return 'fitness';\n  if (/travel|trip|flight|hotel|destination|tour|vacation|budget travel|backpack/.test(text)) return 'travel';\n  if (/reddit|viral|satisfying|oddly|interesting|funny|meme|wtf|wow|crazy|shocking|insane/.test(text)) return 'viral';\n  if (/animal|dog|cat|pet|wildlife|nature|aww/.test(text)) return 'animals';\n  if (/opinion|hot take|controversy|outrage|drama|argument|fight|asshole|tifu/.test(text)) return 'drama';\n  if (/curious|obscure|weird|hidden|unknown|history|atlas obscura|wikipedia|nautilus|wait but why/.test(text)) return 'curiosity';\n  return 'india';\n}\n\nfunction scoreItem(item) {\n  const sourceUrl = String(item.json.link || item.json.url || '').trim();\n  const title = String(item.json.title || '').trim();\n  const summary = String(item.json.contentSnippet || item.json.content || item.json.summary || '').replace(/<[^>]*>/g, ' ').replace(/\\s+/g, ' ').trim();\n  const text = normalize(title + ' ' + summary + ' ' + sourceUrl);\n  const host = hostnameFromUrl(sourceUrl);\n  const category = pickCategory(text);\n\n  const officialHosts = ['rbi.org.in', 'sebi.gov.in', 'pib.gov.in'];\n  const sourceTrust = officialHosts.some((domain) => host.includes(domain))\n    ? 5\n    : host.includes('news.google.com')\n      ? 3\n      : 2;\n\n  const positiveTerms = [\n    /india/i,\n    /indian/i,\n    /cricket/i,\n    /bollywood/i,\n    /food/i,\n    /restaurant/i,\n    /city/i,\n    /metro/i,\n    /traffic/i,\n    /startup/i,\n    /business/i,\n    /work/i,\n    /office/i,\n    /career/i,\n    /relationship/i,\n    /marriage/i,\n    /family/i,\n    /finance/i,\n    /money/i,\n    /tax/i,\n    /travel/i,\n    /trip/i,\n    /flight/i,\n    /hotel/i,\n    /fitness/i,\n    /gym/i,\n    /workout/i,\n    /skin/i,\n    /animal/i,\n    /dog/i,\n    /cat/i,\n    /habit/i,\n    /mindset/i,\n    /people/i,\n    /culture/i,\n  ];\n\n  const twistTerms = [\n    /why/i,\n    /how/i,\n    /what/i,\n    /problem/i,\n    /issue/i,\n    /fails?/i,\n    /why.*matter/i,\n    /trend/i,\n    /viral/i,\n    /viral/i,\n    /launch/i,\n    /new/i,\n    /finally/i,\n    /relatable/i,\n    /funny/i,\n    /awkward/i,\n    /absurd/i,\n    /meme/i,\n    /same/i,\n    /so true/i,\n    /real/i,\n  ];\n\n  let score = 0;\n  for (const pattern of positiveTerms) if (pattern.test(text)) score += 1.25;\n  for (const pattern of twistTerms) if (pattern.test(text)) score += 0.75;\n\n  if (category === 'cities') score += 2;\n  if (category === 'food') score += 2;\n  if (category === 'culture') score += 1.5;\n  if (category === 'work') score += 1.5;\n  if (category === 'finance') score += 1.5;\n  if (category === 'business') score += 1;\n  if (category === 'relationships') score += 1.5;\n  if (category === 'fitness') score += 1.25;\n  if (category === 'travel') score += 1;\n  if (category === 'curiosity') score += 1.25;\n  if (category === 'viral') score += 1.5;\n  if (category === 'animals') score += 1;\n  if (category === 'drama') score += 1.75;\n  if (category === 'mindset') score += 1;\n  if (/funny|awkward|relatable|absurd|same|so true|meme|lol|haha|irony|ironic/i.test(text)) score += 2;\n\n  if (title.length > 45 && title.length < 130) score += 1;\n  if (summary.length > 100) score += 1;\n\n  const publishedAt = String(item.json.isoDate || item.json.pubDate || item.json.publishedAt || '');\n  const recencyBoost = publishedAt ? Math.max(0, 2 - Math.min(2, Math.floor((Date.now() - Date.parse(publishedAt)) / 86400000))) : 0;\n  score = Math.max(0, score + recencyBoost);\n\n  const keywordSignature = tokenize(title + ' ' + summary)\n    .slice(0, 8)\n    .join('-');\n  const dedupeKey = [category, keywordSignature || tokenize(title).slice(0, 5).join('-')].filter(Boolean).join('|');\n\n  return {\n    title,\n    summary,\n    sourceUrl,\n    host,\n    sourceTrust,\n    score,\n    category,\n    publishedAt,\n    dedupeKey,\n  };\n}\n\nconst ranked = items\n  .map(scoreItem)\n  .filter((entry, index, all) => all.findIndex((other) => other.dedupeKey === entry.dedupeKey) === index)\n  .sort((a, b) => b.score - a.score || b.sourceTrust - a.sourceTrust || (Date.parse(b.publishedAt || '') || 0) - (Date.parse(a.publishedAt || '') || 0));\n\nconst picked = ranked[0];\nif (!picked) return [];\nif (picked.score < 3) return [];\n\nconst topicKey = picked.dedupeKey;\nconst angleMap = {\n  food: 'food for thought',\n  cities: 'observation',\n  culture: 'story',\n  work: 'mindset',\n  business: 'framework',\n  finance: 'concept',\n  relationships: 'story',\n  fitness: 'mindset',\n  travel: 'story',\n  curiosity: 'concept',\n  viral: 'witty observation',\n  animals: 'observation',\n  drama: 'story',\n  sports: 'witty observation',\n  mindset: 'mindset',\n  india: 'observation',\n};\n\nreturn [{\n  json: {\n    sourceHash: topicKey,\n    sourceName: picked.host,\n    sourceType: picked.sourceTrust >= 3 ? 'news' : 'trend',\n    title: picked.title,\n    sourceUrl: picked.sourceUrl,\n    publishedAt: picked.publishedAt || new Date().toISOString(),\n    summary: picked.summary,\n    category: picked.category,\n    relevanceScore: Math.min(10, picked.score),\n    trustScore: picked.sourceTrust,\n    autoPublish: true,\n    angle: angleMap[picked.category] || 'observation',\n    status: 'selected',\n  }\n}];"
+        }
+      },
+      {
+        "id": "aa69b4b1-551f-4a03-94ff-1b2a6bef0cc4",
+        "name": "Fetch Recent Topics",
+        "type": "n8n-nodes-base.dataTable",
+        "typeVersion": 1.1,
+        "position": [
+          -720,
+          -320
+        ],
+        "parameters": {
+          "operation": "get",
+          "dataTableId": {
+            "__rl": true,
+            "mode": "id",
+            "value": "JDO5bEKUCJ1T57Pf",
+            "cachedResultName": "content_topics"
+          },
+          "returnAll": true
+        }
+      },
+      {
+        "id": "73a6a47d-7461-45f5-ae29-047bdf2f2171",
+        "name": "Semantic Novelty Filter",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -480,
+          -320
+        ],
+        "parameters": {
+          "jsCode": "const selected = $items(\"Select Top Topic\")[0]?.json || {};\nconst recentRows = $input.all().map((item) => item.json).filter(Boolean);\n\nfunction normalize(value) {\n  return String(value || '')\n    .toLowerCase()\n    .replace(/<[^>]*>/g, ' ')\n    .replace(/[^a-z0-9]+/g, ' ')\n    .replace(/\\s+/g, ' ')\n    .trim();\n}\n\nfunction tokenize(text) {\n  return normalize(text)\n    .split(' ')\n    .filter(Boolean)\n    .filter((token) => token.length > 2)\n    .filter((token) => !['the','and','for','with','from','that','this','have','will','your','you','are','new','how','can','our','their','about','into','what','when','why','who','but','not','all','now','use','used','india','indian','very','more','most','just','also','than','then','them','they','been','been'].includes(token));\n}\n\nfunction setFrom(text) {\n  return new Set(tokenize(text));\n}\n\nfunction jaccard(a, b) {\n  const setA = setFrom(a);\n  const setB = setFrom(b);\n  if (!setA.size || !setB.size) return 0;\n  let overlap = 0;\n  for (const token of setA) if (setB.has(token)) overlap++;\n  return overlap / new Set([...setA, ...setB]).size;\n}\n\nfunction similarity(current, row) {\n  const currentText = [current.title, current.summary, current.category, current.angle].filter(Boolean).join(' ');\n  const rowText = [row.title, row.summary, row.category, row.angle, row.draftText].filter(Boolean).join(' ');\n  const tokenScore = jaccard(currentText, rowText);\n  const titleScore = jaccard(current.title, row.title);\n  const summaryScore = jaccard(current.summary, row.summary);\n  const sameCategory = String(current.category || '') && String(current.category || '') === String(row.category || '') ? 0.08 : 0;\n  return Math.max(tokenScore, titleScore * 0.9, summaryScore * 0.8) + sameCategory;\n}\n\nconst recent = recentRows\n  .sort((a, b) => (Date.parse(b.publishedAt || b.updatedAt || b.createdAt || '') || 0) - (Date.parse(a.publishedAt || a.updatedAt || a.createdAt || '') || 0))\n  .slice(0, 20);\n\nlet strongest = { score: 0, match: null };\nfor (const row of recent) {\n  const score = similarity(selected, row);\n  if (score > strongest.score) {\n    strongest = {\n      score,\n      match: row,\n    };\n  }\n}\n\nif (strongest.score >= 0.38) {\n  return [];\n}\n\nreturn [{\n  json: {\n    ...selected,\n    noveltyScore: Number((1 - strongest.score).toFixed(3)),\n    noveltyClosestMatch: strongest.match?.title || '',\n    noveltyClosestCategory: strongest.match?.category || '',\n  }\n}];"
+        }
+      },
+      {
+        "id": "a275a154-341f-4901-a95e-6023e75769fa",
+        "name": "Only New Topic?",
+        "type": "n8n-nodes-base.dataTable",
+        "typeVersion": 1.1,
+        "position": [
+          -720,
+          -160
+        ],
+        "parameters": {
+          "operation": "rowNotExists",
+          "dataTableId": {
+            "__rl": true,
+            "mode": "id",
+            "value": "JDO5bEKUCJ1T57Pf",
+            "cachedResultName": "content_topics"
+          },
+          "filters": {
+            "conditions": [
+              {
+                "keyName": "sourceHash",
+                "keyValue": "={{ $json.sourceHash }}"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "de5be567-7864-481e-9723-7af319398502",
+        "name": "Write Carousel Plan",
+        "type": "@n8n/n8n-nodes-langchain.openAi",
+        "typeVersion": 2.3,
+        "position": [
+          -480,
+          -160
+        ],
+        "parameters": {
+          "modelId": {
+            "__rl": true,
+            "value": "gpt-5.4-mini",
+            "mode": "list",
+            "cachedResultName": "GPT-5.4-MINI"
+          },
+          "jsonOutput": true,
+          "messages": {
+            "values": [
+              {
+                "role": "system",
+                "content": "You write short Instagram carousel copy for an Indian audience.\n\nVoice:\n- observational\n- relatable\n- a little witty only when the topic allows it\n- simple English\n- clear argument, not a generic thread\n\nRules:\n- output only valid JSON\n- make exactly 7 slides unless the topic truly does not support it\n- each slide should be short enough to fit on a clean Instagram card\n- no long paragraphs\n- no marketing speak\n- no forced inspiration\n- keep it useful, memorable, or quietly sharp\n- prefer a clear point of view over generic inspiration\n- when a topic is ordinary, find the hidden mechanism inside it\n- when a topic is serious, stay calm and exact\n- every slide must add new information\n- the post must build like an argument, not a list\n- the final slide must reframe the entire post\n\nFramework:\n- Slide 1: sharp claim\n- Slide 2: reject the obvious explanation\n- Slide 3: reveal the real system or force\n- Slide 4: show how it appears in ordinary life\n- Slide 5: show the hidden cost\n- Slide 6: show what people misread\n- Slide 7: close with a blunt, memorable truth\n\nTone reference:\n- certain\n- calm\n- specific\n- unsentimental\n- empathetic without being soft\n- plainspoken, not performative\n\nJSON schema:\n{\n  \"framework\": {\n    \"claim\": \"one sentence\",\n    \"system\": \"one sentence\",\n    \"cost\": \"one sentence\",\n    \"reframe\": \"one sentence\"\n  },\n  \"angle\": \"story | concept | mindset | framework | food for thought | observation | witty observation\",\n  \"caption\": \"short supporting caption\",\n  \"hashtags\": [\"#tag1\", \"#tag2\"],\n  \"slides\": [\n    {\n      \"order\": 1,\n      \"role\": \"claim | correction | system | ordinary_life | cost | misread | close\",\n      \"text\": \"short slide copy\",\n      \"styleNote\": \"tiny note about layout or emphasis\"\n    }\n  ]\n}"
+              },
+              {
+                "content": "Topic title: {{$json.title}}\nTopic summary: {{$json.summary}}\nTopic category: {{$json.category}}\nTopic angle: {{$json.angle}}\nAudience: Indian Instagram users\nTone reference: calm, sharp, specific, unsentimental\n\nUse the framework exactly:\n1. sharp claim\n2. reject the obvious explanation\n3. reveal the real system or force\n4. show how it appears in ordinary life\n5. show the hidden cost\n6. show what people misread\n7. close with a blunt, memorable truth\n\nDo not make every slide independently clever. Make the sequence build.\nThe first slide should create a question.\nThe middle slides should tighten the argument.\nThe last slide should reframe the whole thing."
+              }
+            ]
+          },
+          "options": {}
+        },
+        "credentials": {
+          "openAiApi": {
+            "id": "7Ji76LZT6LXmqLQT",
+            "name": "OpenAI account"
+          }
+        }
+      },
+      {
+        "id": "942425fd-cac5-43e5-a2e5-43ca988da55f",
+        "name": "Prepare Carousel Payload",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -240,
+          -160
+        ],
+        "parameters": {
+          "jsCode": "const plan = $node[\"Write Carousel Plan\"]?.json?.message?.content || {};\nconst token = Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);\nconst hostBase = 'https://ps2109-n8n.hf.space';\nconst slideCount = Array.isArray(plan.slides) ? plan.slides.length : 0;\nconst carouselBaseUrl = hostBase + '/webhook/instagram-carousel-slide';\n\nconst assets = (plan.slides || []).map((slide) => ({\n  image: {\n    url: carouselBaseUrl + '?token=' + encodeURIComponent(token) + '&slide=' + encodeURIComponent(slide.order || 1),\n  },\n}));\n\nreturn [{\n  json: {\n    ...$json,\n    angle: plan.angle || $json.angle || 'observation',\n    captionText: plan.caption || '',\n    hashtags: Array.isArray(plan.hashtags) ? plan.hashtags : [],\n    slides: Array.isArray(plan.slides) ? plan.slides : [],\n    slideCount,\n    carouselToken: token,\n    approvalToken: token,\n    imagePrompt: JSON.stringify(plan, null, 2),\n    candidatePoolJson: JSON.stringify(plan),\n    draftText: plan.caption || '',\n    carouselAssetBase: carouselBaseUrl,\n    carouselAssets: assets,\n    bufferChannelId: '',\n    publishStatus: 'queued',\n    publishUrl: '',\n  }\n}];"
+        }
+      },
+      {
+        "id": "fa310c52-f1f9-44f3-8fbb-9a0739174a97",
+        "name": "Upsert Draft Record",
+        "type": "n8n-nodes-base.dataTable",
+        "typeVersion": 1.1,
+        "position": [
+          0,
+          -160
+        ],
+        "parameters": {
+          "operation": "upsert",
+          "dataTableId": {
+            "__rl": true,
+            "mode": "id",
+            "value": "JDO5bEKUCJ1T57Pf",
+            "cachedResultName": "content_topics"
+          },
+          "filters": {
+            "conditions": [
+              {
+                "keyName": "sourceHash",
+                "keyValue": "={{ $json.sourceHash }}"
+              }
+            ]
+          },
+          "columns": {
+            "mappingMode": "defineBelow",
+            "matchingColumns": [
+              "sourceHash"
+            ],
+            "value": {
+              "sourceHash": "={{ $json.sourceHash }}",
+              "sourceName": "={{ $json.sourceName }}",
+              "sourceType": "={{ $json.sourceType }}",
+              "title": "={{ $json.title }}",
+              "sourceUrl": "={{ $json.sourceUrl }}",
+              "publishedAt": "={{ $json.publishedAt }}",
+              "summary": "={{ $json.summary }}",
+              "category": "={{ $json.category }}",
+              "relevanceScore": "={{ $json.relevanceScore }}",
+              "trustScore": "={{ $json.trustScore }}",
+              "autoPublish": "={{ $json.autoPublish }}",
+              "status": "queued",
+              "angle": "={{ $json.angle }}",
+              "draftText": "={{ $json.draftText }}",
+              "imagePrompt": "={{ $json.imagePrompt }}",
+              "approvalToken": "={{ $json.approvalToken }}",
+              "approvalStatus": "drafted",
+              "approvalDecision": "",
+              "approvalSentAt": "",
+              "approvalRespondedAt": "",
+              "candidatePoolJson": "={{ $json.candidatePoolJson }}",
+              "error": "",
+              "bufferPostId": "",
+              "bufferDueAt": "",
+              "bufferStatus": "",
+              "imageUrl": ""
+            }
+          },
+          "options": {}
+        }
+      },
+      {
+        "id": "c7419df7-74d1-4d58-9dba-b56c8d7eadac",
+        "name": "Get Buffer Organizations",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          240,
+          -160
+        ],
+        "parameters": {
+          "method": "POST",
+          "url": "https://api.buffer.com",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpBearerAuth",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={{ { query: \"query GetOrganizations { account { organizations { id name } } }\" } }}",
+          "options": {}
+        },
+        "credentials": {
+          "httpBearerAuth": {
+            "id": "yUPkILwBHawgSRsc",
+            "name": "Bearer Auth account"
+          }
+        }
+      },
+      {
+        "id": "dab48c79-bd0a-4ab8-944e-442292a1cadc",
+        "name": "Pick Buffer Organization",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          480,
+          -160
+        ],
+        "parameters": {
+          "jsCode": "const orgs = $json.data?.account?.organizations || [];\nconst organization = orgs[0];\nif (!organization?.id) {\n  throw new Error('Buffer organization not found.');\n}\n\nreturn [{\n  json: {\n    ...$node[\"Prepare Carousel Payload\"].json,\n    bufferOrganizationId: organization.id,\n  }\n}];"
+        }
+      },
+      {
+        "id": "a0d99d98-f7f5-4911-a096-2986d3ec8363",
+        "name": "Get Buffer Channels",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          720,
+          -160
+        ],
+        "parameters": {
+          "method": "POST",
+          "url": "https://api.buffer.com",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpBearerAuth",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={{ { query: `query GetChannels { channels(input: { organizationId: \"${$json.bufferOrganizationId}\" }) { id name displayName service avatar isQueuePaused } }` } }}",
+          "options": {}
+        },
+        "credentials": {
+          "httpBearerAuth": {
+            "id": "yUPkILwBHawgSRsc",
+            "name": "Bearer Auth account"
+          }
+        }
+      },
+      {
+        "id": "6694ea2c-f5e3-42cd-970a-b55501827ed4",
+        "name": "Pick Instagram Channel",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          960,
+          -160
+        ],
+        "parameters": {
+          "jsCode": "const channels = $json.data?.channels || [];\nconst instagram = channels.find((channel) => String(channel.service || '').toLowerCase() === 'instagram' && !channel.isQueuePaused);\nif (!instagram?.id) {\n  throw new Error('No active Instagram channel found in Buffer.');\n}\n\nreturn [{\n  json: {\n    ...$node[\"Prepare Carousel Payload\"].json,\n    bufferOrganizationId: $node[\"Pick Buffer Organization\"].json.bufferOrganizationId,\n    bufferChannelId: instagram.id,\n    bufferChannelName: instagram.displayName || instagram.name || 'Instagram',\n  }\n}];"
+        }
+      },
+      {
+        "id": "155b064b-1735-4c72-aa60-935c12c176e6",
+        "name": "Queue in Buffer",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          1200,
+          -160
+        ],
+        "parameters": {
+          "method": "POST",
+          "url": "https://api.buffer.com",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpBearerAuth",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={{ (() => { const caption = $json.captionText || \"\"; const assets = ($json.carouselAssets || []).map((asset) => \"{ image: { url: \" + JSON.stringify(asset.image.url) + \" } }\").join(\", \"); return { query: \"mutation CreatePost { createPost(input: { text: \" + JSON.stringify(caption) + \", channelId: \\\"\" + $json.bufferChannelId + \"\\\", schedulingType: automatic, mode: addToQueue, assets: [\" + assets + \"] }) { ... on PostActionSuccess { post { id text dueAt status } } ... on MutationError { message } } }\" }; })() }}",
+          "options": {}
+        },
+        "credentials": {
+          "httpBearerAuth": {
+            "id": "yUPkILwBHawgSRsc",
+            "name": "Bearer Auth account"
+          }
+        }
+      },
+      {
+        "id": "d4edb8de-5b69-4e6c-bf18-e26f8f046597",
+        "name": "Upsert Published Record",
+        "type": "n8n-nodes-base.dataTable",
+        "typeVersion": 1.1,
+        "position": [
+          1440,
+          -160
+        ],
+        "parameters": {
+          "operation": "upsert",
+          "dataTableId": {
+            "__rl": true,
+            "mode": "id",
+            "value": "JDO5bEKUCJ1T57Pf",
+            "cachedResultName": "content_topics"
+          },
+          "filters": {
+            "conditions": [
+              {
+                "keyName": "sourceHash",
+                "keyValue": "={{ $json.sourceHash }}"
+              }
+            ]
+          },
+          "columns": {
+            "mappingMode": "defineBelow",
+            "matchingColumns": [
+              "sourceHash"
+            ],
+            "value": {
+              "sourceHash": "={{ $json.sourceHash }}",
+              "sourceName": "={{ $json.sourceName }}",
+              "sourceType": "={{ $json.sourceType }}",
+              "title": "={{ $json.title }}",
+              "sourceUrl": "={{ $json.sourceUrl }}",
+              "publishedAt": "={{ $json.publishedAt }}",
+              "summary": "={{ $json.summary }}",
+              "category": "={{ $json.category }}",
+              "relevanceScore": "={{ $json.relevanceScore }}",
+              "trustScore": "={{ $json.trustScore }}",
+              "autoPublish": "={{ $json.autoPublish }}",
+              "status": "published",
+              "angle": "={{ $json.angle }}",
+              "draftText": "={{ $json.captionText }}",
+              "imagePrompt": "={{ $json.imagePrompt }}",
+              "approvalToken": "={{ $json.approvalToken }}",
+              "approvalStatus": "published",
+              "approvalDecision": "approved",
+              "approvalSentAt": "",
+              "approvalRespondedAt": "",
+              "candidatePoolJson": "={{ $json.candidatePoolJson }}",
+              "error": "",
+              "bufferPostId": "={{ $node[\"Queue in Buffer\"].json.data.createPost.post.id || \"\" }}",
+              "bufferDueAt": "={{ $node[\"Queue in Buffer\"].json.data.createPost.post.dueAt || \"\" }}",
+              "bufferStatus": "={{ $node[\"Queue in Buffer\"].json.data.createPost.post.status || \"scheduled\" }}",
+              "imageUrl": ""
+            }
+          },
+          "options": {}
+        }
+      },
+      {
+        "id": "81229e3b-fa03-4354-8040-064ed8a6f2fb",
+        "name": "Lookup Carousel",
+        "type": "n8n-nodes-base.dataTable",
+        "typeVersion": 1.1,
+        "position": [
+          -1440,
+          320
+        ],
+        "parameters": {
+          "operation": "get",
+          "dataTableId": {
+            "__rl": true,
+            "mode": "id",
+            "value": "JDO5bEKUCJ1T57Pf",
+            "cachedResultName": "content_topics"
+          },
+          "filters": {
+            "conditions": [
+              {
+                "keyName": "approvalToken",
+                "keyValue": "={{ $json.query.token }}"
+              }
+            ]
+          },
+          "returnAll": true
+        }
+      },
+      {
+        "id": "0254113d-0a9e-41d8-a1a5-89a78b5afd5e",
+        "name": "Render Slide PNG",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -1200,
+          320
+        ],
+        "parameters": {
+          "jsCode": "const sharp = require('sharp');\nconst request = $node[\"Instagram Slide Webhook\"]?.json || $json;\nconst token = String(request.query?.token || '').trim();\nconst slideIndex = Math.max(1, Number(request.query?.slide || 1));\nconst record = $input.first()?.json || {};\n\nif (!token) {\n  const errorSvg = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\"><rect width=\"1080\" height=\"1350\" fill=\"#111\"/><text x=\"70\" y=\"110\" fill=\"#fff\" font-size=\"44\" font-family=\"Arial\">Missing token</text></svg>';\n  const errorPng = await sharp(Buffer.from(errorSvg)).png().toBuffer();\n  return [{\n    json: {\n      mimeType: 'image/png',\n      fileName: 'instagram-slide-error.png',\n    },\n    binary: {\n      data: {\n        data: errorPng.toString('base64'),\n        mimeType: 'image/png',\n        fileName: 'instagram-slide-error.png',\n      },\n    },\n  }];\n}\n\nlet plan = {};\ntry {\n  plan = record.candidatePoolJson ? JSON.parse(record.candidatePoolJson) : {};\n} catch (error) {\n  plan = {};\n}\n\nconst slides = Array.isArray(plan.slides) ? plan.slides : [];\nconst slide = slides.find((entry) => Number(entry.order || 0) === slideIndex) || slides[slideIndex - 1] || { text: 'Missing slide text.' };\nconst title = String(record.title || plan.title || '');\nconst body = String(slide.text || '').trim();\nconst accent = '#ffffff';\nconst dark = '#111111';\nconst subtle = '#666666';\nconst channelName = 'thoughts @ 3:18AM';\n\nfunction esc(value) {\n  return String(value || '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;');\n}\n\nfunction lines(text, max = 28) {\n  const words = String(text || '').split(/\\s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = [...line, word].join(' ');\n    if (candidate.length > max && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nconst bodyLines = lines(body, 30).slice(0, 8);\nconst titleLines = lines(title, 34).slice(0, 2);\n\nconst titleSvg = titleLines.map((line, index) => '<text x=\"128\" y=\"' + (236 + index * 56) + '\" font-size=\"34\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\nconst bodySvg = bodyLines.map((line, index) => '<text x=\"128\" y=\"' + (360 + index * 72) + '\" font-size=\"54\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\n\nconst svg = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\" viewBox=\"0 0 1080 1350\">' +\n  '<defs>' +\n    '<linearGradient id=\"bg\" x1=\"0\" x2=\"1\" y1=\"0\" y2=\"1\">' +\n      '<stop offset=\"0%\" stop-color=\"' + accent + '\"/>' +\n      '<stop offset=\"100%\" stop-color=\"#ffffff\"/>' +\n    '</linearGradient>' +\n  '</defs>' +\n  '<rect width=\"1080\" height=\"1350\" fill=\"url(#bg)\"/>' +\n  '<circle cx=\"84\" cy=\"86\" r=\"48\" fill=\"#e9e2d7\" stroke=\"#111111\" stroke-width=\"2\"/>' +\n  '<circle cx=\"84\" cy=\"86\" r=\"34\" fill=\"#d4c8b8\"/>' +\n  '<text x=\"152\" y=\"74\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"60\" font-weight=\"700\">' + esc(channelName) + '</text>' +\n  '<text x=\"152\" y=\"124\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"30\">' + esc('Just now • 🌐') + '</text>' +\n  '<circle cx=\"1002\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n  '<circle cx=\"1024\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n  '<circle cx=\"1046\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n  '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n    titleSvg +\n  '</g>' +\n  '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n    bodySvg +\n  '</g>' +\n'</svg>';\n\nconst pngBuffer = await sharp(Buffer.from(svg)).png().toBuffer();\n\nreturn [{\n  json: {\n    mimeType: 'image/png',\n    fileName: 'instagram-slide-' + slideIndex + '.png',\n  },\n  binary: {\n    data: {\n      data: pngBuffer.toString('base64'),\n      mimeType: 'image/png',\n      fileName: 'instagram-slide-' + slideIndex + '.png',\n    },\n  },\n}];"
+        }
+      },
+      {
+        "id": "a031a145-5025-4bf3-8c92-db6e6a105ac3",
+        "name": "Render Preview PNG",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -1200,
+          520
+        ],
+        "parameters": {
+          "jsCode": "const sharp = require('sharp');\nconst request = $node[\"Instagram Preview Webhook\"]?.json || $json;\nconst showSet = String(request.query?.set || request.query?.mode || '').toLowerCase() === '1' || String(request.query?.mode || '').toLowerCase() === 'set';\nconst channelName = 'thoughts @ 3:18AM';\nconst dark = '#111111';\nconst subtle = '#666666';\n\nfunction esc(value) {\n  return String(value || '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;');\n}\n\nfunction lines(text, max = 30) {\n  const words = String(text || '').split(/\\s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = [...line, word].join(' ');\n    if (candidate.length > max && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nfunction slideSvg(text, idx, total) {\n  const bodyLines = lines(text, 28).slice(0, 8);\n  const bodySvg = bodyLines.map((line, i) => '<text x=\"128\" y=\"' + (250 + i * 72) + '\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"54\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\n  return '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\" viewBox=\"0 0 1080 1350\">' +\n    '<rect width=\"1080\" height=\"1350\" fill=\"#ffffff\"/>' +\n    '<circle cx=\"84\" cy=\"86\" r=\"48\" fill=\"#e9e2d7\" stroke=\"#111111\" stroke-width=\"2\"/>' +\n    '<circle cx=\"84\" cy=\"86\" r=\"34\" fill=\"#d4c8b8\"/>' +\n    '<text x=\"152\" y=\"74\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"60\" font-weight=\"700\">' + esc(channelName) + '</text>' +\n    '<text x=\"152\" y=\"124\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"30\">Just now • 🌐</text>' +\n    '<circle cx=\"1002\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n    '<circle cx=\"1024\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n    '<circle cx=\"1046\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n    '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n      bodySvg +\n    '</g>' +\n    '<text x=\"128\" y=\"1238\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\">Swipe for the next card</text>' +\n    '</svg>';\n}\n\nconst sampleSlides = [\n  'The greatest creative work ever made was not made by people who had it figured out.',\n  'It was made by people who felt too much, noticed too much, and cared too much.',\n  'Instead of numbing it, they made something out of it.',\n  'Sensitivity was not what they overcame to create.',\n  'It was what they created from.',\n  'Ordinary life gets harder when you feel things a little more deeply.',\n  'That is not a flaw. It is the raw material.',\n];\n\nif (showSet) {\n  const slideBuffers = [];\n  for (let i = 0; i < sampleSlides.length; i++) {\n    const png = await sharp(Buffer.from(slideSvg(sampleSlides[i], i + 1, sampleSlides.length))).png().toBuffer();\n    slideBuffers.push(png);\n  }\n\n  const width = 1080;\n  const height = 1350 * sampleSlides.length;\n  const composite = slideBuffers.map((buffer, index) => ({\n    input: buffer,\n    left: 0,\n    top: index * 1350,\n  }));\n\n  const sheet = await sharp({\n    create: {\n      width,\n      height,\n      channels: 4,\n      background: '#ffffff',\n    },\n  }).composite(composite).png().toBuffer();\n\n  return [{\n    json: {\n      mimeType: 'image/png',\n      fileName: 'instagram-preview-set.png',\n    },\n    binary: {\n      data: {\n        data: sheet.toString('base64'),\n        mimeType: 'image/png',\n        fileName: 'instagram-preview-set.png',\n      },\n    },\n  }];\n}\n\nconst previewPng = await sharp(Buffer.from(slideSvg(sampleSlides[0], 1, sampleSlides.length))).png().toBuffer();\n\nreturn [{\n  json: {\n    mimeType: 'image/png',\n    fileName: 'instagram-preview.png',\n  },\n  binary: {\n    data: {\n      data: previewPng.toString('base64'),\n      mimeType: 'image/png',\n      fileName: 'instagram-preview.png',\n    },\n  },\n}];"
+        }
+      }
+    ],
+    "connections": {
+      "Schedule Trigger": {
+        "main": [
+          [
+            {
+              "node": "Build Source List",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Instagram Preview Webhook": {
+        "main": [
+          [
+            {
+              "node": "Render Preview PNG",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Build Source List": {
+        "main": [
+          [
+            {
+              "node": "Fetch RSS Feed",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Fetch RSS Feed": {
+        "main": [
+          [
+            {
+              "node": "Select Top Topic",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Select Top Topic": {
+        "main": [
+          [
+            {
+              "node": "Fetch Recent Topics",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Fetch Recent Topics": {
+        "main": [
+          [
+            {
+              "node": "Semantic Novelty Filter",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Semantic Novelty Filter": {
+        "main": [
+          [
+            {
+              "node": "Only New Topic?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Only New Topic?": {
+        "main": [
+          [
+            {
+              "node": "Write Carousel Plan",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Write Carousel Plan": {
+        "main": [
+          [
+            {
+              "node": "Prepare Carousel Payload",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Prepare Carousel Payload": {
+        "main": [
+          [
+            {
+              "node": "Upsert Draft Record",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Upsert Draft Record": {
+        "main": [
+          [
+            {
+              "node": "Get Buffer Organizations",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get Buffer Organizations": {
+        "main": [
+          [
+            {
+              "node": "Pick Buffer Organization",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Pick Buffer Organization": {
+        "main": [
+          [
+            {
+              "node": "Get Buffer Channels",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get Buffer Channels": {
+        "main": [
+          [
+            {
+              "node": "Pick Instagram Channel",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Pick Instagram Channel": {
+        "main": [
+          [
+            {
+              "node": "Queue in Buffer",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Queue in Buffer": {
+        "main": [
+          [
+            {
+              "node": "Upsert Published Record",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Instagram Slide Webhook": {
+        "main": [
+          [
+            {
+              "node": "Lookup Carousel",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Lookup Carousel": {
+        "main": [
+          [
+            {
+              "node": "Render Slide PNG",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "settings": {
+      "executionOrder": "v1",
+      "callerPolicy": "workflowsFromSameOwner",
+      "saveManualExecutions": true
+    },
+    "meta": {
+      "templateCredsSetupCompleted": false
+    },
+    "versionId": "c28b35d0-2d33-44f3-9396-cd328807012d"
+  }
+]

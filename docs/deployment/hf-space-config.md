@@ -97,3 +97,15 @@ Recommended:
 - ping `https://ps2109-n8n.hf.space/healthz` directly
 
 If you keep the Space private, Gmail approval from a phone will only work if the approving browser can access the private Space (for example, if the device is logged into Hugging Face and the app allows it). For normal unauthenticated remote approval, use `public`.
+## Workflow bootstrap
+
+The production container imports the Instagram carousel workflow on startup with:
+
+```bash
+n8n import:workflow \
+  --input=/opt/n8n/bootstrap/instagram-carousel-content-engine.workflow.json \
+  --projectId=eY86xW2dysjsQrAK \
+  --activeState=fromJson
+```
+
+This is idempotent by workflow id and is safe to run on every restart.
