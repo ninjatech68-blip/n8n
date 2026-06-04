@@ -24,4 +24,4 @@ ENV N8N_BOOTSTRAP_ACTIVE_STATE=fromJson
 
 EXPOSE 7860
 
-CMD ["/docker/n8n-entrypoint.sh"]
+ENTRYPOINT ["/docker/n8n-entrypoint.sh"]
