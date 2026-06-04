@@ -2,7 +2,7 @@ FROM n8nio/n8n:2.22.5
 
 USER root
 
-RUN npm install -g sharp \
+RUN npm install -g sharp pg \
   && npm cache clean --force
 
 COPY docker/n8n-entrypoint.sh /docker/n8n-entrypoint.sh
