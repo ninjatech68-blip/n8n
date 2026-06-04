@@ -106,8 +106,10 @@ n8n import:workflow \
   --input=/opt/n8n/bootstrap/instagram-carousel-content-engine.workflow.json \
   --projectId=eY86xW2dysjsQrAK
 
+n8n list:workflow
+
 n8n update:workflow \
-  --id=9d0e57d8-6d16-4800-9e6a-8f0d4b05e88f \
+  --id=<resolved-id-from-list> \
   --active=true
 ```
 
