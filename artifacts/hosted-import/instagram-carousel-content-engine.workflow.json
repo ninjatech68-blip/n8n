@@ -1,11 +1,11 @@
 [
   {
-    "id": "b2d0bb61-603f-4b32-bf45-2c61dde6606e",
+    "id": "9ff3df6a-f40c-4f24-8af9-085be9aa09d6",
     "name": "Instagram Carousel Trend Engine",
     "active": true,
     "nodes": [
       {
-        "id": "b63475f3-6ee7-419c-8335-7f36168053eb",
+        "id": "f40c5ddc-8612-41bd-8c8e-dc055914393f",
         "name": "Schedule Trigger",
         "type": "n8n-nodes-base.scheduleTrigger",
         "typeVersion": 1.3,
@@ -24,7 +24,7 @@
         }
       },
       {
-        "id": "97aca8fb-6ded-477e-b989-fbdc5e511f77",
+        "id": "147452a0-b6ab-432a-a768-cbc398859adf",
         "name": "Instagram Slide Webhook",
         "type": "n8n-nodes-base.webhook",
         "typeVersion": 2,
@@ -38,10 +38,10 @@
           "httpMethod": "GET",
           "responseMode": "responseNode"
         },
-        "webhookId": "717effe9-27d5-41dd-98db-89188a63ea9a"
+        "webhookId": "2e03beb5-6f79-4c14-ae3b-2d1ae75bf6e7"
       },
       {
-        "id": "d8b790b6-e102-437f-ae31-d67fcaafec0d",
+        "id": "e488ee33-afb6-4511-aa3a-c421ca124104",
         "name": "Instagram Preview Webhook",
         "type": "n8n-nodes-base.webhook",
         "typeVersion": 2,
@@ -55,10 +55,10 @@
           "httpMethod": "GET",
           "responseMode": "responseNode"
         },
-        "webhookId": "31b7150b-97fd-45e0-b399-b9594ce6d99e"
+        "webhookId": "466e1598-e379-4fbc-a0fe-78c6cebb62b6"
       },
       {
-        "id": "229f8750-6ab2-4efe-9d4f-4f1cd82f8125",
+        "id": "f49dfa9e-0483-481e-84a1-3f37a730851f",
         "name": "Build Source List",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -71,7 +71,7 @@
         }
       },
       {
-        "id": "3b0b5f11-f30a-45f5-80c0-e34c5c5b5f06",
+        "id": "16eade31-2994-461c-a8cc-97be63723967",
         "name": "Fetch RSS Feed",
         "type": "n8n-nodes-base.rssFeedRead",
         "typeVersion": 1.2,
@@ -88,7 +88,7 @@
         }
       },
       {
-        "id": "d9e3b9c7-5a3a-4594-9940-151f000a2e32",
+        "id": "2e801a6a-953e-4a7f-8b20-7fe653d662b5",
         "name": "Select Top Topic",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -101,7 +101,7 @@
         }
       },
       {
-        "id": "a5b6da59-14ce-4686-8b5a-45a2eadaec75",
+        "id": "90c24c7d-6865-48ff-9dbc-903584bac4dd",
         "name": "Fetch Recent Topics",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -121,7 +121,7 @@
         }
       },
       {
-        "id": "109a0490-83b2-466a-94e1-9ed551cf4fd6",
+        "id": "c81c3dfa-6a44-46d4-9e60-fd68d4c47cde",
         "name": "Semantic Novelty Filter",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -134,7 +134,7 @@
         }
       },
       {
-        "id": "5328f2ab-c6d3-46ee-bf49-aa2215a58246",
+        "id": "e02cd1c1-9cef-4466-b998-6f8d15621729",
         "name": "Only New Topic?",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -161,7 +161,7 @@
         }
       },
       {
-        "id": "c835054a-673e-4944-ab43-f906498f2848",
+        "id": "58fa0195-b4da-4c75-8271-303adc4b4527",
         "name": "Write Carousel Plan",
         "type": "@n8n/n8n-nodes-langchain.openAi",
         "typeVersion": 2.3,
@@ -181,7 +181,7 @@
             "values": [
               {
                 "role": "system",
-                "content": "You write short Instagram carousel copy for an Indian audience.\n\nVoice:\n- observational\n- relatable\n- a little witty only when the topic allows it\n- simple English\n- clear argument, not a generic thread\n\nRules:\n- output only valid JSON\n- make exactly 7 slides unless the topic truly does not support it\n- each slide should be short enough to fit on a clean Instagram card\n- no long paragraphs\n- no marketing speak\n- no forced inspiration\n- keep it useful, memorable, or quietly sharp\n- prefer a clear point of view over generic inspiration\n- when a topic is ordinary, find the hidden mechanism inside it\n- when a topic is serious, stay calm and exact\n- every slide must add new information\n- the post must build like an argument, not a list\n- the final slide must reframe the entire post\n\nFramework:\n- Slide 1: sharp claim\n- Slide 2: reject the obvious explanation\n- Slide 3: reveal the real system or force\n- Slide 4: show how it appears in ordinary life\n- Slide 5: show the hidden cost\n- Slide 6: show what people misread\n- Slide 7: close with a blunt, memorable truth\n\nTone reference:\n- certain\n- calm\n- specific\n- unsentimental\n- empathetic without being soft\n- plainspoken, not performative\n\nJSON schema:\n{\n  \"framework\": {\n    \"claim\": \"one sentence\",\n    \"system\": \"one sentence\",\n    \"cost\": \"one sentence\",\n    \"reframe\": \"one sentence\"\n  },\n  \"angle\": \"story | concept | mindset | framework | food for thought | observation | witty observation\",\n  \"caption\": \"short supporting caption\",\n  \"hashtags\": [\"#tag1\", \"#tag2\"],\n  \"slides\": [\n    {\n      \"order\": 1,\n      \"role\": \"claim | correction | system | ordinary_life | cost | misread | close\",\n      \"text\": \"short slide copy\",\n      \"styleNote\": \"tiny note about layout or emphasis\"\n    }\n  ]\n}"
+                "content": "You write short Instagram carousel copy for an Indian audience.\n\nVoice:\n- observational\n- relatable\n- a little witty only when the topic allows it\n- simple English\n- clear argument, not a generic thread\n- the lens must stay rooted in unfiltered insights on startups, consumer behaviour, psychology, and D2C\n\nRules:\n- output only valid JSON\n- make exactly 7 slides unless the topic truly does not support it\n- each slide should be short enough to fit on a clean Instagram card\n- no long paragraphs\n- no marketing speak\n- no forced inspiration\n- keep it useful, memorable, or quietly sharp\n- prefer a clear point of view over generic inspiration\n- when a topic is ordinary, find the hidden mechanism inside it\n- when a topic is serious, stay calm and exact\n- every slide must add new information\n- the post must build like an argument, not a list\n- the final slide must reframe the entire post\n\nFramework:\n- Slide 1: sharp claim\n- Slide 2: reject the obvious explanation\n- Slide 3: reveal the real system or force\n- Slide 4: show how it appears in ordinary life\n- Slide 5: show the hidden cost\n- Slide 6: show what people misread\n- Slide 7: close with a blunt, memorable truth\n\nTone reference:\n- certain\n- calm\n- specific\n- unsentimental\n- empathetic without being soft\n- plainspoken, not performative\n- the point of view should feel like a sharp X post, not an Instagram caption\n\nJSON schema:\n{\n  \"framework\": {\n    \"claim\": \"one sentence\",\n    \"system\": \"one sentence\",\n    \"cost\": \"one sentence\",\n    \"reframe\": \"one sentence\"\n  },\n  \"angle\": \"story | concept | mindset | framework | food for thought | observation | witty observation\",\n  \"caption\": \"short supporting caption\",\n  \"hashtags\": [\"#tag1\", \"#tag2\"],\n  \"slides\": [\n    {\n      \"order\": 1,\n      \"role\": \"claim | correction | system | ordinary_life | cost | misread | close\",\n      \"text\": \"short slide copy\",\n      \"styleNote\": \"tiny note about layout or emphasis\"\n    }\n  ]\n}"
               },
               {
                 "content": "Topic title: {{$json.title}}\nTopic summary: {{$json.summary}}\nTopic category: {{$json.category}}\nTopic angle: {{$json.angle}}\nAudience: Indian Instagram users\nTone reference: calm, sharp, specific, unsentimental\n\nUse the framework exactly:\n1. sharp claim\n2. reject the obvious explanation\n3. reveal the real system or force\n4. show how it appears in ordinary life\n5. show the hidden cost\n6. show what people misread\n7. close with a blunt, memorable truth\n\nDo not make every slide independently clever. Make the sequence build.\nThe first slide should create a question.\nThe middle slides should tighten the argument.\nThe last slide should reframe the whole thing."
@@ -198,7 +198,7 @@
         }
       },
       {
-        "id": "3895ef13-171e-41fb-9b56-6926be8ca3ff",
+        "id": "e2cd1636-a29f-41d1-8553-b166e90273cf",
         "name": "Prepare Carousel Payload",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -211,7 +211,7 @@
         }
       },
       {
-        "id": "d8cb6f68-5eea-4a2c-9ffc-a173f73b8e83",
+        "id": "0fa8203a-d546-4ee1-be0a-d93bcafca69a",
         "name": "Upload Carousel Slides",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -224,7 +224,7 @@
         }
       },
       {
-        "id": "b7df2670-4936-4ee4-9bed-c80638aa4c17",
+        "id": "5d8c6c62-f8d8-4a90-8946-ddb0406608d2",
         "name": "Upsert Draft Record",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -286,7 +286,7 @@
         }
       },
       {
-        "id": "ef3ba885-c718-4079-8945-1c0d88d0a31f",
+        "id": "18855294-fc4d-46d6-814a-ab388146b83a",
         "name": "Generate End Response",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -299,7 +299,7 @@
         }
       },
       {
-        "id": "8d5d43a1-b94f-46cb-91db-5efe2f8d637c",
+        "id": "4609057a-69ea-4334-a6a8-2241664ea4dd",
         "name": "Get Buffer Organizations",
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -328,7 +328,7 @@
         }
       },
       {
-        "id": "d3c981c9-cff2-4b7c-a930-f184a4b2fd5e",
+        "id": "7060c049-eb0e-4d05-a395-6d51353279d7",
         "name": "Pick Buffer Organization",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -341,7 +341,7 @@
         }
       },
       {
-        "id": "2a657848-2dd0-4886-b6fe-883275933042",
+        "id": "782b8d4a-3570-4e69-9ac1-6893fea9ae6d",
         "name": "Get Buffer Channels",
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -370,7 +370,7 @@
         }
       },
       {
-        "id": "a5869465-0d91-4be7-87c4-77c45fdc3023",
+        "id": "0eb4cd10-bd44-4a0d-92ba-f3ef07a3a9f6",
         "name": "Pick Instagram Channel",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -383,7 +383,7 @@
         }
       },
       {
-        "id": "94fc44d3-c6ba-4276-b7aa-6c320f4cacd6",
+        "id": "f286d5a6-cbe7-4b73-839d-7263f3a8b21e",
         "name": "Queue in Buffer",
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -412,7 +412,7 @@
         }
       },
       {
-        "id": "0e879151-0447-4d21-b0fa-6ccb20904f06",
+        "id": "839d197e-2f99-40c5-afb7-be1278e721a5",
         "name": "Upsert Published Record",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -474,7 +474,7 @@
         }
       },
       {
-        "id": "27071d64-dadf-4a4b-90a0-7048c1831117",
+        "id": "6df725bb-ed59-4626-843b-1ffae3add42e",
         "name": "Lookup Carousel",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -502,7 +502,7 @@
         }
       },
       {
-        "id": "961b7433-50db-49c7-b474-6a556c153cfb",
+        "id": "06e9743c-f8b4-4abf-9155-6c89098fe41c",
         "name": "Render Slide PNG",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -511,11 +511,11 @@
           320
         ],
         "parameters": {
-          "jsCode": "const sharp = require('sharp');\nconst request = $node[\"Instagram Slide Webhook\"]?.json || $json;\nconst token = String(request.query?.token || '').trim();\nconst slideIndex = Math.max(1, Number(request.query?.slide || 1));\nconst record = $input.first()?.json || {};\n\nif (!token) {\n  const errorSvg = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\"><rect width=\"1080\" height=\"1350\" fill=\"#111\"/><text x=\"70\" y=\"110\" fill=\"#fff\" font-size=\"44\" font-family=\"Arial\">Missing token</text></svg>';\n  const errorPng = await sharp(Buffer.from(errorSvg)).png().toBuffer();\n  return [{\n    json: {\n      mimeType: 'image/png',\n      fileName: 'instagram-slide-error.png',\n    },\n    binary: {\n      data: await this.helpers.prepareBinaryData(errorPng, 'instagram-slide-error.png', 'image/png'),\n    },\n  }];\n}\n\nlet plan = {};\ntry {\n  plan = record.candidatePoolJson ? JSON.parse(record.candidatePoolJson) : {};\n} catch (error) {\n  plan = {};\n}\n\nconst slides = Array.isArray(plan.slides) ? plan.slides : [];\nconst slide = slides.find((entry) => Number(entry.order || 0) === slideIndex) || slides[slideIndex - 1] || { text: 'Missing slide text.' };\nconst title = String(record.title || plan.title || '');\nconst body = String(slide.text || '').trim();\nconst accent = '#ffffff';\nconst dark = '#111111';\nconst subtle = '#666666';\nconst channelName = 'thoughts @ 3:18AM';\n\nfunction esc(value) {\n  return String(value || '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;');\n}\n\nfunction lines(text, max = 28) {\n  const words = String(text || '').split(/s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = [...line, word].join(' ');\n    if (candidate.length > max && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nconst bodyLines = lines(body, 30).slice(0, 8);\nconst titleLines = lines(title, 34).slice(0, 2);\n\nconst titleSvg = titleLines.map((line, index) => '<text x=\"128\" y=\"' + (236 + index * 56) + '\" font-size=\"34\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\nconst bodySvg = bodyLines.map((line, index) => '<text x=\"128\" y=\"' + (360 + index * 72) + '\" font-size=\"54\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\n\nconst svg = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\" viewBox=\"0 0 1080 1350\">' +\n  '<defs>' +\n    '<linearGradient id=\"bg\" x1=\"0\" x2=\"1\" y1=\"0\" y2=\"1\">' +\n      '<stop offset=\"0%\" stop-color=\"' + accent + '\"/>' +\n      '<stop offset=\"100%\" stop-color=\"#ffffff\"/>' +\n    '</linearGradient>' +\n  '</defs>' +\n  '<rect width=\"1080\" height=\"1350\" fill=\"url(#bg)\"/>' +\n  '<circle cx=\"84\" cy=\"86\" r=\"48\" fill=\"#e9e2d7\" stroke=\"#111111\" stroke-width=\"2\"/>' +\n  '<circle cx=\"84\" cy=\"86\" r=\"34\" fill=\"#d4c8b8\"/>' +\n  '<text x=\"152\" y=\"74\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"60\" font-weight=\"700\">' + esc(channelName) + '</text>' +\n  '<text x=\"152\" y=\"124\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"30\">' + esc('Just now • 🌐') + '</text>' +\n  '<circle cx=\"1002\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n  '<circle cx=\"1024\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n  '<circle cx=\"1046\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n  '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n    titleSvg +\n  '</g>' +\n  '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n    bodySvg +\n  '</g>' +\n'</svg>';\n\nconst pngBuffer = await sharp(Buffer.from(svg)).png().toBuffer();\n\nreturn [{\n  json: {\n    mimeType: 'image/png',\n    fileName: 'instagram-slide-' + slideIndex + '.png',\n  },\n  binary: {\n    data: await this.helpers.prepareBinaryData(pngBuffer, 'instagram-slide-' + slideIndex + '.png', 'image/png'),\n  },\n}];"
+          "jsCode": "const sharp = require('sharp');\nconst request = $node[\"Instagram Slide Webhook\"]?.json || $json;\nconst token = String(request.query?.token || '').trim();\nconst slideIndex = Math.max(1, Number(request.query?.slide || 1));\nconst record = $input.first()?.json || {};\n\nif (!token) {\n  const errorSvg = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\"><rect width=\"1080\" height=\"1350\" fill=\"#111\"/><text x=\"70\" y=\"110\" fill=\"#fff\" font-size=\"44\" font-family=\"Arial\">Missing token</text></svg>';\n  const errorPng = await sharp(Buffer.from(errorSvg)).png().toBuffer();\n  return [{\n    json: {\n      mimeType: 'image/png',\n      fileName: 'instagram-slide-error.png',\n    },\n    binary: {\n      data: await this.helpers.prepareBinaryData(errorPng, 'instagram-slide-error.png', 'image/png'),\n    },\n  }];\n}\n\nlet plan = {};\ntry {\n  plan = record.candidatePoolJson ? JSON.parse(record.candidatePoolJson) : {};\n} catch (error) {\n  plan = {};\n}\n\nconst slides = Array.isArray(plan.slides) ? plan.slides : [];\nconst slide = slides.find((entry) => Number(entry.order || 0) === slideIndex) || slides[slideIndex - 1] || { text: 'Missing slide text.' };\nconst title = String(record.title || plan.title || '');\nconst body = String(slide.text || '').trim();\nconst bg = '#0b0f14';\nconst panel = '#11161d';\nconst panelEdge = '#253041';\nconst dark = '#f5f7fa';\nconst subtle = '#8b98a5';\nconst channelName = 'unfiltered.insights';\nconst handle = '@startup-psych-d2c';\n\nfunction esc(value) {\n  return String(value || '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;');\n}\n\nfunction lines(text, max = 28) {\n  const words = String(text || '').split(/s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = [...line, word].join(' ');\n    if (candidate.length > max && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nconst bodyLines = lines(body, 28).slice(0, 10);\nconst titleLines = lines(title, 30).slice(0, 2);\n\nconst titleSvg = titleLines.map((line, index) => '<text x=\"144\" y=\"' + (190 + index * 42) + '\" fill=\"' + dark + '\" font-size=\"30\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\nconst bodySvg = bodyLines.map((line, index) => '<text x=\"144\" y=\"' + (320 + index * 64) + '\" fill=\"' + dark + '\" font-size=\"46\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\n\nconst svg = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\" viewBox=\"0 0 1080 1350\">' +\n  '<rect width=\"1080\" height=\"1350\" fill=\"' + bg + '\"/>' +\n  '<rect x=\"88\" y=\"70\" width=\"904\" height=\"1210\" rx=\"36\" fill=\"' + panel + '\" stroke=\"' + panelEdge + '\" stroke-width=\"2\"/>' +\n  '<circle cx=\"150\" cy=\"150\" r=\"28\" fill=\"#0f141a\" stroke=\"' + panelEdge + '\" stroke-width=\"2\"/>' +\n  '<text x=\"214\" y=\"143\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"44\" font-weight=\"700\">' + esc(channelName) + '</text>' +\n  '<text x=\"214\" y=\"180\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\">' + esc(handle) + ' · Just now</text>' +\n  '<text x=\"928\" y=\"142\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"44\" font-weight=\"700\">...</text>' +\n  '<rect x=\"116\" y=\"230\" width=\"848\" height=\"1\" fill=\"' + panelEdge + '\"/>' +\n  '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n    titleSvg +\n  '</g>' +\n  '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n    bodySvg +\n  '</g>' +\n  '<rect x=\"116\" y=\"1148\" width=\"848\" height=\"1\" fill=\"' + panelEdge + '\"/>' +\n  '<text x=\"144\" y=\"1200\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\">Reply · Repost · Like · Bookmark</text>' +\n'</svg>';\n\nconst pngBuffer = await sharp(Buffer.from(svg)).png().toBuffer();\n\nreturn [{\n  json: {\n    mimeType: 'image/png',\n    fileName: 'instagram-slide-' + slideIndex + '.png',\n  },\n  binary: {\n    data: await this.helpers.prepareBinaryData(pngBuffer, 'instagram-slide-' + slideIndex + '.png', 'image/png'),\n  },\n}];"
         }
       },
       {
-        "id": "1c75363e-e010-4d04-ba17-ad6b09c10909",
+        "id": "bf0f10c7-cccf-4a1f-bdea-5a0cdea5cd6d",
         "name": "Render Preview PNG",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -524,11 +524,11 @@
           520
         ],
         "parameters": {
-          "jsCode": "const sharp = require('sharp');\nconst request = $node[\"Instagram Preview Webhook\"]?.json || $json;\nconst showSet = String(request.query?.set || request.query?.mode || '').toLowerCase() === '1' || String(request.query?.mode || '').toLowerCase() === 'set';\nconst channelName = 'thoughts @ 3:18AM';\nconst dark = '#111111';\nconst subtle = '#666666';\n\nfunction esc(value) {\n  return String(value || '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;');\n}\n\nfunction lines(text, max = 30) {\n  const words = String(text || '').split(/s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = [...line, word].join(' ');\n    if (candidate.length > max && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nfunction slideSvg(text, idx, total) {\n  const bodyLines = lines(text, 28).slice(0, 8);\n  const bodySvg = bodyLines.map((line, i) => '<text x=\"128\" y=\"' + (250 + i * 72) + '\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"54\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\n  return '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\" viewBox=\"0 0 1080 1350\">' +\n    '<rect width=\"1080\" height=\"1350\" fill=\"#ffffff\"/>' +\n    '<circle cx=\"84\" cy=\"86\" r=\"48\" fill=\"#e9e2d7\" stroke=\"#111111\" stroke-width=\"2\"/>' +\n    '<circle cx=\"84\" cy=\"86\" r=\"34\" fill=\"#d4c8b8\"/>' +\n    '<text x=\"152\" y=\"74\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"60\" font-weight=\"700\">' + esc(channelName) + '</text>' +\n    '<text x=\"152\" y=\"124\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"30\">Just now • 🌐</text>' +\n    '<circle cx=\"1002\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n    '<circle cx=\"1024\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n    '<circle cx=\"1046\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n    '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n      bodySvg +\n    '</g>' +\n    '<text x=\"128\" y=\"1238\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\">Swipe for the next card</text>' +\n    '</svg>';\n}\n\nconst sampleSlides = [\n  'The greatest creative work ever made was not made by people who had it figured out.',\n  'It was made by people who felt too much, noticed too much, and cared too much.',\n  'Instead of numbing it, they made something out of it.',\n  'Sensitivity was not what they overcame to create.',\n  'It was what they created from.',\n  'Ordinary life gets harder when you feel things a little more deeply.',\n  'That is not a flaw. It is the raw material.',\n];\n\nif (showSet) {\n  const slideBuffers = [];\n  for (let i = 0; i < sampleSlides.length; i++) {\n    const png = await sharp(Buffer.from(slideSvg(sampleSlides[i], i + 1, sampleSlides.length))).png().toBuffer();\n    slideBuffers.push(png);\n  }\n\n  const width = 1080;\n  const height = 1350 * sampleSlides.length;\n  const composite = slideBuffers.map((buffer, index) => ({\n    input: buffer,\n    left: 0,\n    top: index * 1350,\n  }));\n\n  const sheet = await sharp({\n    create: {\n      width,\n      height,\n      channels: 4,\n      background: '#ffffff',\n    },\n  }).composite(composite).png().toBuffer();\n\n  return [{\n    json: {\n      mimeType: 'image/png',\n      fileName: 'instagram-preview-set.png',\n    },\n    binary: {\n      data: await this.helpers.prepareBinaryData(sheet, 'instagram-preview-set.png', 'image/png'),\n    },\n  }];\n}\n\nconst previewPng = await sharp(Buffer.from(slideSvg(sampleSlides[0], 1, sampleSlides.length))).png().toBuffer();\n\nreturn [{\n  json: {\n    mimeType: 'image/png',\n    fileName: 'instagram-preview.png',\n  },\n  binary: {\n    data: await this.helpers.prepareBinaryData(previewPng, 'instagram-preview.png', 'image/png'),\n  },\n}];"
+          "jsCode": "const sharp = require('sharp');\nconst request = $node[\"Instagram Preview Webhook\"]?.json || $json;\nconst showSet = String(request.query?.set || request.query?.mode || '').toLowerCase() === '1' || String(request.query?.mode || '').toLowerCase() === 'set';\nconst bg = '#0b0f14';\nconst panel = '#11161d';\nconst panelEdge = '#253041';\nconst dark = '#f5f7fa';\nconst subtle = '#8b98a5';\nconst channelName = 'unfiltered.insights';\nconst handle = '@startup-psych-d2c';\n\nfunction esc(value) {\n  return String(value || '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;');\n}\n\nfunction lines(text, max = 30) {\n  const words = String(text || '').split(/s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = [...line, word].join(' ');\n    if (candidate.length > max && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nfunction slideSvg(text, idx, total) {\n  const bodyLines = lines(text, 28).slice(0, 10);\n  const bodySvg = bodyLines.map((line, i) => '<text x=\"144\" y=\"' + (300 + i * 64) + '\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"46\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\n  return '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\" viewBox=\"0 0 1080 1350\">' +\n    '<rect width=\"1080\" height=\"1350\" fill=\"' + bg + '\"/>' +\n    '<rect x=\"88\" y=\"70\" width=\"904\" height=\"1210\" rx=\"36\" fill=\"' + panel + '\" stroke=\"' + panelEdge + '\" stroke-width=\"2\"/>' +\n    '<circle cx=\"150\" cy=\"150\" r=\"28\" fill=\"#0f141a\" stroke=\"' + panelEdge + '\" stroke-width=\"2\"/>' +\n    '<text x=\"214\" y=\"143\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"44\" font-weight=\"700\">' + esc(channelName) + '</text>' +\n    '<text x=\"214\" y=\"180\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\">' + esc(handle) + ' · Just now</text>' +\n    '<text x=\"928\" y=\"142\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"44\" font-weight=\"700\">...</text>' +\n    '<rect x=\"116\" y=\"230\" width=\"848\" height=\"1\" fill=\"' + panelEdge + '\"/>' +\n    '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n      bodySvg +\n    '</g>' +\n    '<rect x=\"116\" y=\"1148\" width=\"848\" height=\"1\" fill=\"' + panelEdge + '\"/>' +\n    '<text x=\"144\" y=\"1200\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\">Reply · Repost · Like · Bookmark</text>' +\n    '</svg>';\n}\n\nconst sampleSlides = [\n  'The greatest creative work ever made was not made by people who had it figured out.',\n  'It was made by people who felt too much, noticed too much, and cared too much.',\n  'Instead of numbing it, they made something out of it.',\n  'Sensitivity was not what they overcame to create.',\n  'It was what they created from.',\n  'Ordinary life gets harder when you feel things a little more deeply.',\n  'That is not a flaw. It is the raw material.',\n];\n\nif (showSet) {\n  const slideBuffers = [];\n  for (let i = 0; i < sampleSlides.length; i++) {\n    const png = await sharp(Buffer.from(slideSvg(sampleSlides[i], i + 1, sampleSlides.length))).png().toBuffer();\n    slideBuffers.push(png);\n  }\n\n  const width = 1080;\n  const height = 1350 * sampleSlides.length;\n  const composite = slideBuffers.map((buffer, index) => ({\n    input: buffer,\n    left: 0,\n    top: index * 1350,\n  }));\n\n  const sheet = await sharp({\n    create: {\n      width,\n      height,\n      channels: 4,\n      background: '#ffffff',\n    },\n  }).composite(composite).png().toBuffer();\n\n  return [{\n    json: {\n      mimeType: 'image/png',\n      fileName: 'instagram-preview-set.png',\n    },\n    binary: {\n      data: await this.helpers.prepareBinaryData(sheet, 'instagram-preview-set.png', 'image/png'),\n    },\n  }];\n}\n\nconst previewPng = await sharp(Buffer.from(slideSvg(sampleSlides[0], 1, sampleSlides.length))).png().toBuffer();\n\nreturn [{\n  json: {\n    mimeType: 'image/png',\n    fileName: 'instagram-preview.png',\n  },\n  binary: {\n    data: await this.helpers.prepareBinaryData(previewPng, 'instagram-preview.png', 'image/png'),\n  },\n}];"
         }
       },
       {
-        "id": "e9255357-9802-41fe-be85-6088defa0654",
+        "id": "0bf580a7-d5d0-4b6c-8d0c-1885975722c4",
         "name": "Respond Slide PNG",
         "type": "n8n-nodes-base.respondToWebhook",
         "typeVersion": 1.5,
@@ -546,7 +546,7 @@
         }
       },
       {
-        "id": "290c686e-5de9-4ecb-b2c8-522e7abfd093",
+        "id": "f642fbc0-2ebc-49dc-b2b5-870b091c15b6",
         "name": "Respond Preview PNG",
         "type": "n8n-nodes-base.respondToWebhook",
         "typeVersion": 1.5,
@@ -816,6 +816,6 @@
     "meta": {
       "templateCredsSetupCompleted": false
     },
-    "versionId": "78d8cb6a-5d3b-4d2a-a972-1dd87c1c34ce"
+    "versionId": "354d3c4d-abb3-4e9f-9338-8890bc38b028"
   }
 ]

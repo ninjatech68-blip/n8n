@@ -557,6 +557,7 @@ Voice:
 - a little witty only when the topic allows it
 - simple English
 - clear argument, not a generic thread
+- the lens must stay rooted in unfiltered insights on startups, consumer behaviour, psychology, and D2C
 
 Rules:
 - output only valid JSON
@@ -589,6 +590,7 @@ Tone reference:
 - unsentimental
 - empathetic without being soft
 - plainspoken, not performative
+- the point of view should feel like a sharp X post, not an Instagram caption
 
 JSON schema:
 {
@@ -1130,10 +1132,13 @@ const slides = Array.isArray(plan.slides) ? plan.slides : [];
 const slide = slides.find((entry) => Number(entry.order || 0) === slideIndex) || slides[slideIndex - 1] || { text: 'Missing slide text.' };
 const title = String(record.title || plan.title || '');
 const body = String(slide.text || '').trim();
-const accent = '#ffffff';
-const dark = '#111111';
-const subtle = '#666666';
-const channelName = 'thoughts @ 3:18AM';
+const bg = '#0b0f14';
+const panel = '#11161d';
+const panelEdge = '#253041';
+const dark = '#f5f7fa';
+const subtle = '#8b98a5';
+const channelName = 'unfiltered.insights';
+const handle = '@startup-psych-d2c';
 
 function esc(value) {
   return String(value || '')
@@ -1160,33 +1165,28 @@ function lines(text, max = 28) {
   return out;
 }
 
-const bodyLines = lines(body, 30).slice(0, 8);
-const titleLines = lines(title, 34).slice(0, 2);
+const bodyLines = lines(body, 28).slice(0, 10);
+const titleLines = lines(title, 30).slice(0, 2);
 
-const titleSvg = titleLines.map((line, index) => '<text x="128" y="' + (236 + index * 56) + '" font-size="34" font-weight="700">' + esc(line) + '</text>').join('\\n    ');
-const bodySvg = bodyLines.map((line, index) => '<text x="128" y="' + (360 + index * 72) + '" font-size="54" font-weight="700">' + esc(line) + '</text>').join('\\n    ');
+const titleSvg = titleLines.map((line, index) => '<text x="144" y="' + (190 + index * 42) + '" fill="' + dark + '" font-size="30" font-weight="700">' + esc(line) + '</text>').join('\\n    ');
+const bodySvg = bodyLines.map((line, index) => '<text x="144" y="' + (320 + index * 64) + '" fill="' + dark + '" font-size="46" font-weight="700">' + esc(line) + '</text>').join('\\n    ');
 
 const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">' +
-  '<defs>' +
-    '<linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">' +
-      '<stop offset="0%" stop-color="' + accent + '"/>' +
-      '<stop offset="100%" stop-color="#ffffff"/>' +
-    '</linearGradient>' +
-  '</defs>' +
-  '<rect width="1080" height="1350" fill="url(#bg)"/>' +
-  '<circle cx="84" cy="86" r="48" fill="#e9e2d7" stroke="#111111" stroke-width="2"/>' +
-  '<circle cx="84" cy="86" r="34" fill="#d4c8b8"/>' +
-  '<text x="152" y="74" fill="' + dark + '" font-family="Arial, Helvetica, sans-serif" font-size="60" font-weight="700">' + esc(channelName) + '</text>' +
-  '<text x="152" y="124" fill="' + subtle + '" font-family="Arial, Helvetica, sans-serif" font-size="30">' + esc('Just now • 🌐') + '</text>' +
-  '<circle cx="1002" cy="82" r="6" fill="' + subtle + '"/>' +
-  '<circle cx="1024" cy="82" r="6" fill="' + subtle + '"/>' +
-  '<circle cx="1046" cy="82" r="6" fill="' + subtle + '"/>' +
+  '<rect width="1080" height="1350" fill="' + bg + '"/>' +
+  '<rect x="88" y="70" width="904" height="1210" rx="36" fill="' + panel + '" stroke="' + panelEdge + '" stroke-width="2"/>' +
+  '<circle cx="150" cy="150" r="28" fill="#0f141a" stroke="' + panelEdge + '" stroke-width="2"/>' +
+  '<text x="214" y="143" fill="' + dark + '" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700">' + esc(channelName) + '</text>' +
+  '<text x="214" y="180" fill="' + subtle + '" font-family="Arial, Helvetica, sans-serif" font-size="24">' + esc(handle) + ' · Just now</text>' +
+  '<text x="928" y="142" fill="' + subtle + '" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700">...</text>' +
+  '<rect x="116" y="230" width="848" height="1" fill="' + panelEdge + '"/>' +
   '<g font-family="Arial, Helvetica, sans-serif" fill="' + dark + '">' +
     titleSvg +
   '</g>' +
   '<g font-family="Arial, Helvetica, sans-serif" fill="' + dark + '">' +
     bodySvg +
   '</g>' +
+  '<rect x="116" y="1148" width="848" height="1" fill="' + panelEdge + '"/>' +
+  '<text x="144" y="1200" fill="' + subtle + '" font-family="Arial, Helvetica, sans-serif" font-size="24">Reply · Repost · Like · Bookmark</text>' +
 '</svg>';
 
 const pngBuffer = await sharp(Buffer.from(svg)).png().toBuffer();
@@ -1212,9 +1212,13 @@ return [{
       jsCode: `const sharp = require('sharp');
 const request = $node["Instagram Preview Webhook"]?.json || $json;
 const showSet = String(request.query?.set || request.query?.mode || '').toLowerCase() === '1' || String(request.query?.mode || '').toLowerCase() === 'set';
-const channelName = 'thoughts @ 3:18AM';
-const dark = '#111111';
-const subtle = '#666666';
+const bg = '#0b0f14';
+const panel = '#11161d';
+const panelEdge = '#253041';
+const dark = '#f5f7fa';
+const subtle = '#8b98a5';
+const channelName = 'unfiltered.insights';
+const handle = '@startup-psych-d2c';
 
 function esc(value) {
   return String(value || '')
@@ -1242,21 +1246,21 @@ function lines(text, max = 30) {
 }
 
 function slideSvg(text, idx, total) {
-  const bodyLines = lines(text, 28).slice(0, 8);
-  const bodySvg = bodyLines.map((line, i) => '<text x="128" y="' + (250 + i * 72) + '" fill="' + dark + '" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700">' + esc(line) + '</text>').join('\\n    ');
+  const bodyLines = lines(text, 28).slice(0, 10);
+  const bodySvg = bodyLines.map((line, i) => '<text x="144" y="' + (300 + i * 64) + '" fill="' + dark + '" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="700">' + esc(line) + '</text>').join('\\n    ');
   return '<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">' +
-    '<rect width="1080" height="1350" fill="#ffffff"/>' +
-    '<circle cx="84" cy="86" r="48" fill="#e9e2d7" stroke="#111111" stroke-width="2"/>' +
-    '<circle cx="84" cy="86" r="34" fill="#d4c8b8"/>' +
-    '<text x="152" y="74" fill="' + dark + '" font-family="Arial, Helvetica, sans-serif" font-size="60" font-weight="700">' + esc(channelName) + '</text>' +
-    '<text x="152" y="124" fill="' + subtle + '" font-family="Arial, Helvetica, sans-serif" font-size="30">Just now • 🌐</text>' +
-    '<circle cx="1002" cy="82" r="6" fill="' + subtle + '"/>' +
-    '<circle cx="1024" cy="82" r="6" fill="' + subtle + '"/>' +
-    '<circle cx="1046" cy="82" r="6" fill="' + subtle + '"/>' +
+    '<rect width="1080" height="1350" fill="' + bg + '"/>' +
+    '<rect x="88" y="70" width="904" height="1210" rx="36" fill="' + panel + '" stroke="' + panelEdge + '" stroke-width="2"/>' +
+    '<circle cx="150" cy="150" r="28" fill="#0f141a" stroke="' + panelEdge + '" stroke-width="2"/>' +
+    '<text x="214" y="143" fill="' + dark + '" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700">' + esc(channelName) + '</text>' +
+    '<text x="214" y="180" fill="' + subtle + '" font-family="Arial, Helvetica, sans-serif" font-size="24">' + esc(handle) + ' · Just now</text>' +
+    '<text x="928" y="142" fill="' + subtle + '" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700">...</text>' +
+    '<rect x="116" y="230" width="848" height="1" fill="' + panelEdge + '"/>' +
     '<g font-family="Arial, Helvetica, sans-serif" fill="' + dark + '">' +
       bodySvg +
     '</g>' +
-    '<text x="128" y="1238" fill="' + subtle + '" font-family="Arial, Helvetica, sans-serif" font-size="24">Swipe for the next card</text>' +
+    '<rect x="116" y="1148" width="848" height="1" fill="' + panelEdge + '"/>' +
+    '<text x="144" y="1200" fill="' + subtle + '" font-family="Arial, Helvetica, sans-serif" font-size="24">Reply · Repost · Like · Bookmark</text>' +
     '</svg>';
 }
 
