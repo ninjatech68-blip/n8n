@@ -858,6 +858,37 @@ return [{
     },
   });
 
+  const generateEndResponse = node({
+    name: 'Generate End Response',
+    type: 'n8n-nodes-base.code',
+    typeVersion: 2,
+    position: [240, -160],
+    parameters: {
+      jsCode: `const slideCount = Array.isArray($json.slides) ? $json.slides.length : 0;
+const endResponseText = [
+  'Prepared carousel draft for Buffer.',
+  slideCount + ' slides ready.',
+  $json.captionText ? 'Caption is ready.' : 'Caption is empty.',
+].join(' ');
+
+return [{
+  json: {
+    ...$json,
+    endResponseStatus: 'ready_for_buffer',
+    endResponseText,
+    endResponse: {
+      status: 'ready_for_buffer',
+      title: $json.title || '',
+      category: $json.category || '',
+      angle: $json.angle || '',
+      slideCount,
+      captionText: $json.captionText || '',
+    },
+  },
+}];`,
+    },
+  });
+
   const getBufferOrganizations = node({
     name: 'Get Buffer Organizations',
     type: 'n8n-nodes-base.httpRequest',
@@ -1324,6 +1355,7 @@ return [{
       prepareCarouselPayload,
       uploadCarouselSlides,
       upsertDraftRecord,
+      generateEndResponse,
       getBufferOrganizations,
       pickBufferOrganization,
       getBufferChannels,
@@ -1374,6 +1406,9 @@ return [{
         main: [[{ node: 'Upsert Draft Record', type: 'main', index: 0 }]],
       },
       'Upsert Draft Record': {
+        main: [[{ node: 'Generate End Response', type: 'main', index: 0 }]],
+      },
+      'Generate End Response': {
         main: [[{ node: 'Get Buffer Organizations', type: 'main', index: 0 }]],
       },
       'Get Buffer Organizations': {

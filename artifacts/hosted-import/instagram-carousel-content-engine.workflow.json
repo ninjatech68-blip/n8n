@@ -1,11 +1,11 @@
 [
   {
-    "id": "301c8881-d462-4f5f-8fbe-858d74e1f05f",
+    "id": "b2d0bb61-603f-4b32-bf45-2c61dde6606e",
     "name": "Instagram Carousel Trend Engine",
     "active": true,
     "nodes": [
       {
-        "id": "b192a3b6-01df-4d39-bfa4-6c526ab33ebd",
+        "id": "b63475f3-6ee7-419c-8335-7f36168053eb",
         "name": "Schedule Trigger",
         "type": "n8n-nodes-base.scheduleTrigger",
         "typeVersion": 1.3,
@@ -24,7 +24,7 @@
         }
       },
       {
-        "id": "df826efa-3a58-4fd0-9b40-4d98d2e8dca7",
+        "id": "97aca8fb-6ded-477e-b989-fbdc5e511f77",
         "name": "Instagram Slide Webhook",
         "type": "n8n-nodes-base.webhook",
         "typeVersion": 2,
@@ -38,10 +38,10 @@
           "httpMethod": "GET",
           "responseMode": "responseNode"
         },
-        "webhookId": "ddb4701b-9e81-4728-b5b9-f8c6cbd1d3df"
+        "webhookId": "717effe9-27d5-41dd-98db-89188a63ea9a"
       },
       {
-        "id": "6f27fa6b-e676-4685-8890-2d7ff5890889",
+        "id": "d8b790b6-e102-437f-ae31-d67fcaafec0d",
         "name": "Instagram Preview Webhook",
         "type": "n8n-nodes-base.webhook",
         "typeVersion": 2,
@@ -55,10 +55,10 @@
           "httpMethod": "GET",
           "responseMode": "responseNode"
         },
-        "webhookId": "6248fb3d-7599-4f2f-96c2-c87e2c587508"
+        "webhookId": "31b7150b-97fd-45e0-b399-b9594ce6d99e"
       },
       {
-        "id": "649b7b4f-d2cb-4842-afe6-278f6fd99c9d",
+        "id": "229f8750-6ab2-4efe-9d4f-4f1cd82f8125",
         "name": "Build Source List",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -71,7 +71,7 @@
         }
       },
       {
-        "id": "77325a55-b20d-43e1-9eba-493fd7266be0",
+        "id": "3b0b5f11-f30a-45f5-80c0-e34c5c5b5f06",
         "name": "Fetch RSS Feed",
         "type": "n8n-nodes-base.rssFeedRead",
         "typeVersion": 1.2,
@@ -88,7 +88,7 @@
         }
       },
       {
-        "id": "80a32791-be31-48e3-ac3b-5a04cf7ddf42",
+        "id": "d9e3b9c7-5a3a-4594-9940-151f000a2e32",
         "name": "Select Top Topic",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -101,7 +101,7 @@
         }
       },
       {
-        "id": "a948eb72-bfd6-4a8b-b189-9c51899189ee",
+        "id": "a5b6da59-14ce-4686-8b5a-45a2eadaec75",
         "name": "Fetch Recent Topics",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -121,7 +121,7 @@
         }
       },
       {
-        "id": "6e991221-a042-485a-a201-6f400b40ab30",
+        "id": "109a0490-83b2-466a-94e1-9ed551cf4fd6",
         "name": "Semantic Novelty Filter",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -134,7 +134,7 @@
         }
       },
       {
-        "id": "683e2a97-8606-40d8-986c-c7af16a0e548",
+        "id": "5328f2ab-c6d3-46ee-bf49-aa2215a58246",
         "name": "Only New Topic?",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -161,7 +161,7 @@
         }
       },
       {
-        "id": "1b75c51d-1c12-44fe-93d6-e0c2ca888c6e",
+        "id": "c835054a-673e-4944-ab43-f906498f2848",
         "name": "Write Carousel Plan",
         "type": "@n8n/n8n-nodes-langchain.openAi",
         "typeVersion": 2.3,
@@ -198,7 +198,7 @@
         }
       },
       {
-        "id": "8db30355-bb6b-42f5-8068-757dc7cc87b2",
+        "id": "3895ef13-171e-41fb-9b56-6926be8ca3ff",
         "name": "Prepare Carousel Payload",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -211,7 +211,7 @@
         }
       },
       {
-        "id": "dc11b63e-d481-43a9-8020-60730d9b7dcd",
+        "id": "d8cb6f68-5eea-4a2c-9ffc-a173f73b8e83",
         "name": "Upload Carousel Slides",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -224,7 +224,7 @@
         }
       },
       {
-        "id": "93634077-1c6c-46da-8c76-4bd8d1c6b29b",
+        "id": "b7df2670-4936-4ee4-9bed-c80638aa4c17",
         "name": "Upsert Draft Record",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -286,7 +286,20 @@
         }
       },
       {
-        "id": "ab0c31d8-a270-4359-897c-c68eecfda724",
+        "id": "ef3ba885-c718-4079-8945-1c0d88d0a31f",
+        "name": "Generate End Response",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          240,
+          -160
+        ],
+        "parameters": {
+          "jsCode": "const slideCount = Array.isArray($json.slides) ? $json.slides.length : 0;\nconst endResponseText = [\n  'Prepared carousel draft for Buffer.',\n  slideCount + ' slides ready.',\n  $json.captionText ? 'Caption is ready.' : 'Caption is empty.',\n].join(' ');\n\nreturn [{\n  json: {\n    ...$json,\n    endResponseStatus: 'ready_for_buffer',\n    endResponseText,\n    endResponse: {\n      status: 'ready_for_buffer',\n      title: $json.title || '',\n      category: $json.category || '',\n      angle: $json.angle || '',\n      slideCount,\n      captionText: $json.captionText || '',\n    },\n  },\n}];"
+        }
+      },
+      {
+        "id": "8d5d43a1-b94f-46cb-91db-5efe2f8d637c",
         "name": "Get Buffer Organizations",
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -315,7 +328,7 @@
         }
       },
       {
-        "id": "759e8894-1d62-4e22-bee2-3e524d7aad18",
+        "id": "d3c981c9-cff2-4b7c-a930-f184a4b2fd5e",
         "name": "Pick Buffer Organization",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -328,7 +341,7 @@
         }
       },
       {
-        "id": "f9454fba-9f49-401a-a9bd-d7090db4864b",
+        "id": "2a657848-2dd0-4886-b6fe-883275933042",
         "name": "Get Buffer Channels",
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -357,7 +370,7 @@
         }
       },
       {
-        "id": "9b23a6ab-54c0-47aa-96b3-a01c54422a6f",
+        "id": "a5869465-0d91-4be7-87c4-77c45fdc3023",
         "name": "Pick Instagram Channel",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -370,7 +383,7 @@
         }
       },
       {
-        "id": "55e57790-8e9f-470c-9e84-9956cdab56e0",
+        "id": "94fc44d3-c6ba-4276-b7aa-6c320f4cacd6",
         "name": "Queue in Buffer",
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -399,7 +412,7 @@
         }
       },
       {
-        "id": "b5e3dd1c-26d0-448e-bb37-a34909a86b69",
+        "id": "0e879151-0447-4d21-b0fa-6ccb20904f06",
         "name": "Upsert Published Record",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -461,7 +474,7 @@
         }
       },
       {
-        "id": "a52f34d4-f166-45df-8478-8273ad54eb16",
+        "id": "27071d64-dadf-4a4b-90a0-7048c1831117",
         "name": "Lookup Carousel",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -489,7 +502,7 @@
         }
       },
       {
-        "id": "98365ca7-1aae-4702-a780-4e0b52b96fcd",
+        "id": "961b7433-50db-49c7-b474-6a556c153cfb",
         "name": "Render Slide PNG",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -502,7 +515,7 @@
         }
       },
       {
-        "id": "995f91fb-aa00-4866-a130-23de7173488a",
+        "id": "1c75363e-e010-4d04-ba17-ad6b09c10909",
         "name": "Render Preview PNG",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -515,7 +528,7 @@
         }
       },
       {
-        "id": "aacd7c52-8fa3-43bd-b934-e90213415d6d",
+        "id": "e9255357-9802-41fe-be85-6088defa0654",
         "name": "Respond Slide PNG",
         "type": "n8n-nodes-base.respondToWebhook",
         "typeVersion": 1.5,
@@ -533,7 +546,7 @@
         }
       },
       {
-        "id": "9d06c394-ca5b-4b3c-91c6-8608ec32967e",
+        "id": "290c686e-5de9-4ecb-b2c8-522e7abfd093",
         "name": "Respond Preview PNG",
         "type": "n8n-nodes-base.respondToWebhook",
         "typeVersion": 1.5,
@@ -688,6 +701,17 @@
         "main": [
           [
             {
+              "node": "Generate End Response",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Generate End Response": {
+        "main": [
+          [
+            {
               "node": "Get Buffer Organizations",
               "type": "main",
               "index": 0
@@ -792,6 +816,6 @@
     "meta": {
       "templateCredsSetupCompleted": false
     },
-    "versionId": "42f49bfe-4cbd-4f6b-9907-a63d5e1ff9ec"
+    "versionId": "78d8cb6a-5d3b-4d2a-a972-1dd87c1c34ce"
   }
 ]
