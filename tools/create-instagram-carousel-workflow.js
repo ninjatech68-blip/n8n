@@ -882,12 +882,6 @@ return [{
       jsonBody: '={{ { query: "query GetOrganizations { account { organizations { id name } } }" } }}',
       options: {},
     },
-    credentials: {
-      httpBearerAuth: {
-        id: 'yUPkILwBHawgSRsc',
-        name: 'Bearer Auth account',
-      },
-    },
   });
 
   const pickBufferOrganization = node({
@@ -934,12 +928,6 @@ return [{
       specifyBody: 'json',
       jsonBody: '={{ { query: `query GetChannels { channels(input: { organizationId: "${$json.bufferOrganizationId}" }) { id name displayName service avatar isQueuePaused } }` } }}',
       options: {},
-    },
-    credentials: {
-      httpBearerAuth: {
-        id: 'yUPkILwBHawgSRsc',
-        name: 'Bearer Auth account',
-      },
     },
   });
 
@@ -989,12 +977,6 @@ return [{
       specifyBody: 'json',
       jsonBody: '={{ (() => { const caption = $json.captionText || ""; const assets = ($json.carouselAssets || []).map((asset) => "{ image: { url: " + JSON.stringify(asset.image.url) + " } }").join(", "); return { query: "mutation CreatePost { createPost(input: { text: " + JSON.stringify(caption) + ", channelId: \\\"" + $json.bufferChannelId + "\\\", schedulingType: automatic, mode: addToQueue, assets: [" + assets + "] }) { ... on PostActionSuccess { post { id text dueAt status } } ... on MutationError { message } } }" }; })() }}',
       options: {},
-    },
-    credentials: {
-      httpBearerAuth: {
-        id: 'yUPkILwBHawgSRsc',
-        name: 'Bearer Auth account',
-      },
     },
   });
 
