@@ -132,7 +132,7 @@ DB clearance idea:
 - Required secrets: `PROD_DB_HOST`, `PROD_DB_PORT`, `PROD_DB_NAME`, `PROD_DB_USER`, `PROD_DB_PASSWORD`.
 
 Production smoke test:
-- Use `.github/workflows/instagram-carousel-production-smoke.yml` to verify the live Space health endpoint and the preview PNG routes.
+- Use `.github/workflows/instagram-carousel-production-smoke.yml` to verify the live Space health endpoint and the debug preview routes.
 - It checks:
   - `GET /healthz`
   - `GET /webhook/instagram-carousel-preview`
@@ -143,11 +143,21 @@ For the Hugging Face route, you will need to set the Space env vars manually in 
 
 If you are using the Instagram carousel renderer, keep `NODE_FUNCTION_ALLOW_EXTERNAL=sharp` set so the n8n Code node can load `sharp` and return PNG slide images.
 
+The production publishing path also expects these Supabase storage settings in the Hugging Face Space:
+
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `SUPABASE_STORAGE_BUCKET`
+
+The bucket should be public so Buffer can fetch the uploaded PNG URLs directly.
+The preview webhook routes are for manual debugging; the Buffer publish path uses the Supabase public URLs generated during the main workflow run.
+
 Important:
 - `private` Spaces are not a good fit for email approval from a phone because the app is not publicly reachable.
 - For the Gmail approval flow, use `public` unless you are okay with logging into Hugging Face on the device doing the approval.
 - The repo page (`https://huggingface.co/spaces/PS2109/Content_private`) is not the callback URL. The callback URL is the deployed app URL on `hf.space`, for example `https://ps2109-n8n.hf.space/`.
 Production bootstrap:
-- The Instagram carousel workflow is imported automatically on container boot from `artifacts/hosted-import/instagram-carousel-content-engine.workflow.json`.
+- The Instagram carousel workflow is regenerated from `tools/create-instagram-carousel-workflow.js`, imported, and then repaired on container boot.
+- On every boot it refreshes the workflow definition, restores `activeVersionId`, and ensures the preview and slide webhook registrations match the export.
 - The import targets hosted project `eY86xW2dysjsQrAK`.
 - The import is idempotent by workflow id, so restarts update the same workflow instead of creating duplicates.

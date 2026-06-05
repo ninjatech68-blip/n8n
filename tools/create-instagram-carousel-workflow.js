@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const crypto = require('crypto');
+const path = require('path');
 
 function id() {
   return crypto.randomUUID();
@@ -48,8 +49,7 @@ function buildWorkflow() {
       path: 'instagram-carousel-slide',
       options: {},
       httpMethod: 'GET',
-      responseMode: 'lastNode',
-      responseData: 'firstEntryBinary',
+      responseMode: 'responseNode',
     },
   });
 
@@ -63,8 +63,7 @@ function buildWorkflow() {
       path: 'instagram-carousel-preview',
       options: {},
       httpMethod: 'GET',
-      responseMode: 'lastNode',
-      responseData: 'firstEntryBinary',
+      responseMode: 'responseNode',
     },
   });
 
@@ -204,13 +203,13 @@ function normalize(value) {
     .toLowerCase()
     .replace(/<[^>]*>/g, ' ')
     .replace(/[^a-z0-9]+/g, ' ')
-    .replace(/\\s+/g, ' ')
+    .replace(/\s+/g, ' ')
     .trim();
 }
 
 function hostnameFromUrl(url) {
   try {
-    return new URL(url).hostname.replace(/^www\\./, '');
+    return new URL(url).hostname.replace(/^www\./, '');
   } catch (error) {
     return '';
   }
@@ -245,7 +244,7 @@ function pickCategory(text) {
 function scoreItem(item) {
   const sourceUrl = String(item.json.link || item.json.url || '').trim();
   const title = String(item.json.title || '').trim();
-  const summary = String(item.json.contentSnippet || item.json.content || item.json.summary || '').replace(/<[^>]*>/g, ' ').replace(/\\s+/g, ' ').trim();
+  const summary = String(item.json.contentSnippet || item.json.content || item.json.summary || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
   const text = normalize(title + ' ' + summary + ' ' + sourceUrl);
   const host = hostnameFromUrl(sourceUrl);
   const category = pickCategory(text);
@@ -444,7 +443,7 @@ function normalize(value) {
     .toLowerCase()
     .replace(/<[^>]*>/g, ' ')
     .replace(/[^a-z0-9]+/g, ' ')
-    .replace(/\\s+/g, ' ')
+    .replace(/\s+/g, ' ')
     .trim();
 }
 
@@ -654,15 +653,10 @@ The last slide should reframe the whole thing.`,
     parameters: {
       jsCode: `const plan = $node["Write Carousel Plan"]?.json?.message?.content || {};
 const token = Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
-const hostBase = 'https://ps2109-n8n.hf.space';
 const slideCount = Array.isArray(plan.slides) ? plan.slides.length : 0;
-const carouselBaseUrl = hostBase + '/webhook/instagram-carousel-slide';
-
-const assets = (plan.slides || []).map((slide) => ({
-  image: {
-    url: carouselBaseUrl + '?token=' + encodeURIComponent(token) + '&slide=' + encodeURIComponent(slide.order || 1),
-  },
-}));
+const supabaseUrl = String(process.env.SUPABASE_URL || 'https://nlmthljrbgnaevheszvg.supabase.co').replace(/\/+$/, '');
+const supabaseBucket = String(process.env.SUPABASE_STORAGE_BUCKET || 'instagram-carousel-assets').trim();
+const carouselBaseUrl = supabaseUrl + '/storage/v1/object/public/' + supabaseBucket;
 
 return [{
   json: {
@@ -678,10 +672,130 @@ return [{
     candidatePoolJson: JSON.stringify(plan),
     draftText: plan.caption || '',
     carouselAssetBase: carouselBaseUrl,
-    carouselAssets: assets,
+    carouselAssets: [],
+    carouselStoragePrefix: 'instagram-carousel/' + token,
+    storageBucket: supabaseBucket,
     bufferChannelId: '',
     publishStatus: 'queued',
     publishUrl: '',
+  }
+}];`,
+    },
+  });
+
+  const uploadCarouselSlides = node({
+    name: 'Upload Carousel Slides',
+    type: 'n8n-nodes-base.code',
+    typeVersion: 2,
+    position: [-40, -160],
+    parameters: {
+      jsCode: `const sharp = require('sharp');
+const plan = $json;
+const slides = Array.isArray(plan.slides) ? plan.slides : [];
+const token = String(plan.approvalToken || plan.carouselToken || '').trim();
+const supabaseUrl = String(process.env.SUPABASE_URL || 'https://nlmthljrbgnaevheszvg.supabase.co').replace(/\/+$/, '');
+const supabaseKey = String(process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim();
+const supabaseBucket = String(process.env.SUPABASE_STORAGE_BUCKET || plan.storageBucket || 'instagram-carousel-assets').trim();
+const storagePrefix = String(plan.carouselStoragePrefix || ('instagram-carousel/' + token)).replace(/^\/+|\/+$/g, '');
+const channelName = 'thoughts @ 3:18AM';
+
+if (!supabaseKey) {
+  throw new Error('SUPABASE_SERVICE_ROLE_KEY is required to upload carousel assets.');
+}
+
+if (!supabaseBucket) {
+  throw new Error('SUPABASE_STORAGE_BUCKET is required to upload carousel assets.');
+}
+
+function esc(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function lines(text, max = 28) {
+  const words = String(text || '').split(/\s+/).filter(Boolean);
+  const out = [];
+  let line = [];
+  for (const word of words) {
+    const candidate = [...line, word].join(' ');
+    if (candidate.length > max && line.length) {
+      out.push(line.join(' '));
+      line = [word];
+    } else {
+      line.push(word);
+    }
+  }
+  if (line.length) out.push(line.join(' '));
+  return out;
+}
+
+function slideSvg(text, index, total) {
+  const bodyLines = lines(text, 30).slice(0, 8);
+  const bodySvg = bodyLines.map((line, i) => '<text x="128" y="' + (250 + i * 72) + '" fill="#111111" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700">' + esc(line) + '</text>').join('\\n    ');
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">' +
+    '<rect width="1080" height="1350" fill="#ffffff"/>' +
+    '<circle cx="84" cy="86" r="48" fill="#e9e2d7" stroke="#111111" stroke-width="2"/>' +
+    '<circle cx="84" cy="86" r="34" fill="#d4c8b8"/>' +
+    '<text x="152" y="74" fill="#111111" font-family="Arial, Helvetica, sans-serif" font-size="60" font-weight="700">' + esc(channelName) + '</text>' +
+    '<text x="152" y="124" fill="#666666" font-family="Arial, Helvetica, sans-serif" font-size="30">Just now • 🌐</text>' +
+    '<circle cx="980" cy="82" r="6" fill="#666666"/>' +
+    '<circle cx="1002" cy="82" r="6" fill="#666666"/>' +
+    '<circle cx="1024" cy="82" r="6" fill="#666666"/>' +
+    '<text x="128" y="198" fill="#666666" font-family="Arial, Helvetica, sans-serif" font-size="24">' + esc('Card ' + index + ' of ' + total) + '</text>' +
+    '<g font-family="Arial, Helvetica, sans-serif" fill="#111111">' +
+      bodySvg +
+    '</g>' +
+    '</svg>';
+}
+
+async function uploadPng(buffer, filePath) {
+  const path = filePath.split('/').map(encodeURIComponent).join('/');
+  const uploadUrl = supabaseUrl + '/storage/v1/object/' + supabaseBucket + '/' + path;
+  const response = await fetch(uploadUrl, {
+    method: 'POST',
+    headers: {
+      apikey: supabaseKey,
+      Authorization: 'Bearer ' + supabaseKey,
+      'Content-Type': 'image/png',
+      'x-upsert': 'true',
+    },
+    body: buffer,
+  });
+
+  if (!response.ok) {
+    const body = await response.text().catch(() => '');
+    throw new Error('Supabase upload failed for ' + filePath + ': ' + response.status + ' ' + response.statusText + ' ' + body);
+  }
+
+  return supabaseUrl + '/storage/v1/object/public/' + supabaseBucket + '/' + path;
+}
+
+const assets = [];
+for (let index = 0; index < slides.length; index++) {
+  const slide = slides[index] || {};
+  const slideNumber = Number(slide.order || index + 1);
+  const text = String(slide.text || '').trim();
+  const pngBuffer = await sharp(Buffer.from(slideSvg(text, slideNumber, Math.max(slides.length, 1)))).png().toBuffer();
+  const objectPath = storagePrefix + '/slide-' + slideNumber + '.png';
+  const publicUrl = await uploadPng(pngBuffer, objectPath);
+  assets.push({
+    image: {
+      url: publicUrl,
+    },
+  });
+}
+
+return [{
+  json: {
+    ...plan,
+    carouselAssets: assets,
+    carouselAssetBase: supabaseUrl + '/storage/v1/object/public/' + supabaseBucket + '/' + storagePrefix,
+    storageBucket: supabaseBucket,
+    uploadedSlideCount: assets.length,
+    imageUrl: assets[0]?.image?.url || '',
   }
 }];`,
     },
@@ -737,7 +851,7 @@ return [{
           bufferPostId: '',
           bufferDueAt: '',
           bufferStatus: '',
-          imageUrl: '',
+          imageUrl: '={{ $json.carouselAssets?.[0]?.image?.url || $json.imageUrl || "" }}',
         },
       },
       options: {},
@@ -873,7 +987,7 @@ return [{
       },
       sendBody: true,
       specifyBody: 'json',
-      jsonBody: '={{ (() => { const caption = $json.captionText || ""; const assets = ($json.carouselAssets || []).map((asset) => "{ image: { url: " + JSON.stringify(asset.image.url) + " } }").join(", "); return { query: "mutation CreatePost { createPost(input: { text: " + JSON.stringify(caption) + ", channelId: \\"" + $json.bufferChannelId + "\\", schedulingType: automatic, mode: addToQueue, assets: [" + assets + "] }) { ... on PostActionSuccess { post { id text dueAt status } } ... on MutationError { message } } }" }; })() }}',
+      jsonBody: '={{ (() => { const caption = $json.captionText || ""; const assets = ($json.carouselAssets || []).map((asset) => "{ image: { url: " + JSON.stringify(asset.image.url) + " } }").join(", "); return { query: "mutation CreatePost { createPost(input: { text: " + JSON.stringify(caption) + ", channelId: \\\"" + $json.bufferChannelId + "\\\", schedulingType: automatic, mode: addToQueue, assets: [" + assets + "] }) { ... on PostActionSuccess { post { id text dueAt status } } ... on MutationError { message } } }" }; })() }}',
       options: {},
     },
     credentials: {
@@ -934,7 +1048,7 @@ return [{
           bufferPostId: '={{ $node["Queue in Buffer"].json.data.createPost.post.id || "" }}',
           bufferDueAt: '={{ $node["Queue in Buffer"].json.data.createPost.post.dueAt || "" }}',
           bufferStatus: '={{ $node["Queue in Buffer"].json.data.createPost.post.status || "scheduled" }}',
-          imageUrl: '',
+          imageUrl: '={{ $json.carouselAssets?.[0]?.image?.url || $json.imageUrl || "" }}',
         },
       },
       options: {},
@@ -987,11 +1101,7 @@ if (!token) {
       fileName: 'instagram-slide-error.png',
     },
     binary: {
-      data: {
-        data: errorPng.toString('base64'),
-        mimeType: 'image/png',
-        fileName: 'instagram-slide-error.png',
-      },
+      data: await this.helpers.prepareBinaryData(errorPng, 'instagram-slide-error.png', 'image/png'),
     },
   }];
 }
@@ -1021,7 +1131,7 @@ function esc(value) {
 }
 
 function lines(text, max = 28) {
-  const words = String(text || '').split(/\\s+/).filter(Boolean);
+  const words = String(text || '').split(/\s+/).filter(Boolean);
   const out = [];
   let line = [];
   for (const word of words) {
@@ -1074,11 +1184,7 @@ return [{
     fileName: 'instagram-slide-' + slideIndex + '.png',
   },
   binary: {
-    data: {
-      data: pngBuffer.toString('base64'),
-      mimeType: 'image/png',
-      fileName: 'instagram-slide-' + slideIndex + '.png',
-    },
+    data: await this.helpers.prepareBinaryData(pngBuffer, 'instagram-slide-' + slideIndex + '.png', 'image/png'),
   },
 }];`,
     },
@@ -1106,7 +1212,7 @@ function esc(value) {
 }
 
 function lines(text, max = 30) {
-  const words = String(text || '').split(/\\s+/).filter(Boolean);
+  const words = String(text || '').split(/\s+/).filter(Boolean);
   const out = [];
   let line = [];
   for (const word of words) {
@@ -1181,11 +1287,7 @@ if (showSet) {
       fileName: 'instagram-preview-set.png',
     },
     binary: {
-      data: {
-        data: sheet.toString('base64'),
-        mimeType: 'image/png',
-        fileName: 'instagram-preview-set.png',
-      },
+      data: await this.helpers.prepareBinaryData(sheet, 'instagram-preview-set.png', 'image/png'),
     },
   }];
 }
@@ -1198,15 +1300,29 @@ return [{
     fileName: 'instagram-preview.png',
   },
   binary: {
-    data: {
-      data: previewPng.toString('base64'),
-      mimeType: 'image/png',
-      fileName: 'instagram-preview.png',
-    },
+    data: await this.helpers.prepareBinaryData(previewPng, 'instagram-preview.png', 'image/png'),
   },
 }];`,
     },
   });
+
+  const respondWithBinary = (name, position) => node({
+    name,
+    type: 'n8n-nodes-base.respondToWebhook',
+    typeVersion: 1.5,
+    position,
+    parameters: {
+      respondWith: 'binary',
+      responseDataSource: 'set',
+      inputFieldName: 'data',
+      options: {
+        responseCode: 200,
+      },
+    },
+  });
+
+  const respondSlide = respondWithBinary('Respond Slide PNG', [-960, 320]);
+  const respondPreview = respondWithBinary('Respond Preview PNG', [-960, 520]);
 
   const workflow = {
     id: id(),
@@ -1224,6 +1340,7 @@ return [{
       onlyNewTopic,
       writeCarouselPlan,
       prepareCarouselPayload,
+      uploadCarouselSlides,
       upsertDraftRecord,
       getBufferOrganizations,
       pickBufferOrganization,
@@ -1234,6 +1351,8 @@ return [{
       lookupCarousel,
       renderSlidePng,
       renderPreviewPng,
+      respondSlide,
+      respondPreview,
     ],
     connections: {
       'Schedule Trigger': {
@@ -1241,6 +1360,9 @@ return [{
       },
       'Instagram Preview Webhook': {
         main: [[{ node: 'Render Preview PNG', type: 'main', index: 0 }]],
+      },
+      'Render Preview PNG': {
+        main: [[{ node: 'Respond Preview PNG', type: 'main', index: 0 }]],
       },
       'Build Source List': {
         main: [[{ node: 'Fetch RSS Feed', type: 'main', index: 0 }]],
@@ -1264,6 +1386,9 @@ return [{
         main: [[{ node: 'Prepare Carousel Payload', type: 'main', index: 0 }]],
       },
       'Prepare Carousel Payload': {
+        main: [[{ node: 'Upload Carousel Slides', type: 'main', index: 0 }]],
+      },
+      'Upload Carousel Slides': {
         main: [[{ node: 'Upsert Draft Record', type: 'main', index: 0 }]],
       },
       'Upsert Draft Record': {
@@ -1290,6 +1415,9 @@ return [{
       'Lookup Carousel': {
         main: [[{ node: 'Render Slide PNG', type: 'main', index: 0 }]],
       },
+      'Render Slide PNG': {
+        main: [[{ node: 'Respond Slide PNG', type: 'main', index: 0 }]],
+      },
     },
     settings: {
       executionOrder: 'v1',
@@ -1305,6 +1433,8 @@ return [{
   return [workflow];
 }
 
-const outPath = '/Users/piyushsharma/Documents/n8n/artifacts/hosted-import/instagram-carousel-content-engine.workflow.json';
+const outPath = process.env.WORKFLOW_OUTPUT_PATH
+  || process.env.N8N_BOOTSTRAP_WORKFLOW_INPUT
+  || path.resolve(__dirname, '..', 'artifacts', 'hosted-import', 'instagram-carousel-content-engine.workflow.json');
 fs.writeFileSync(outPath, JSON.stringify(buildWorkflow(), null, 2) + '\n');
 console.log(outPath);

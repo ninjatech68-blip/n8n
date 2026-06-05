@@ -53,6 +53,9 @@ N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
 N8N_RUNNERS_ENABLED=true
 NODE_OPTIONS=--dns-result-order=ipv4first
 NODE_FUNCTION_ALLOW_EXTERNAL=sharp
+SUPABASE_URL=https://nlmthljrbgnaevheszvg.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=<store as HF secret>
+SUPABASE_STORAGE_BUCKET=instagram-carousel-assets
 
 DB_TYPE=postgresdb
 DB_POSTGRESDB_HOST=aws-1-ap-south-1.pooler.supabase.com
@@ -67,7 +70,15 @@ DB_POSTGRESDB_SSL_MODE=require
 ## Secrets to add in Hugging Face Space settings
 
 - `DB_POSTGRESDB_PASSWORD`
+- `SUPABASE_SERVICE_ROLE_KEY`
 - optionally `N8N_ENCRYPTION_KEY` if you want stable credential encryption across rebuilds
+
+## Supabase storage note
+
+Create a public Supabase Storage bucket named `instagram-carousel-assets` or set `SUPABASE_STORAGE_BUCKET` to the bucket you want to use.
+
+The workflow uploads each rendered carousel slide as a PNG and then hands Buffer the public object URLs, so the bucket must be publicly readable.
+The preview webhooks are debugging endpoints only; they are not the publish path used by Buffer.
 
 ## External module note
 
@@ -99,18 +110,17 @@ Recommended:
 If you keep the Space private, Gmail approval from a phone will only work if the approving browser can access the private Space (for example, if the device is logged into Hugging Face and the app allows it). For normal unauthenticated remote approval, use `public`.
 ## Workflow bootstrap
 
-The production container imports the Instagram carousel workflow on startup with:
+The production container regenerates the workflow export on every restart, imports it, then repairs the active workflow metadata:
 
 ```bash
-n8n import:workflow \
-  --input=/opt/n8n/bootstrap/instagram-carousel-content-engine.workflow.json \
-  --projectId=eY86xW2dysjsQrAK
-
-n8n list:workflow
-
-n8n update:workflow \
-  --id=<resolved-id-from-list> \
-  --active=true
+1. Regenerate `artifacts/hosted-import/instagram-carousel-content-engine.workflow.json` from `tools/create-instagram-carousel-workflow.js`.
+2. Import the generated export into the hosted project.
+3. Repair activation metadata by setting:
+   - `active = true`
+   - `activeVersionId = versionId`
+4. Upsert the `webhook_entity` rows for:
+   - `instagram-carousel-preview`
+   - `instagram-carousel-slide`
 ```
 
-This is idempotent by workflow id and is safe to run on every restart.
+This avoids the earlier failure mode where the workflow in production lagged behind the exported JSON and left the preview routes returning `404` or stale output.

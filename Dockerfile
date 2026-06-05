@@ -6,6 +6,7 @@ RUN npm install -g sharp pg \
   && npm cache clean --force
 
 COPY docker/n8n-entrypoint.sh /docker/n8n-entrypoint.sh
+COPY tools/create-instagram-carousel-workflow.js /opt/n8n/tools/create-instagram-carousel-workflow.js
 COPY artifacts/hosted-import/instagram-carousel-content-engine.workflow.json /opt/n8n/bootstrap/instagram-carousel-content-engine.workflow.json
 
 RUN chmod +x /docker/n8n-entrypoint.sh
