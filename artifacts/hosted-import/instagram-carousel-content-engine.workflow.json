@@ -1,11 +1,11 @@
 [
   {
-    "id": "417b9afe-b8a1-4955-bc63-a07e42039153",
+    "id": "301c8881-d462-4f5f-8fbe-858d74e1f05f",
     "name": "Instagram Carousel Trend Engine",
     "active": true,
     "nodes": [
       {
-        "id": "30c56671-03f7-42c1-a22b-84c6aff75b3e",
+        "id": "b192a3b6-01df-4d39-bfa4-6c526ab33ebd",
         "name": "Schedule Trigger",
         "type": "n8n-nodes-base.scheduleTrigger",
         "typeVersion": 1.3,
@@ -24,7 +24,7 @@
         }
       },
       {
-        "id": "e165e3e0-5152-4389-8e9b-3c7accd21ac4",
+        "id": "df826efa-3a58-4fd0-9b40-4d98d2e8dca7",
         "name": "Instagram Slide Webhook",
         "type": "n8n-nodes-base.webhook",
         "typeVersion": 2,
@@ -36,13 +36,12 @@
           "path": "instagram-carousel-slide",
           "options": {},
           "httpMethod": "GET",
-          "responseMode": "lastNode",
-          "responseData": "firstEntryBinary"
+          "responseMode": "responseNode"
         },
-        "webhookId": "a177171d-44f4-402f-b4c5-b1b53214e934"
+        "webhookId": "ddb4701b-9e81-4728-b5b9-f8c6cbd1d3df"
       },
       {
-        "id": "bf7a199c-31ee-48e4-84a4-82197cc4530b",
+        "id": "6f27fa6b-e676-4685-8890-2d7ff5890889",
         "name": "Instagram Preview Webhook",
         "type": "n8n-nodes-base.webhook",
         "typeVersion": 2,
@@ -54,13 +53,12 @@
           "path": "instagram-carousel-preview",
           "options": {},
           "httpMethod": "GET",
-          "responseMode": "lastNode",
-          "responseData": "firstEntryBinary"
+          "responseMode": "responseNode"
         },
-        "webhookId": "6a518e61-383e-4959-b1bc-e41eaf837e47"
+        "webhookId": "6248fb3d-7599-4f2f-96c2-c87e2c587508"
       },
       {
-        "id": "ecb81de8-66ce-4c31-af85-2a239d073c59",
+        "id": "649b7b4f-d2cb-4842-afe6-278f6fd99c9d",
         "name": "Build Source List",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -73,7 +71,7 @@
         }
       },
       {
-        "id": "76250868-1b85-40dc-bc9e-b346053f46ed",
+        "id": "77325a55-b20d-43e1-9eba-493fd7266be0",
         "name": "Fetch RSS Feed",
         "type": "n8n-nodes-base.rssFeedRead",
         "typeVersion": 1.2,
@@ -90,7 +88,7 @@
         }
       },
       {
-        "id": "13ce05c9-ef52-4c3b-94e0-e6e78a11c9c9",
+        "id": "80a32791-be31-48e3-ac3b-5a04cf7ddf42",
         "name": "Select Top Topic",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -99,11 +97,11 @@
           -160
         ],
         "parameters": {
-          "jsCode": "const items = $input.all();\n\nfunction normalize(value) {\n  return String(value || '')\n    .toLowerCase()\n    .replace(/<[^>]*>/g, ' ')\n    .replace(/[^a-z0-9]+/g, ' ')\n    .replace(/\\s+/g, ' ')\n    .trim();\n}\n\nfunction hostnameFromUrl(url) {\n  try {\n    return new URL(url).hostname.replace(/^www\\./, '');\n  } catch (error) {\n    return '';\n  }\n}\n\nfunction tokenize(text) {\n  return normalize(text)\n    .split(' ')\n    .filter(Boolean)\n    .filter((token) => token.length > 2)\n    .filter((token) => !['the','and','for','with','from','that','this','have','will','your','you','are','new','how','can','our','their','about','into','what','when','why','who','but','not','all','now','use','uses','used','india','indian'].includes(token));\n}\n\nfunction pickCategory(text) {\n  if (/cricket|match|ipl|bcci|world cup|sports?/.test(text)) return 'sports';\n  if (/food|restaurant|dosa|biryani|cafe|eat|chef|menu/.test(text)) return 'food';\n  if (/bollywood|actor|actress|movie|film|celebrity|star/.test(text)) return 'culture';\n  if (/startup|founder|business|funding|company|market|economy/.test(text)) return 'business';\n  if (/work|office|job|salary|manager|meeting|career|productivity/.test(text)) return 'work';\n  if (/dating|relationship|marriage|wedding|family|parent|parents|relative|single|breakup|divorce|situationship/.test(text)) return 'relationships';\n  if (/delhi|mumbai|bengaluru|bangalore|pune|hyderabad|chennai|kolkata|city|metro|traffic|weather/.test(text)) return 'cities';\n  if (/tax|invest|mutual fund|stock|price|money|inflation|budget|bank|loan/.test(text)) return 'finance';\n  if (/health|fitness|gym|workout|weight|body|skin|skincare|diet|sleep|mental|mindset|therapy|stress/.test(text)) return 'fitness';\n  if (/travel|trip|flight|hotel|destination|tour|vacation|budget travel|backpack/.test(text)) return 'travel';\n  if (/reddit|viral|satisfying|oddly|interesting|funny|meme|wtf|wow|crazy|shocking|insane/.test(text)) return 'viral';\n  if (/animal|dog|cat|pet|wildlife|nature|aww/.test(text)) return 'animals';\n  if (/opinion|hot take|controversy|outrage|drama|argument|fight|asshole|tifu/.test(text)) return 'drama';\n  if (/curious|obscure|weird|hidden|unknown|history|atlas obscura|wikipedia|nautilus|wait but why/.test(text)) return 'curiosity';\n  return 'india';\n}\n\nfunction scoreItem(item) {\n  const sourceUrl = String(item.json.link || item.json.url || '').trim();\n  const title = String(item.json.title || '').trim();\n  const summary = String(item.json.contentSnippet || item.json.content || item.json.summary || '').replace(/<[^>]*>/g, ' ').replace(/\\s+/g, ' ').trim();\n  const text = normalize(title + ' ' + summary + ' ' + sourceUrl);\n  const host = hostnameFromUrl(sourceUrl);\n  const category = pickCategory(text);\n\n  const officialHosts = ['rbi.org.in', 'sebi.gov.in', 'pib.gov.in'];\n  const sourceTrust = officialHosts.some((domain) => host.includes(domain))\n    ? 5\n    : host.includes('news.google.com')\n      ? 3\n      : 2;\n\n  const positiveTerms = [\n    /india/i,\n    /indian/i,\n    /cricket/i,\n    /bollywood/i,\n    /food/i,\n    /restaurant/i,\n    /city/i,\n    /metro/i,\n    /traffic/i,\n    /startup/i,\n    /business/i,\n    /work/i,\n    /office/i,\n    /career/i,\n    /relationship/i,\n    /marriage/i,\n    /family/i,\n    /finance/i,\n    /money/i,\n    /tax/i,\n    /travel/i,\n    /trip/i,\n    /flight/i,\n    /hotel/i,\n    /fitness/i,\n    /gym/i,\n    /workout/i,\n    /skin/i,\n    /animal/i,\n    /dog/i,\n    /cat/i,\n    /habit/i,\n    /mindset/i,\n    /people/i,\n    /culture/i,\n  ];\n\n  const twistTerms = [\n    /why/i,\n    /how/i,\n    /what/i,\n    /problem/i,\n    /issue/i,\n    /fails?/i,\n    /why.*matter/i,\n    /trend/i,\n    /viral/i,\n    /viral/i,\n    /launch/i,\n    /new/i,\n    /finally/i,\n    /relatable/i,\n    /funny/i,\n    /awkward/i,\n    /absurd/i,\n    /meme/i,\n    /same/i,\n    /so true/i,\n    /real/i,\n  ];\n\n  let score = 0;\n  for (const pattern of positiveTerms) if (pattern.test(text)) score += 1.25;\n  for (const pattern of twistTerms) if (pattern.test(text)) score += 0.75;\n\n  if (category === 'cities') score += 2;\n  if (category === 'food') score += 2;\n  if (category === 'culture') score += 1.5;\n  if (category === 'work') score += 1.5;\n  if (category === 'finance') score += 1.5;\n  if (category === 'business') score += 1;\n  if (category === 'relationships') score += 1.5;\n  if (category === 'fitness') score += 1.25;\n  if (category === 'travel') score += 1;\n  if (category === 'curiosity') score += 1.25;\n  if (category === 'viral') score += 1.5;\n  if (category === 'animals') score += 1;\n  if (category === 'drama') score += 1.75;\n  if (category === 'mindset') score += 1;\n  if (/funny|awkward|relatable|absurd|same|so true|meme|lol|haha|irony|ironic/i.test(text)) score += 2;\n\n  if (title.length > 45 && title.length < 130) score += 1;\n  if (summary.length > 100) score += 1;\n\n  const publishedAt = String(item.json.isoDate || item.json.pubDate || item.json.publishedAt || '');\n  const recencyBoost = publishedAt ? Math.max(0, 2 - Math.min(2, Math.floor((Date.now() - Date.parse(publishedAt)) / 86400000))) : 0;\n  score = Math.max(0, score + recencyBoost);\n\n  const keywordSignature = tokenize(title + ' ' + summary)\n    .slice(0, 8)\n    .join('-');\n  const dedupeKey = [category, keywordSignature || tokenize(title).slice(0, 5).join('-')].filter(Boolean).join('|');\n\n  return {\n    title,\n    summary,\n    sourceUrl,\n    host,\n    sourceTrust,\n    score,\n    category,\n    publishedAt,\n    dedupeKey,\n  };\n}\n\nconst ranked = items\n  .map(scoreItem)\n  .filter((entry, index, all) => all.findIndex((other) => other.dedupeKey === entry.dedupeKey) === index)\n  .sort((a, b) => b.score - a.score || b.sourceTrust - a.sourceTrust || (Date.parse(b.publishedAt || '') || 0) - (Date.parse(a.publishedAt || '') || 0));\n\nconst picked = ranked[0];\nif (!picked) return [];\nif (picked.score < 3) return [];\n\nconst topicKey = picked.dedupeKey;\nconst angleMap = {\n  food: 'food for thought',\n  cities: 'observation',\n  culture: 'story',\n  work: 'mindset',\n  business: 'framework',\n  finance: 'concept',\n  relationships: 'story',\n  fitness: 'mindset',\n  travel: 'story',\n  curiosity: 'concept',\n  viral: 'witty observation',\n  animals: 'observation',\n  drama: 'story',\n  sports: 'witty observation',\n  mindset: 'mindset',\n  india: 'observation',\n};\n\nreturn [{\n  json: {\n    sourceHash: topicKey,\n    sourceName: picked.host,\n    sourceType: picked.sourceTrust >= 3 ? 'news' : 'trend',\n    title: picked.title,\n    sourceUrl: picked.sourceUrl,\n    publishedAt: picked.publishedAt || new Date().toISOString(),\n    summary: picked.summary,\n    category: picked.category,\n    relevanceScore: Math.min(10, picked.score),\n    trustScore: picked.sourceTrust,\n    autoPublish: true,\n    angle: angleMap[picked.category] || 'observation',\n    status: 'selected',\n  }\n}];"
+          "jsCode": "const items = $input.all();\n\nfunction normalize(value) {\n  return String(value || '')\n    .toLowerCase()\n    .replace(/<[^>]*>/g, ' ')\n    .replace(/[^a-z0-9]+/g, ' ')\n    .replace(/s+/g, ' ')\n    .trim();\n}\n\nfunction hostnameFromUrl(url) {\n  try {\n    return new URL(url).hostname.replace(/^www./, '');\n  } catch (error) {\n    return '';\n  }\n}\n\nfunction tokenize(text) {\n  return normalize(text)\n    .split(' ')\n    .filter(Boolean)\n    .filter((token) => token.length > 2)\n    .filter((token) => !['the','and','for','with','from','that','this','have','will','your','you','are','new','how','can','our','their','about','into','what','when','why','who','but','not','all','now','use','uses','used','india','indian'].includes(token));\n}\n\nfunction pickCategory(text) {\n  if (/cricket|match|ipl|bcci|world cup|sports?/.test(text)) return 'sports';\n  if (/food|restaurant|dosa|biryani|cafe|eat|chef|menu/.test(text)) return 'food';\n  if (/bollywood|actor|actress|movie|film|celebrity|star/.test(text)) return 'culture';\n  if (/startup|founder|business|funding|company|market|economy/.test(text)) return 'business';\n  if (/work|office|job|salary|manager|meeting|career|productivity/.test(text)) return 'work';\n  if (/dating|relationship|marriage|wedding|family|parent|parents|relative|single|breakup|divorce|situationship/.test(text)) return 'relationships';\n  if (/delhi|mumbai|bengaluru|bangalore|pune|hyderabad|chennai|kolkata|city|metro|traffic|weather/.test(text)) return 'cities';\n  if (/tax|invest|mutual fund|stock|price|money|inflation|budget|bank|loan/.test(text)) return 'finance';\n  if (/health|fitness|gym|workout|weight|body|skin|skincare|diet|sleep|mental|mindset|therapy|stress/.test(text)) return 'fitness';\n  if (/travel|trip|flight|hotel|destination|tour|vacation|budget travel|backpack/.test(text)) return 'travel';\n  if (/reddit|viral|satisfying|oddly|interesting|funny|meme|wtf|wow|crazy|shocking|insane/.test(text)) return 'viral';\n  if (/animal|dog|cat|pet|wildlife|nature|aww/.test(text)) return 'animals';\n  if (/opinion|hot take|controversy|outrage|drama|argument|fight|asshole|tifu/.test(text)) return 'drama';\n  if (/curious|obscure|weird|hidden|unknown|history|atlas obscura|wikipedia|nautilus|wait but why/.test(text)) return 'curiosity';\n  return 'india';\n}\n\nfunction scoreItem(item) {\n  const sourceUrl = String(item.json.link || item.json.url || '').trim();\n  const title = String(item.json.title || '').trim();\n  const summary = String(item.json.contentSnippet || item.json.content || item.json.summary || '').replace(/<[^>]*>/g, ' ').replace(/s+/g, ' ').trim();\n  const text = normalize(title + ' ' + summary + ' ' + sourceUrl);\n  const host = hostnameFromUrl(sourceUrl);\n  const category = pickCategory(text);\n\n  const officialHosts = ['rbi.org.in', 'sebi.gov.in', 'pib.gov.in'];\n  const sourceTrust = officialHosts.some((domain) => host.includes(domain))\n    ? 5\n    : host.includes('news.google.com')\n      ? 3\n      : 2;\n\n  const positiveTerms = [\n    /india/i,\n    /indian/i,\n    /cricket/i,\n    /bollywood/i,\n    /food/i,\n    /restaurant/i,\n    /city/i,\n    /metro/i,\n    /traffic/i,\n    /startup/i,\n    /business/i,\n    /work/i,\n    /office/i,\n    /career/i,\n    /relationship/i,\n    /marriage/i,\n    /family/i,\n    /finance/i,\n    /money/i,\n    /tax/i,\n    /travel/i,\n    /trip/i,\n    /flight/i,\n    /hotel/i,\n    /fitness/i,\n    /gym/i,\n    /workout/i,\n    /skin/i,\n    /animal/i,\n    /dog/i,\n    /cat/i,\n    /habit/i,\n    /mindset/i,\n    /people/i,\n    /culture/i,\n  ];\n\n  const twistTerms = [\n    /why/i,\n    /how/i,\n    /what/i,\n    /problem/i,\n    /issue/i,\n    /fails?/i,\n    /why.*matter/i,\n    /trend/i,\n    /viral/i,\n    /viral/i,\n    /launch/i,\n    /new/i,\n    /finally/i,\n    /relatable/i,\n    /funny/i,\n    /awkward/i,\n    /absurd/i,\n    /meme/i,\n    /same/i,\n    /so true/i,\n    /real/i,\n  ];\n\n  let score = 0;\n  for (const pattern of positiveTerms) if (pattern.test(text)) score += 1.25;\n  for (const pattern of twistTerms) if (pattern.test(text)) score += 0.75;\n\n  if (category === 'cities') score += 2;\n  if (category === 'food') score += 2;\n  if (category === 'culture') score += 1.5;\n  if (category === 'work') score += 1.5;\n  if (category === 'finance') score += 1.5;\n  if (category === 'business') score += 1;\n  if (category === 'relationships') score += 1.5;\n  if (category === 'fitness') score += 1.25;\n  if (category === 'travel') score += 1;\n  if (category === 'curiosity') score += 1.25;\n  if (category === 'viral') score += 1.5;\n  if (category === 'animals') score += 1;\n  if (category === 'drama') score += 1.75;\n  if (category === 'mindset') score += 1;\n  if (/funny|awkward|relatable|absurd|same|so true|meme|lol|haha|irony|ironic/i.test(text)) score += 2;\n\n  if (title.length > 45 && title.length < 130) score += 1;\n  if (summary.length > 100) score += 1;\n\n  const publishedAt = String(item.json.isoDate || item.json.pubDate || item.json.publishedAt || '');\n  const recencyBoost = publishedAt ? Math.max(0, 2 - Math.min(2, Math.floor((Date.now() - Date.parse(publishedAt)) / 86400000))) : 0;\n  score = Math.max(0, score + recencyBoost);\n\n  const keywordSignature = tokenize(title + ' ' + summary)\n    .slice(0, 8)\n    .join('-');\n  const dedupeKey = [category, keywordSignature || tokenize(title).slice(0, 5).join('-')].filter(Boolean).join('|');\n\n  return {\n    title,\n    summary,\n    sourceUrl,\n    host,\n    sourceTrust,\n    score,\n    category,\n    publishedAt,\n    dedupeKey,\n  };\n}\n\nconst ranked = items\n  .map(scoreItem)\n  .filter((entry, index, all) => all.findIndex((other) => other.dedupeKey === entry.dedupeKey) === index)\n  .sort((a, b) => b.score - a.score || b.sourceTrust - a.sourceTrust || (Date.parse(b.publishedAt || '') || 0) - (Date.parse(a.publishedAt || '') || 0));\n\nconst picked = ranked[0];\nif (!picked) return [];\nif (picked.score < 3) return [];\n\nconst topicKey = picked.dedupeKey;\nconst angleMap = {\n  food: 'food for thought',\n  cities: 'observation',\n  culture: 'story',\n  work: 'mindset',\n  business: 'framework',\n  finance: 'concept',\n  relationships: 'story',\n  fitness: 'mindset',\n  travel: 'story',\n  curiosity: 'concept',\n  viral: 'witty observation',\n  animals: 'observation',\n  drama: 'story',\n  sports: 'witty observation',\n  mindset: 'mindset',\n  india: 'observation',\n};\n\nreturn [{\n  json: {\n    sourceHash: topicKey,\n    sourceName: picked.host,\n    sourceType: picked.sourceTrust >= 3 ? 'news' : 'trend',\n    title: picked.title,\n    sourceUrl: picked.sourceUrl,\n    publishedAt: picked.publishedAt || new Date().toISOString(),\n    summary: picked.summary,\n    category: picked.category,\n    relevanceScore: Math.min(10, picked.score),\n    trustScore: picked.sourceTrust,\n    autoPublish: true,\n    angle: angleMap[picked.category] || 'observation',\n    status: 'selected',\n  }\n}];"
         }
       },
       {
-        "id": "aa69b4b1-551f-4a03-94ff-1b2a6bef0cc4",
+        "id": "a948eb72-bfd6-4a8b-b189-9c51899189ee",
         "name": "Fetch Recent Topics",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -123,7 +121,7 @@
         }
       },
       {
-        "id": "73a6a47d-7461-45f5-ae29-047bdf2f2171",
+        "id": "6e991221-a042-485a-a201-6f400b40ab30",
         "name": "Semantic Novelty Filter",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -132,11 +130,11 @@
           -320
         ],
         "parameters": {
-          "jsCode": "const selected = $items(\"Select Top Topic\")[0]?.json || {};\nconst recentRows = $input.all().map((item) => item.json).filter(Boolean);\n\nfunction normalize(value) {\n  return String(value || '')\n    .toLowerCase()\n    .replace(/<[^>]*>/g, ' ')\n    .replace(/[^a-z0-9]+/g, ' ')\n    .replace(/\\s+/g, ' ')\n    .trim();\n}\n\nfunction tokenize(text) {\n  return normalize(text)\n    .split(' ')\n    .filter(Boolean)\n    .filter((token) => token.length > 2)\n    .filter((token) => !['the','and','for','with','from','that','this','have','will','your','you','are','new','how','can','our','their','about','into','what','when','why','who','but','not','all','now','use','used','india','indian','very','more','most','just','also','than','then','them','they','been','been'].includes(token));\n}\n\nfunction setFrom(text) {\n  return new Set(tokenize(text));\n}\n\nfunction jaccard(a, b) {\n  const setA = setFrom(a);\n  const setB = setFrom(b);\n  if (!setA.size || !setB.size) return 0;\n  let overlap = 0;\n  for (const token of setA) if (setB.has(token)) overlap++;\n  return overlap / new Set([...setA, ...setB]).size;\n}\n\nfunction similarity(current, row) {\n  const currentText = [current.title, current.summary, current.category, current.angle].filter(Boolean).join(' ');\n  const rowText = [row.title, row.summary, row.category, row.angle, row.draftText].filter(Boolean).join(' ');\n  const tokenScore = jaccard(currentText, rowText);\n  const titleScore = jaccard(current.title, row.title);\n  const summaryScore = jaccard(current.summary, row.summary);\n  const sameCategory = String(current.category || '') && String(current.category || '') === String(row.category || '') ? 0.08 : 0;\n  return Math.max(tokenScore, titleScore * 0.9, summaryScore * 0.8) + sameCategory;\n}\n\nconst recent = recentRows\n  .sort((a, b) => (Date.parse(b.publishedAt || b.updatedAt || b.createdAt || '') || 0) - (Date.parse(a.publishedAt || a.updatedAt || a.createdAt || '') || 0))\n  .slice(0, 20);\n\nlet strongest = { score: 0, match: null };\nfor (const row of recent) {\n  const score = similarity(selected, row);\n  if (score > strongest.score) {\n    strongest = {\n      score,\n      match: row,\n    };\n  }\n}\n\nif (strongest.score >= 0.38) {\n  return [];\n}\n\nreturn [{\n  json: {\n    ...selected,\n    noveltyScore: Number((1 - strongest.score).toFixed(3)),\n    noveltyClosestMatch: strongest.match?.title || '',\n    noveltyClosestCategory: strongest.match?.category || '',\n  }\n}];"
+          "jsCode": "const selected = $items(\"Select Top Topic\")[0]?.json || {};\nconst recentRows = $input.all().map((item) => item.json).filter(Boolean);\n\nfunction normalize(value) {\n  return String(value || '')\n    .toLowerCase()\n    .replace(/<[^>]*>/g, ' ')\n    .replace(/[^a-z0-9]+/g, ' ')\n    .replace(/s+/g, ' ')\n    .trim();\n}\n\nfunction tokenize(text) {\n  return normalize(text)\n    .split(' ')\n    .filter(Boolean)\n    .filter((token) => token.length > 2)\n    .filter((token) => !['the','and','for','with','from','that','this','have','will','your','you','are','new','how','can','our','their','about','into','what','when','why','who','but','not','all','now','use','used','india','indian','very','more','most','just','also','than','then','them','they','been','been'].includes(token));\n}\n\nfunction setFrom(text) {\n  return new Set(tokenize(text));\n}\n\nfunction jaccard(a, b) {\n  const setA = setFrom(a);\n  const setB = setFrom(b);\n  if (!setA.size || !setB.size) return 0;\n  let overlap = 0;\n  for (const token of setA) if (setB.has(token)) overlap++;\n  return overlap / new Set([...setA, ...setB]).size;\n}\n\nfunction similarity(current, row) {\n  const currentText = [current.title, current.summary, current.category, current.angle].filter(Boolean).join(' ');\n  const rowText = [row.title, row.summary, row.category, row.angle, row.draftText].filter(Boolean).join(' ');\n  const tokenScore = jaccard(currentText, rowText);\n  const titleScore = jaccard(current.title, row.title);\n  const summaryScore = jaccard(current.summary, row.summary);\n  const sameCategory = String(current.category || '') && String(current.category || '') === String(row.category || '') ? 0.08 : 0;\n  return Math.max(tokenScore, titleScore * 0.9, summaryScore * 0.8) + sameCategory;\n}\n\nconst recent = recentRows\n  .sort((a, b) => (Date.parse(b.publishedAt || b.updatedAt || b.createdAt || '') || 0) - (Date.parse(a.publishedAt || a.updatedAt || a.createdAt || '') || 0))\n  .slice(0, 20);\n\nlet strongest = { score: 0, match: null };\nfor (const row of recent) {\n  const score = similarity(selected, row);\n  if (score > strongest.score) {\n    strongest = {\n      score,\n      match: row,\n    };\n  }\n}\n\nif (strongest.score >= 0.38) {\n  return [];\n}\n\nreturn [{\n  json: {\n    ...selected,\n    noveltyScore: Number((1 - strongest.score).toFixed(3)),\n    noveltyClosestMatch: strongest.match?.title || '',\n    noveltyClosestCategory: strongest.match?.category || '',\n  }\n}];"
         }
       },
       {
-        "id": "a275a154-341f-4901-a95e-6023e75769fa",
+        "id": "683e2a97-8606-40d8-986c-c7af16a0e548",
         "name": "Only New Topic?",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -163,7 +161,7 @@
         }
       },
       {
-        "id": "de5be567-7864-481e-9723-7af319398502",
+        "id": "1b75c51d-1c12-44fe-93d6-e0c2ca888c6e",
         "name": "Write Carousel Plan",
         "type": "@n8n/n8n-nodes-langchain.openAi",
         "typeVersion": 2.3,
@@ -200,7 +198,7 @@
         }
       },
       {
-        "id": "942425fd-cac5-43e5-a2e5-43ca988da55f",
+        "id": "8db30355-bb6b-42f5-8068-757dc7cc87b2",
         "name": "Prepare Carousel Payload",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -209,11 +207,24 @@
           -160
         ],
         "parameters": {
-          "jsCode": "const plan = $node[\"Write Carousel Plan\"]?.json?.message?.content || {};\nconst token = Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);\nconst hostBase = 'https://ps2109-n8n.hf.space';\nconst slideCount = Array.isArray(plan.slides) ? plan.slides.length : 0;\nconst carouselBaseUrl = hostBase + '/webhook/instagram-carousel-slide';\n\nconst assets = (plan.slides || []).map((slide) => ({\n  image: {\n    url: carouselBaseUrl + '?token=' + encodeURIComponent(token) + '&slide=' + encodeURIComponent(slide.order || 1),\n  },\n}));\n\nreturn [{\n  json: {\n    ...$json,\n    angle: plan.angle || $json.angle || 'observation',\n    captionText: plan.caption || '',\n    hashtags: Array.isArray(plan.hashtags) ? plan.hashtags : [],\n    slides: Array.isArray(plan.slides) ? plan.slides : [],\n    slideCount,\n    carouselToken: token,\n    approvalToken: token,\n    imagePrompt: JSON.stringify(plan, null, 2),\n    candidatePoolJson: JSON.stringify(plan),\n    draftText: plan.caption || '',\n    carouselAssetBase: carouselBaseUrl,\n    carouselAssets: assets,\n    bufferChannelId: '',\n    publishStatus: 'queued',\n    publishUrl: '',\n  }\n}];"
+          "jsCode": "const plan = $node[\"Write Carousel Plan\"]?.json?.message?.content || {};\nconst token = Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);\nconst slideCount = Array.isArray(plan.slides) ? plan.slides.length : 0;\nconst supabaseUrl = String(process.env.SUPABASE_URL || 'https://nlmthljrbgnaevheszvg.supabase.co').replace(//+$/, '');\nconst supabaseBucket = String(process.env.SUPABASE_STORAGE_BUCKET || 'instagram-carousel-assets').trim();\nconst carouselBaseUrl = supabaseUrl + '/storage/v1/object/public/' + supabaseBucket;\n\nreturn [{\n  json: {\n    ...$json,\n    angle: plan.angle || $json.angle || 'observation',\n    captionText: plan.caption || '',\n    hashtags: Array.isArray(plan.hashtags) ? plan.hashtags : [],\n    slides: Array.isArray(plan.slides) ? plan.slides : [],\n    slideCount,\n    carouselToken: token,\n    approvalToken: token,\n    imagePrompt: JSON.stringify(plan, null, 2),\n    candidatePoolJson: JSON.stringify(plan),\n    draftText: plan.caption || '',\n    carouselAssetBase: carouselBaseUrl,\n    carouselAssets: [],\n    carouselStoragePrefix: 'instagram-carousel/' + token,\n    storageBucket: supabaseBucket,\n    bufferChannelId: '',\n    publishStatus: 'queued',\n    publishUrl: '',\n  }\n}];"
         }
       },
       {
-        "id": "fa310c52-f1f9-44f3-8fbb-9a0739174a97",
+        "id": "dc11b63e-d481-43a9-8020-60730d9b7dcd",
+        "name": "Upload Carousel Slides",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -40,
+          -160
+        ],
+        "parameters": {
+          "jsCode": "const sharp = require('sharp');\nconst plan = $json;\nconst slides = Array.isArray(plan.slides) ? plan.slides : [];\nconst token = String(plan.approvalToken || plan.carouselToken || '').trim();\nconst supabaseUrl = String(process.env.SUPABASE_URL || 'https://nlmthljrbgnaevheszvg.supabase.co').replace(//+$/, '');\nconst supabaseKey = String(process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim();\nconst supabaseBucket = String(process.env.SUPABASE_STORAGE_BUCKET || plan.storageBucket || 'instagram-carousel-assets').trim();\nconst storagePrefix = String(plan.carouselStoragePrefix || ('instagram-carousel/' + token)).replace(/^/+|/+$/g, '');\nconst channelName = 'thoughts @ 3:18AM';\n\nif (!supabaseKey) {\n  throw new Error('SUPABASE_SERVICE_ROLE_KEY is required to upload carousel assets.');\n}\n\nif (!supabaseBucket) {\n  throw new Error('SUPABASE_STORAGE_BUCKET is required to upload carousel assets.');\n}\n\nfunction esc(value) {\n  return String(value || '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;');\n}\n\nfunction lines(text, max = 28) {\n  const words = String(text || '').split(/s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = [...line, word].join(' ');\n    if (candidate.length > max && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nfunction slideSvg(text, index, total) {\n  const bodyLines = lines(text, 30).slice(0, 8);\n  const bodySvg = bodyLines.map((line, i) => '<text x=\"128\" y=\"' + (250 + i * 72) + '\" fill=\"#111111\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"54\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\n  return '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\" viewBox=\"0 0 1080 1350\">' +\n    '<rect width=\"1080\" height=\"1350\" fill=\"#ffffff\"/>' +\n    '<circle cx=\"84\" cy=\"86\" r=\"48\" fill=\"#e9e2d7\" stroke=\"#111111\" stroke-width=\"2\"/>' +\n    '<circle cx=\"84\" cy=\"86\" r=\"34\" fill=\"#d4c8b8\"/>' +\n    '<text x=\"152\" y=\"74\" fill=\"#111111\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"60\" font-weight=\"700\">' + esc(channelName) + '</text>' +\n    '<text x=\"152\" y=\"124\" fill=\"#666666\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"30\">Just now • 🌐</text>' +\n    '<circle cx=\"980\" cy=\"82\" r=\"6\" fill=\"#666666\"/>' +\n    '<circle cx=\"1002\" cy=\"82\" r=\"6\" fill=\"#666666\"/>' +\n    '<circle cx=\"1024\" cy=\"82\" r=\"6\" fill=\"#666666\"/>' +\n    '<text x=\"128\" y=\"198\" fill=\"#666666\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\">' + esc('Card ' + index + ' of ' + total) + '</text>' +\n    '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"#111111\">' +\n      bodySvg +\n    '</g>' +\n    '</svg>';\n}\n\nasync function uploadPng(buffer, filePath) {\n  const path = filePath.split('/').map(encodeURIComponent).join('/');\n  const uploadUrl = supabaseUrl + '/storage/v1/object/' + supabaseBucket + '/' + path;\n  const response = await fetch(uploadUrl, {\n    method: 'POST',\n    headers: {\n      apikey: supabaseKey,\n      Authorization: 'Bearer ' + supabaseKey,\n      'Content-Type': 'image/png',\n      'x-upsert': 'true',\n    },\n    body: buffer,\n  });\n\n  if (!response.ok) {\n    const body = await response.text().catch(() => '');\n    throw new Error('Supabase upload failed for ' + filePath + ': ' + response.status + ' ' + response.statusText + ' ' + body);\n  }\n\n  return supabaseUrl + '/storage/v1/object/public/' + supabaseBucket + '/' + path;\n}\n\nconst assets = [];\nfor (let index = 0; index < slides.length; index++) {\n  const slide = slides[index] || {};\n  const slideNumber = Number(slide.order || index + 1);\n  const text = String(slide.text || '').trim();\n  const pngBuffer = await sharp(Buffer.from(slideSvg(text, slideNumber, Math.max(slides.length, 1)))).png().toBuffer();\n  const objectPath = storagePrefix + '/slide-' + slideNumber + '.png';\n  const publicUrl = await uploadPng(pngBuffer, objectPath);\n  assets.push({\n    image: {\n      url: publicUrl,\n    },\n  });\n}\n\nreturn [{\n  json: {\n    ...plan,\n    carouselAssets: assets,\n    carouselAssetBase: supabaseUrl + '/storage/v1/object/public/' + supabaseBucket + '/' + storagePrefix,\n    storageBucket: supabaseBucket,\n    uploadedSlideCount: assets.length,\n    imageUrl: assets[0]?.image?.url || '',\n  }\n}];"
+        }
+      },
+      {
+        "id": "93634077-1c6c-46da-8c76-4bd8d1c6b29b",
         "name": "Upsert Draft Record",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -268,14 +279,14 @@
               "bufferPostId": "",
               "bufferDueAt": "",
               "bufferStatus": "",
-              "imageUrl": ""
+              "imageUrl": "={{ $json.carouselAssets?.[0]?.image?.url || $json.imageUrl || \"\" }}"
             }
           },
           "options": {}
         }
       },
       {
-        "id": "c7419df7-74d1-4d58-9dba-b56c8d7eadac",
+        "id": "ab0c31d8-a270-4359-897c-c68eecfda724",
         "name": "Get Buffer Organizations",
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -301,16 +312,10 @@
           "specifyBody": "json",
           "jsonBody": "={{ { query: \"query GetOrganizations { account { organizations { id name } } }\" } }}",
           "options": {}
-        },
-        "credentials": {
-          "httpBearerAuth": {
-            "id": "yUPkILwBHawgSRsc",
-            "name": "Bearer Auth account"
-          }
         }
       },
       {
-        "id": "dab48c79-bd0a-4ab8-944e-442292a1cadc",
+        "id": "759e8894-1d62-4e22-bee2-3e524d7aad18",
         "name": "Pick Buffer Organization",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -323,7 +328,7 @@
         }
       },
       {
-        "id": "a0d99d98-f7f5-4911-a096-2986d3ec8363",
+        "id": "f9454fba-9f49-401a-a9bd-d7090db4864b",
         "name": "Get Buffer Channels",
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -349,16 +354,10 @@
           "specifyBody": "json",
           "jsonBody": "={{ { query: `query GetChannels { channels(input: { organizationId: \"${$json.bufferOrganizationId}\" }) { id name displayName service avatar isQueuePaused } }` } }}",
           "options": {}
-        },
-        "credentials": {
-          "httpBearerAuth": {
-            "id": "yUPkILwBHawgSRsc",
-            "name": "Bearer Auth account"
-          }
         }
       },
       {
-        "id": "6694ea2c-f5e3-42cd-970a-b55501827ed4",
+        "id": "9b23a6ab-54c0-47aa-96b3-a01c54422a6f",
         "name": "Pick Instagram Channel",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -371,7 +370,7 @@
         }
       },
       {
-        "id": "155b064b-1735-4c72-aa60-935c12c176e6",
+        "id": "55e57790-8e9f-470c-9e84-9956cdab56e0",
         "name": "Queue in Buffer",
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -397,16 +396,10 @@
           "specifyBody": "json",
           "jsonBody": "={{ (() => { const caption = $json.captionText || \"\"; const assets = ($json.carouselAssets || []).map((asset) => \"{ image: { url: \" + JSON.stringify(asset.image.url) + \" } }\").join(\", \"); return { query: \"mutation CreatePost { createPost(input: { text: \" + JSON.stringify(caption) + \", channelId: \\\"\" + $json.bufferChannelId + \"\\\", schedulingType: automatic, mode: addToQueue, assets: [\" + assets + \"] }) { ... on PostActionSuccess { post { id text dueAt status } } ... on MutationError { message } } }\" }; })() }}",
           "options": {}
-        },
-        "credentials": {
-          "httpBearerAuth": {
-            "id": "yUPkILwBHawgSRsc",
-            "name": "Bearer Auth account"
-          }
         }
       },
       {
-        "id": "d4edb8de-5b69-4e6c-bf18-e26f8f046597",
+        "id": "b5e3dd1c-26d0-448e-bb37-a34909a86b69",
         "name": "Upsert Published Record",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -461,14 +454,14 @@
               "bufferPostId": "={{ $node[\"Queue in Buffer\"].json.data.createPost.post.id || \"\" }}",
               "bufferDueAt": "={{ $node[\"Queue in Buffer\"].json.data.createPost.post.dueAt || \"\" }}",
               "bufferStatus": "={{ $node[\"Queue in Buffer\"].json.data.createPost.post.status || \"scheduled\" }}",
-              "imageUrl": ""
+              "imageUrl": "={{ $json.carouselAssets?.[0]?.image?.url || $json.imageUrl || \"\" }}"
             }
           },
           "options": {}
         }
       },
       {
-        "id": "81229e3b-fa03-4354-8040-064ed8a6f2fb",
+        "id": "a52f34d4-f166-45df-8478-8273ad54eb16",
         "name": "Lookup Carousel",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -496,7 +489,7 @@
         }
       },
       {
-        "id": "0254113d-0a9e-41d8-a1a5-89a78b5afd5e",
+        "id": "98365ca7-1aae-4702-a780-4e0b52b96fcd",
         "name": "Render Slide PNG",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -505,11 +498,11 @@
           320
         ],
         "parameters": {
-          "jsCode": "const sharp = require('sharp');\nconst request = $node[\"Instagram Slide Webhook\"]?.json || $json;\nconst token = String(request.query?.token || '').trim();\nconst slideIndex = Math.max(1, Number(request.query?.slide || 1));\nconst record = $input.first()?.json || {};\n\nif (!token) {\n  const errorSvg = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\"><rect width=\"1080\" height=\"1350\" fill=\"#111\"/><text x=\"70\" y=\"110\" fill=\"#fff\" font-size=\"44\" font-family=\"Arial\">Missing token</text></svg>';\n  const errorPng = await sharp(Buffer.from(errorSvg)).png().toBuffer();\n  return [{\n    json: {\n      mimeType: 'image/png',\n      fileName: 'instagram-slide-error.png',\n    },\n    binary: {\n      data: {\n        data: errorPng.toString('base64'),\n        mimeType: 'image/png',\n        fileName: 'instagram-slide-error.png',\n      },\n    },\n  }];\n}\n\nlet plan = {};\ntry {\n  plan = record.candidatePoolJson ? JSON.parse(record.candidatePoolJson) : {};\n} catch (error) {\n  plan = {};\n}\n\nconst slides = Array.isArray(plan.slides) ? plan.slides : [];\nconst slide = slides.find((entry) => Number(entry.order || 0) === slideIndex) || slides[slideIndex - 1] || { text: 'Missing slide text.' };\nconst title = String(record.title || plan.title || '');\nconst body = String(slide.text || '').trim();\nconst accent = '#ffffff';\nconst dark = '#111111';\nconst subtle = '#666666';\nconst channelName = 'thoughts @ 3:18AM';\n\nfunction esc(value) {\n  return String(value || '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;');\n}\n\nfunction lines(text, max = 28) {\n  const words = String(text || '').split(/\\s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = [...line, word].join(' ');\n    if (candidate.length > max && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nconst bodyLines = lines(body, 30).slice(0, 8);\nconst titleLines = lines(title, 34).slice(0, 2);\n\nconst titleSvg = titleLines.map((line, index) => '<text x=\"128\" y=\"' + (236 + index * 56) + '\" font-size=\"34\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\nconst bodySvg = bodyLines.map((line, index) => '<text x=\"128\" y=\"' + (360 + index * 72) + '\" font-size=\"54\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\n\nconst svg = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\" viewBox=\"0 0 1080 1350\">' +\n  '<defs>' +\n    '<linearGradient id=\"bg\" x1=\"0\" x2=\"1\" y1=\"0\" y2=\"1\">' +\n      '<stop offset=\"0%\" stop-color=\"' + accent + '\"/>' +\n      '<stop offset=\"100%\" stop-color=\"#ffffff\"/>' +\n    '</linearGradient>' +\n  '</defs>' +\n  '<rect width=\"1080\" height=\"1350\" fill=\"url(#bg)\"/>' +\n  '<circle cx=\"84\" cy=\"86\" r=\"48\" fill=\"#e9e2d7\" stroke=\"#111111\" stroke-width=\"2\"/>' +\n  '<circle cx=\"84\" cy=\"86\" r=\"34\" fill=\"#d4c8b8\"/>' +\n  '<text x=\"152\" y=\"74\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"60\" font-weight=\"700\">' + esc(channelName) + '</text>' +\n  '<text x=\"152\" y=\"124\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"30\">' + esc('Just now • 🌐') + '</text>' +\n  '<circle cx=\"1002\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n  '<circle cx=\"1024\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n  '<circle cx=\"1046\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n  '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n    titleSvg +\n  '</g>' +\n  '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n    bodySvg +\n  '</g>' +\n'</svg>';\n\nconst pngBuffer = await sharp(Buffer.from(svg)).png().toBuffer();\n\nreturn [{\n  json: {\n    mimeType: 'image/png',\n    fileName: 'instagram-slide-' + slideIndex + '.png',\n  },\n  binary: {\n    data: {\n      data: pngBuffer.toString('base64'),\n      mimeType: 'image/png',\n      fileName: 'instagram-slide-' + slideIndex + '.png',\n    },\n  },\n}];"
+          "jsCode": "const sharp = require('sharp');\nconst request = $node[\"Instagram Slide Webhook\"]?.json || $json;\nconst token = String(request.query?.token || '').trim();\nconst slideIndex = Math.max(1, Number(request.query?.slide || 1));\nconst record = $input.first()?.json || {};\n\nif (!token) {\n  const errorSvg = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\"><rect width=\"1080\" height=\"1350\" fill=\"#111\"/><text x=\"70\" y=\"110\" fill=\"#fff\" font-size=\"44\" font-family=\"Arial\">Missing token</text></svg>';\n  const errorPng = await sharp(Buffer.from(errorSvg)).png().toBuffer();\n  return [{\n    json: {\n      mimeType: 'image/png',\n      fileName: 'instagram-slide-error.png',\n    },\n    binary: {\n      data: await this.helpers.prepareBinaryData(errorPng, 'instagram-slide-error.png', 'image/png'),\n    },\n  }];\n}\n\nlet plan = {};\ntry {\n  plan = record.candidatePoolJson ? JSON.parse(record.candidatePoolJson) : {};\n} catch (error) {\n  plan = {};\n}\n\nconst slides = Array.isArray(plan.slides) ? plan.slides : [];\nconst slide = slides.find((entry) => Number(entry.order || 0) === slideIndex) || slides[slideIndex - 1] || { text: 'Missing slide text.' };\nconst title = String(record.title || plan.title || '');\nconst body = String(slide.text || '').trim();\nconst accent = '#ffffff';\nconst dark = '#111111';\nconst subtle = '#666666';\nconst channelName = 'thoughts @ 3:18AM';\n\nfunction esc(value) {\n  return String(value || '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;');\n}\n\nfunction lines(text, max = 28) {\n  const words = String(text || '').split(/s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = [...line, word].join(' ');\n    if (candidate.length > max && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nconst bodyLines = lines(body, 30).slice(0, 8);\nconst titleLines = lines(title, 34).slice(0, 2);\n\nconst titleSvg = titleLines.map((line, index) => '<text x=\"128\" y=\"' + (236 + index * 56) + '\" font-size=\"34\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\nconst bodySvg = bodyLines.map((line, index) => '<text x=\"128\" y=\"' + (360 + index * 72) + '\" font-size=\"54\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\n\nconst svg = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\" viewBox=\"0 0 1080 1350\">' +\n  '<defs>' +\n    '<linearGradient id=\"bg\" x1=\"0\" x2=\"1\" y1=\"0\" y2=\"1\">' +\n      '<stop offset=\"0%\" stop-color=\"' + accent + '\"/>' +\n      '<stop offset=\"100%\" stop-color=\"#ffffff\"/>' +\n    '</linearGradient>' +\n  '</defs>' +\n  '<rect width=\"1080\" height=\"1350\" fill=\"url(#bg)\"/>' +\n  '<circle cx=\"84\" cy=\"86\" r=\"48\" fill=\"#e9e2d7\" stroke=\"#111111\" stroke-width=\"2\"/>' +\n  '<circle cx=\"84\" cy=\"86\" r=\"34\" fill=\"#d4c8b8\"/>' +\n  '<text x=\"152\" y=\"74\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"60\" font-weight=\"700\">' + esc(channelName) + '</text>' +\n  '<text x=\"152\" y=\"124\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"30\">' + esc('Just now • 🌐') + '</text>' +\n  '<circle cx=\"1002\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n  '<circle cx=\"1024\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n  '<circle cx=\"1046\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n  '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n    titleSvg +\n  '</g>' +\n  '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n    bodySvg +\n  '</g>' +\n'</svg>';\n\nconst pngBuffer = await sharp(Buffer.from(svg)).png().toBuffer();\n\nreturn [{\n  json: {\n    mimeType: 'image/png',\n    fileName: 'instagram-slide-' + slideIndex + '.png',\n  },\n  binary: {\n    data: await this.helpers.prepareBinaryData(pngBuffer, 'instagram-slide-' + slideIndex + '.png', 'image/png'),\n  },\n}];"
         }
       },
       {
-        "id": "a031a145-5025-4bf3-8c92-db6e6a105ac3",
+        "id": "995f91fb-aa00-4866-a130-23de7173488a",
         "name": "Render Preview PNG",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -518,7 +511,43 @@
           520
         ],
         "parameters": {
-          "jsCode": "const sharp = require('sharp');\nconst request = $node[\"Instagram Preview Webhook\"]?.json || $json;\nconst showSet = String(request.query?.set || request.query?.mode || '').toLowerCase() === '1' || String(request.query?.mode || '').toLowerCase() === 'set';\nconst channelName = 'thoughts @ 3:18AM';\nconst dark = '#111111';\nconst subtle = '#666666';\n\nfunction esc(value) {\n  return String(value || '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;');\n}\n\nfunction lines(text, max = 30) {\n  const words = String(text || '').split(/\\s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = [...line, word].join(' ');\n    if (candidate.length > max && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nfunction slideSvg(text, idx, total) {\n  const bodyLines = lines(text, 28).slice(0, 8);\n  const bodySvg = bodyLines.map((line, i) => '<text x=\"128\" y=\"' + (250 + i * 72) + '\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"54\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\n  return '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\" viewBox=\"0 0 1080 1350\">' +\n    '<rect width=\"1080\" height=\"1350\" fill=\"#ffffff\"/>' +\n    '<circle cx=\"84\" cy=\"86\" r=\"48\" fill=\"#e9e2d7\" stroke=\"#111111\" stroke-width=\"2\"/>' +\n    '<circle cx=\"84\" cy=\"86\" r=\"34\" fill=\"#d4c8b8\"/>' +\n    '<text x=\"152\" y=\"74\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"60\" font-weight=\"700\">' + esc(channelName) + '</text>' +\n    '<text x=\"152\" y=\"124\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"30\">Just now • 🌐</text>' +\n    '<circle cx=\"1002\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n    '<circle cx=\"1024\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n    '<circle cx=\"1046\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n    '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n      bodySvg +\n    '</g>' +\n    '<text x=\"128\" y=\"1238\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\">Swipe for the next card</text>' +\n    '</svg>';\n}\n\nconst sampleSlides = [\n  'The greatest creative work ever made was not made by people who had it figured out.',\n  'It was made by people who felt too much, noticed too much, and cared too much.',\n  'Instead of numbing it, they made something out of it.',\n  'Sensitivity was not what they overcame to create.',\n  'It was what they created from.',\n  'Ordinary life gets harder when you feel things a little more deeply.',\n  'That is not a flaw. It is the raw material.',\n];\n\nif (showSet) {\n  const slideBuffers = [];\n  for (let i = 0; i < sampleSlides.length; i++) {\n    const png = await sharp(Buffer.from(slideSvg(sampleSlides[i], i + 1, sampleSlides.length))).png().toBuffer();\n    slideBuffers.push(png);\n  }\n\n  const width = 1080;\n  const height = 1350 * sampleSlides.length;\n  const composite = slideBuffers.map((buffer, index) => ({\n    input: buffer,\n    left: 0,\n    top: index * 1350,\n  }));\n\n  const sheet = await sharp({\n    create: {\n      width,\n      height,\n      channels: 4,\n      background: '#ffffff',\n    },\n  }).composite(composite).png().toBuffer();\n\n  return [{\n    json: {\n      mimeType: 'image/png',\n      fileName: 'instagram-preview-set.png',\n    },\n    binary: {\n      data: {\n        data: sheet.toString('base64'),\n        mimeType: 'image/png',\n        fileName: 'instagram-preview-set.png',\n      },\n    },\n  }];\n}\n\nconst previewPng = await sharp(Buffer.from(slideSvg(sampleSlides[0], 1, sampleSlides.length))).png().toBuffer();\n\nreturn [{\n  json: {\n    mimeType: 'image/png',\n    fileName: 'instagram-preview.png',\n  },\n  binary: {\n    data: {\n      data: previewPng.toString('base64'),\n      mimeType: 'image/png',\n      fileName: 'instagram-preview.png',\n    },\n  },\n}];"
+          "jsCode": "const sharp = require('sharp');\nconst request = $node[\"Instagram Preview Webhook\"]?.json || $json;\nconst showSet = String(request.query?.set || request.query?.mode || '').toLowerCase() === '1' || String(request.query?.mode || '').toLowerCase() === 'set';\nconst channelName = 'thoughts @ 3:18AM';\nconst dark = '#111111';\nconst subtle = '#666666';\n\nfunction esc(value) {\n  return String(value || '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;');\n}\n\nfunction lines(text, max = 30) {\n  const words = String(text || '').split(/s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = [...line, word].join(' ');\n    if (candidate.length > max && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nfunction slideSvg(text, idx, total) {\n  const bodyLines = lines(text, 28).slice(0, 8);\n  const bodySvg = bodyLines.map((line, i) => '<text x=\"128\" y=\"' + (250 + i * 72) + '\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"54\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\n  return '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\" viewBox=\"0 0 1080 1350\">' +\n    '<rect width=\"1080\" height=\"1350\" fill=\"#ffffff\"/>' +\n    '<circle cx=\"84\" cy=\"86\" r=\"48\" fill=\"#e9e2d7\" stroke=\"#111111\" stroke-width=\"2\"/>' +\n    '<circle cx=\"84\" cy=\"86\" r=\"34\" fill=\"#d4c8b8\"/>' +\n    '<text x=\"152\" y=\"74\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"60\" font-weight=\"700\">' + esc(channelName) + '</text>' +\n    '<text x=\"152\" y=\"124\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"30\">Just now • 🌐</text>' +\n    '<circle cx=\"1002\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n    '<circle cx=\"1024\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n    '<circle cx=\"1046\" cy=\"82\" r=\"6\" fill=\"' + subtle + '\"/>' +\n    '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n      bodySvg +\n    '</g>' +\n    '<text x=\"128\" y=\"1238\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\">Swipe for the next card</text>' +\n    '</svg>';\n}\n\nconst sampleSlides = [\n  'The greatest creative work ever made was not made by people who had it figured out.',\n  'It was made by people who felt too much, noticed too much, and cared too much.',\n  'Instead of numbing it, they made something out of it.',\n  'Sensitivity was not what they overcame to create.',\n  'It was what they created from.',\n  'Ordinary life gets harder when you feel things a little more deeply.',\n  'That is not a flaw. It is the raw material.',\n];\n\nif (showSet) {\n  const slideBuffers = [];\n  for (let i = 0; i < sampleSlides.length; i++) {\n    const png = await sharp(Buffer.from(slideSvg(sampleSlides[i], i + 1, sampleSlides.length))).png().toBuffer();\n    slideBuffers.push(png);\n  }\n\n  const width = 1080;\n  const height = 1350 * sampleSlides.length;\n  const composite = slideBuffers.map((buffer, index) => ({\n    input: buffer,\n    left: 0,\n    top: index * 1350,\n  }));\n\n  const sheet = await sharp({\n    create: {\n      width,\n      height,\n      channels: 4,\n      background: '#ffffff',\n    },\n  }).composite(composite).png().toBuffer();\n\n  return [{\n    json: {\n      mimeType: 'image/png',\n      fileName: 'instagram-preview-set.png',\n    },\n    binary: {\n      data: await this.helpers.prepareBinaryData(sheet, 'instagram-preview-set.png', 'image/png'),\n    },\n  }];\n}\n\nconst previewPng = await sharp(Buffer.from(slideSvg(sampleSlides[0], 1, sampleSlides.length))).png().toBuffer();\n\nreturn [{\n  json: {\n    mimeType: 'image/png',\n    fileName: 'instagram-preview.png',\n  },\n  binary: {\n    data: await this.helpers.prepareBinaryData(previewPng, 'instagram-preview.png', 'image/png'),\n  },\n}];"
+        }
+      },
+      {
+        "id": "aacd7c52-8fa3-43bd-b934-e90213415d6d",
+        "name": "Respond Slide PNG",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1.5,
+        "position": [
+          -960,
+          320
+        ],
+        "parameters": {
+          "respondWith": "binary",
+          "responseDataSource": "set",
+          "inputFieldName": "data",
+          "options": {
+            "responseCode": 200
+          }
+        }
+      },
+      {
+        "id": "9d06c394-ca5b-4b3c-91c6-8608ec32967e",
+        "name": "Respond Preview PNG",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1.5,
+        "position": [
+          -960,
+          520
+        ],
+        "parameters": {
+          "respondWith": "binary",
+          "responseDataSource": "set",
+          "inputFieldName": "data",
+          "options": {
+            "responseCode": 200
+          }
         }
       }
     ],
@@ -539,6 +568,17 @@
           [
             {
               "node": "Render Preview PNG",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Render Preview PNG": {
+        "main": [
+          [
+            {
+              "node": "Respond Preview PNG",
               "type": "main",
               "index": 0
             }
@@ -623,6 +663,17 @@
         ]
       },
       "Prepare Carousel Payload": {
+        "main": [
+          [
+            {
+              "node": "Upload Carousel Slides",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Upload Carousel Slides": {
         "main": [
           [
             {
@@ -720,6 +771,17 @@
             }
           ]
         ]
+      },
+      "Render Slide PNG": {
+        "main": [
+          [
+            {
+              "node": "Respond Slide PNG",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "settings": {
@@ -730,6 +792,6 @@
     "meta": {
       "templateCredsSetupCompleted": false
     },
-    "versionId": "c28b35d0-2d33-44f3-9396-cd328807012d"
+    "versionId": "42f49bfe-4cbd-4f6b-9907-a63d5e1ff9ec"
   }
 ]
