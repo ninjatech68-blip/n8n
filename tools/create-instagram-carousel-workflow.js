@@ -639,6 +639,21 @@ return survivors.map((picked) => {
     },
   });
 
+  const collapseHarvestForBacklogLookup = node({
+    name: 'Collapse Harvest For Backlog Lookup',
+    type: 'n8n-nodes-base.code',
+    typeVersion: 2,
+    position: [-840, -320],
+    parameters: {
+      jsCode: `// Harvest & Categorize can emit up to 25 candidate items. Fetch Recent Topics is a
+// declarative dataTable "get" node, which (like most regular n8n nodes) runs once per
+// input item by default - collapse to a single item first so it queries exactly once
+// instead of redundantly re-fetching the whole table per candidate.
+const harvestedCandidateCount = $input.all().length;
+return [{ json: { harvestedCandidateCount } }];`,
+    },
+  });
+
   const fetchRecentTopics = node({
     name: 'Fetch Recent Topics',
     type: 'n8n-nodes-base.dataTable',
@@ -1494,7 +1509,7 @@ function bandCheckFor(slide) {
   return checkBand(slide.role, countWords(slide.text));
 }
 
-async function rewriteSlides(targets, instructionForTarget) {
+const rewriteSlides = async (targets, instructionForTarget) => {
   if (!targets.length) return {};
   const model = process.env.CURATOR_MODEL_MINI || 'gpt-5.4-mini';
   const payload = targets.map((slide) => ({
@@ -1530,7 +1545,7 @@ async function rewriteSlides(targets, instructionForTarget) {
   } catch (error) {
     return {};
   }
-}
+};
 
 const bandTargets = working.filter((slide) => bandCheckFor(slide).verdict !== 'target');
 
@@ -2411,6 +2426,7 @@ return [{
       buildSourceList,
       fetchRss,
       harvestAndCategorize,
+      collapseHarvestForBacklogLookup,
       fetchRecentTopics,
       gateCandidates,
       verifyNumericClaims,
@@ -2459,6 +2475,9 @@ return [{
         main: [[{ node: 'Harvest & Categorize', type: 'main', index: 0 }]],
       },
       'Harvest & Categorize': {
+        main: [[{ node: 'Collapse Harvest For Backlog Lookup', type: 'main', index: 0 }]],
+      },
+      'Collapse Harvest For Backlog Lookup': {
         main: [[{ node: 'Fetch Recent Topics', type: 'main', index: 0 }]],
       },
       'Fetch Recent Topics': {

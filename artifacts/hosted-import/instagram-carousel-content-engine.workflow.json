@@ -1,11 +1,11 @@
 [
   {
-    "id": "81ed4084-6014-4b98-8c6f-3c5c98075548",
+    "id": "1693b364-a7ba-4959-98bf-5a8acafdad68",
     "name": "Instagram Carousel Trend Engine",
     "active": true,
     "nodes": [
       {
-        "id": "8390c105-280b-471a-83bb-7cca39c6e10a",
+        "id": "bde98075-ead6-42c3-9da0-f5245c090fcd",
         "name": "Schedule Trigger",
         "type": "n8n-nodes-base.scheduleTrigger",
         "typeVersion": 1.3,
@@ -24,7 +24,7 @@
         }
       },
       {
-        "id": "1f492970-0d3c-40e8-99ed-b02a40cf893a",
+        "id": "8b7b661e-d7f6-429d-8e6c-9722f9c17fbe",
         "name": "Instagram Slide Webhook",
         "type": "n8n-nodes-base.webhook",
         "typeVersion": 2,
@@ -38,10 +38,10 @@
           "httpMethod": "GET",
           "responseMode": "responseNode"
         },
-        "webhookId": "9fbeb9a5-a450-4ebb-a32b-c1bc209c04a8"
+        "webhookId": "7cfabb91-b45c-4900-ae62-fce2d88f282a"
       },
       {
-        "id": "bbc7c1d8-ead5-47f3-b707-b0c0bf6a0132",
+        "id": "d0446438-2cdb-44a1-b3f0-ce638905e0c1",
         "name": "Instagram Preview Webhook",
         "type": "n8n-nodes-base.webhook",
         "typeVersion": 2,
@@ -55,10 +55,10 @@
           "httpMethod": "GET",
           "responseMode": "responseNode"
         },
-        "webhookId": "561f2ae8-672b-40b4-a93a-cfc540c26818"
+        "webhookId": "25585752-9920-4023-b324-08bfc7725cd5"
       },
       {
-        "id": "4a362075-6742-4128-a5cd-2b2dc0fa1372",
+        "id": "8d97a3e2-3c45-4cae-95ec-cce58a1693a2",
         "name": "Build Source List",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -71,7 +71,7 @@
         }
       },
       {
-        "id": "c0e456da-f8f6-4c60-a923-dee1bb95da51",
+        "id": "7f23b27f-3160-4822-9af6-1c6e4eb44b84",
         "name": "Fetch RSS Feed",
         "type": "n8n-nodes-base.rssFeedRead",
         "typeVersion": 1.2,
@@ -88,7 +88,7 @@
         }
       },
       {
-        "id": "46da7581-b4d1-401b-b8f0-072f1c645e20",
+        "id": "91d5d223-31a9-4c1a-bf1f-654b690c3824",
         "name": "Harvest & Categorize",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -101,7 +101,20 @@
         }
       },
       {
-        "id": "e86ddde4-8c10-4583-8677-531dda04b40c",
+        "id": "e27b3cb3-80c2-4ea3-9b44-7141f7dee3fa",
+        "name": "Collapse Harvest For Backlog Lookup",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -840,
+          -320
+        ],
+        "parameters": {
+          "jsCode": "// Harvest & Categorize can emit up to 25 candidate items. Fetch Recent Topics is a\n// declarative dataTable \"get\" node, which (like most regular n8n nodes) runs once per\n// input item by default - collapse to a single item first so it queries exactly once\n// instead of redundantly re-fetching the whole table per candidate.\nconst harvestedCandidateCount = $input.all().length;\nreturn [{ json: { harvestedCandidateCount } }];"
+        }
+      },
+      {
+        "id": "04160406-f431-4d5a-b01d-673fe5cb435e",
         "name": "Fetch Recent Topics",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -121,7 +134,7 @@
         }
       },
       {
-        "id": "85c4c6d0-4f73-4837-9a85-09fa1c862606",
+        "id": "b480f655-fa71-47e8-96dd-60907511665d",
         "name": "Gate Candidates",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -134,7 +147,7 @@
         }
       },
       {
-        "id": "f715e84d-e6a9-471a-9231-c2c987056fe2",
+        "id": "30b04cd3-1f9e-4847-9c64-a1f2766da4dc",
         "name": "Verify Numeric Claims",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -147,7 +160,7 @@
         }
       },
       {
-        "id": "447aff1a-6cc6-4513-bb23-f19ea3107cfd",
+        "id": "65bc63d9-b3cd-40a8-9d19-729790e5c525",
         "name": "Redundancy Check",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -160,7 +173,7 @@
         }
       },
       {
-        "id": "26c4c438-79ea-485e-959b-4ca7397360c4",
+        "id": "63359ea7-a8a0-4b6d-baca-f4888341fb34",
         "name": "Concept Pairing",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -173,7 +186,7 @@
         }
       },
       {
-        "id": "f2d7c9d1-8aaf-408f-be5d-f40e53e4ff7e",
+        "id": "8673f724-7e49-4e64-a788-e17292a4e295",
         "name": "Model Knowledge Lane",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -192,7 +205,7 @@
         }
       },
       {
-        "id": "393948de-db56-434f-93dd-7d4fd6220ffd",
+        "id": "29f6d1d0-2163-4be8-be69-e1750b55b476",
         "name": "Curator Enrich & Score",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -211,7 +224,7 @@
         }
       },
       {
-        "id": "a9657cc3-bd0e-4385-876b-9150e1287479",
+        "id": "7bb660da-3d4a-40ce-a1b6-2c1cc18900d1",
         "name": "Two-Reader Recheck & Quotas",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -230,7 +243,7 @@
         }
       },
       {
-        "id": "9526e149-49a6-4759-b5c3-bd56198ddb16",
+        "id": "da118c3e-2ed4-4dab-a104-4f3b35bbd468",
         "name": "Mark Concepts Used",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -243,7 +256,7 @@
         }
       },
       {
-        "id": "5453a6b3-b61d-4e11-ae5a-042e9e9f502f",
+        "id": "cc75ee15-1c94-4f06-afd6-67b27cab2eaa",
         "name": "Insert Backlog Cards",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -303,7 +316,7 @@
         }
       },
       {
-        "id": "1b196d09-4bfc-4703-b84a-6be2364e4447",
+        "id": "d1f91870-bbbb-434b-898d-4c8e8052d7f7",
         "name": "Collapse After Insert",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -316,7 +329,7 @@
         }
       },
       {
-        "id": "59ec05ac-948c-4913-a877-439d4bf05e64",
+        "id": "4dbbe789-8eeb-4a15-81d0-7c27af983ac9",
         "name": "Fetch Backlog For Selection",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -336,7 +349,7 @@
         }
       },
       {
-        "id": "73b6264f-e9bb-431d-a626-26a96c0c4ece",
+        "id": "8b5979fd-0c92-4fdd-b749-28534e7a8b80",
         "name": "Select Top Backlog Topic",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -349,7 +362,7 @@
         }
       },
       {
-        "id": "492fc3e5-e75e-48a5-87de-3478d0b09acc",
+        "id": "5b825855-a7f2-4869-b760-377a6d237d73",
         "name": "Write Carousel Plan",
         "type": "@n8n/n8n-nodes-langchain.openAi",
         "typeVersion": 2.3,
@@ -386,7 +399,7 @@
         }
       },
       {
-        "id": "1b435bf0-6d54-4deb-bf59-0a899b98556f",
+        "id": "61f9891b-69db-4713-b5ee-4ca1f6c32357",
         "name": "Enforce Word Bands & Rhythm",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -395,7 +408,7 @@
           -160
         ],
         "parameters": {
-          "jsCode": "\nconst WORD_BANDS = {\n  essay: { target: [50, 65], soft: { under: [40, 49], over: [66, 80] }, hard: { min: 30, max: 80 } },\n  punch: { target: [28, 40], soft: { over: [41, 48] }, hard: { min: 18, max: 48 } },\n  bookend: { target: [38, 55], soft: { under: [30, 37], over: [56, 65] }, hard: { min: 25, max: 70 } },\n  mini: { target: [45, 65], soft: { under: [35, 44], over: [66, 75] }, hard: { min: 25, max: 80 } },\n  observation: { target: [38, 50], soft: { under: [30, 37], over: [51, 58] }, hard: { min: 22, max: 60 } },\n  card: { target: [30, 60], soft: { under: [22, 29], over: [61, 70] }, hard: { min: 15, max: 75 } },\n};\n\nfunction countWords(text) {\n  return String(text || '').trim().split(/\\s+/).filter(Boolean).length;\n}\n\nfunction classifySlideRole(order, total, punchSlideIndex) {\n  if (order === 1 || order === total) return 'bookend';\n  if (punchSlideIndex && Number(punchSlideIndex) === Number(order)) return 'punch';\n  return 'essay';\n}\n\nfunction checkBand(role, wordCount) {\n  const band = WORD_BANDS[role] || WORD_BANDS.essay;\n  const result = { role: role, wordCount: wordCount, target: band.target, hardMin: band.hard.min, hardMax: band.hard.max };\n  if (wordCount < band.hard.min || wordCount > band.hard.max) {\n    result.verdict = 'hard_fail';\n    result.direction = wordCount < band.hard.min ? 'expand' : 'cut';\n    return result;\n  }\n  if (wordCount >= band.target[0] && wordCount <= band.target[1]) {\n    result.verdict = 'target';\n    result.direction = null;\n    return result;\n  }\n  if (band.soft.under && wordCount >= band.soft.under[0] && wordCount <= band.soft.under[1]) {\n    result.verdict = 'soft_under';\n    result.direction = 'expand';\n    return result;\n  }\n  if (band.soft.over && wordCount >= band.soft.over[0] && wordCount <= band.soft.over[1]) {\n    result.verdict = 'soft_over';\n    result.direction = 'cut';\n    return result;\n  }\n  result.verdict = 'target';\n  result.direction = null;\n  return result;\n}\n\nfunction wrapLines(text, maxCharsPerLine) {\n  const words = String(text || '').split(/\\s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = line.concat([word]).join(' ');\n    if (candidate.length > maxCharsPerLine && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nfunction splitSentences(text) {\n  const matches = String(text || '').match(/[^.!?]+[.!?]*/g);\n  return matches ? matches.map(function (entry) { return entry.trim(); }).filter(Boolean) : [String(text || '').trim()].filter(Boolean);\n}\n\nfunction splitParagraphs(text, maxWordsBeforeSplit) {\n  const trimmed = String(text || '').trim();\n  const threshold = maxWordsBeforeSplit || 45;\n  if (countWords(trimmed) <= threshold) return [trimmed];\n  const sentences = splitSentences(trimmed);\n  if (sentences.length < 2) return [trimmed];\n  const midpointChar = trimmed.length / 2;\n  let bestIndex = 0;\n  let bestDistance = Infinity;\n  let runningLength = 0;\n  for (let i = 0; i < sentences.length - 1; i++) {\n    runningLength += sentences[i].length + 1;\n    const distance = Math.abs(runningLength - midpointChar);\n    if (distance < bestDistance) {\n      bestDistance = distance;\n      bestIndex = i;\n    }\n  }\n  const first = sentences.slice(0, bestIndex + 1).join(' ').trim();\n  const second = sentences.slice(bestIndex + 1).join(' ').trim();\n  return [first, second].filter(Boolean);\n}\n\nfunction renderedLineCount(paragraphs, maxCharsPerLine) {\n  let total = 0;\n  for (const paragraph of paragraphs) {\n    total += wrapLines(paragraph, maxCharsPerLine).length;\n  }\n  return total;\n}\n\nfunction sentenceMixWarnings(text) {\n  const wordCounts = splitSentences(text).map(function (sentence) {\n    return sentence.split(/\\s+/).filter(Boolean).length;\n  });\n  const warnings = [];\n  if (!wordCounts.some(function (count) { return count <= 8; })) warnings.push('no_short_sentence');\n  for (let i = 0; i < wordCounts.length - 1; i++) {\n    if (wordCounts[i] > 20 && wordCounts[i + 1] > 20) warnings.push('consecutive_long_sentences');\n  }\n  return warnings;\n}\n\nconst upstream = $json.message?.content || $json;\nconst plan = (upstream && typeof upstream === 'object') ? upstream : {};\nconst rawSlides = Array.isArray(plan.slides) ? plan.slides : [];\nconst total = rawSlides.length;\n\nfunction resolvePunchSlideIndex() {\n  const declared = Number(plan.punchSlideIndex);\n  const validRange = rawSlides.some((slide) => Number(slide.order) === declared) && declared > 1 && declared < total;\n  if (declared && validRange) return declared;\n  const midSlides = rawSlides.filter((slide) => Number(slide.order) > 1 && Number(slide.order) < total);\n  if (!midSlides.length) return null;\n  let shortest = { order: Number(midSlides[0].order), words: countWords(midSlides[0].text) };\n  for (const slide of midSlides) {\n    const words = countWords(slide.text);\n    if (words < shortest.words) shortest = { order: Number(slide.order), words };\n  }\n  return shortest.order;\n}\n\nconst punchSlideIndex = resolvePunchSlideIndex();\nconst MAX_CHARS_PER_LINE = 28;\nconst MAX_LINES = 10;\n\nlet working = rawSlides.map((slide) => {\n  const order = Number(slide.order) || 0;\n  const role = classifySlideRole(order, total, punchSlideIndex);\n  return { ...slide, order, role, text: String(slide.text || '').trim() };\n});\n\nfunction bandCheckFor(slide) {\n  return checkBand(slide.role, countWords(slide.text));\n}\n\nasync function rewriteSlides(targets, instructionForTarget) {\n  if (!targets.length) return {};\n  const model = process.env.CURATOR_MODEL_MINI || 'gpt-5.4-mini';\n  const payload = targets.map((slide) => ({\n    order: slide.order,\n    role: slide.role,\n    currentText: slide.text,\n    instruction: instructionForTarget(slide),\n  }));\n  const systemPrompt = 'You rewrite single Instagram carousel slides to hit a word-count band without ' +\n    'padding or over-compressing. For an expand instruction, add one concrete detail or one beat of the ' +\n    'character - never filler words. For a cut instruction, remove a clause - never delete words until the ' +\n    'sentence becomes a choppy fragment. Preserve meaning and voice. Output strict JSON ' +\n    '{ \"rewrites\": [ { \"order\": 1, \"text\": \"...\" } ] }.';\n  try {\n    const response = await this.helpers.httpRequestWithAuthentication.call(this, 'openAiApi', {\n      method: 'POST',\n      url: 'https://api.openai.com/v1/chat/completions',\n      body: {\n        model,\n        messages: [\n          { role: 'system', content: systemPrompt },\n          { role: 'user', content: JSON.stringify(payload) },\n        ],\n        response_format: { type: 'json_object' },\n      },\n      json: true,\n    });\n    const parsed = JSON.parse(response.choices?.[0]?.message?.content || '{}');\n    const rewrites = Array.isArray(parsed.rewrites) ? parsed.rewrites : [];\n    const byOrder = {};\n    for (const entry of rewrites) byOrder[Number(entry.order)] = String(entry.text || '').trim();\n    return byOrder;\n  } catch (error) {\n    return {};\n  }\n}\n\nconst bandTargets = working.filter((slide) => bandCheckFor(slide).verdict !== 'target');\n\nif (bandTargets.length) {\n  const rewrites = await rewriteSlides(bandTargets, (slide) => {\n    const check = bandCheckFor(slide);\n    return check.direction === 'expand'\n      ? ('Expand to ' + check.target[0] + '-' + check.target[1] + ' words by adding one concrete detail or one beat of the character. Never pad with adjectives.')\n      : ('Cut to ' + check.target[0] + '-' + check.target[1] + ' words by removing a clause. Never produce a choppy fragment.');\n  });\n  working = working.map((slide) => (rewrites[slide.order] ? { ...slide, text: rewrites[slide.order] } : slide));\n}\n\nfunction paragraphsFor(slide) {\n  if (slide.role === 'punch') return [slide.text];\n  return splitParagraphs(slide.text, 45);\n}\n\nconst overflowTargets = working.filter((slide) => renderedLineCount(paragraphsFor(slide), MAX_CHARS_PER_LINE) > MAX_LINES);\nif (overflowTargets.length) {\n  const rewrites = await rewriteSlides(overflowTargets, () =>\n    ('Cut this slide so it renders in at most ' + MAX_LINES + ' lines on a phone card. Remove a clause, never compress into a fragment.')\n  );\n  working = working.map((slide) => (rewrites[slide.order] ? { ...slide, text: rewrites[slide.order] } : slide));\n}\n\nconst bandReport = [];\nworking = working.map((slide) => {\n  const wordCount = countWords(slide.text);\n  const band = checkBand(slide.role, wordCount);\n  let finalParagraphs = paragraphsFor(slide);\n  let renderOverflow = false;\n  if (renderedLineCount(finalParagraphs, MAX_CHARS_PER_LINE) > MAX_LINES) {\n    renderOverflow = true;\n    const words = slide.text.split(/\\s+/).filter(Boolean);\n    const approxWordsPerLine = MAX_CHARS_PER_LINE / 6;\n    const keepWords = Math.max(10, Math.floor(MAX_LINES * approxWordsPerLine));\n    const trimmedText = words.slice(0, keepWords).join(' ');\n    finalParagraphs = slide.role === 'punch' ? [trimmedText] : splitParagraphs(trimmedText, 45);\n  }\n  const finalText = finalParagraphs.join('\\n\\n');\n  bandReport.push({\n    order: slide.order,\n    role: slide.role,\n    wordCount: countWords(finalText),\n    verdict: band.verdict,\n    lineCount: renderedLineCount(finalParagraphs, MAX_CHARS_PER_LINE),\n    renderOverflow,\n    sentenceMixWarnings: sentenceMixWarnings(finalText),\n  });\n  return { ...slide, text: finalText, paragraphs: finalParagraphs, wordCount: countWords(finalText) };\n});\n\nconst punchCount = working.filter((slide) => slide.role === 'punch').length;\nconst lengthVariety = new Set(working.map((slide) => slide.wordCount)).size > 1;\nconst hasOverflow = bandReport.some((entry) => entry.renderOverflow);\nconst hasHardFail = bandReport.some((entry) => entry.verdict === 'hard_fail');\nlet rhythmScore = 5;\nif (punchCount !== 1) rhythmScore -= 1;\nif (!lengthVariety) rhythmScore -= 1;\nif (hasOverflow) rhythmScore -= 2;\nif (hasHardFail) rhythmScore -= 1;\nrhythmScore = Math.max(1, Math.min(5, rhythmScore));\n\nreturn [{\n  json: {\n    ...plan,\n    slides: working,\n    punchSlideIndex,\n    bandReport,\n    rhythmScore,\n  },\n}];"
+          "jsCode": "\nconst WORD_BANDS = {\n  essay: { target: [50, 65], soft: { under: [40, 49], over: [66, 80] }, hard: { min: 30, max: 80 } },\n  punch: { target: [28, 40], soft: { over: [41, 48] }, hard: { min: 18, max: 48 } },\n  bookend: { target: [38, 55], soft: { under: [30, 37], over: [56, 65] }, hard: { min: 25, max: 70 } },\n  mini: { target: [45, 65], soft: { under: [35, 44], over: [66, 75] }, hard: { min: 25, max: 80 } },\n  observation: { target: [38, 50], soft: { under: [30, 37], over: [51, 58] }, hard: { min: 22, max: 60 } },\n  card: { target: [30, 60], soft: { under: [22, 29], over: [61, 70] }, hard: { min: 15, max: 75 } },\n};\n\nfunction countWords(text) {\n  return String(text || '').trim().split(/\\s+/).filter(Boolean).length;\n}\n\nfunction classifySlideRole(order, total, punchSlideIndex) {\n  if (order === 1 || order === total) return 'bookend';\n  if (punchSlideIndex && Number(punchSlideIndex) === Number(order)) return 'punch';\n  return 'essay';\n}\n\nfunction checkBand(role, wordCount) {\n  const band = WORD_BANDS[role] || WORD_BANDS.essay;\n  const result = { role: role, wordCount: wordCount, target: band.target, hardMin: band.hard.min, hardMax: band.hard.max };\n  if (wordCount < band.hard.min || wordCount > band.hard.max) {\n    result.verdict = 'hard_fail';\n    result.direction = wordCount < band.hard.min ? 'expand' : 'cut';\n    return result;\n  }\n  if (wordCount >= band.target[0] && wordCount <= band.target[1]) {\n    result.verdict = 'target';\n    result.direction = null;\n    return result;\n  }\n  if (band.soft.under && wordCount >= band.soft.under[0] && wordCount <= band.soft.under[1]) {\n    result.verdict = 'soft_under';\n    result.direction = 'expand';\n    return result;\n  }\n  if (band.soft.over && wordCount >= band.soft.over[0] && wordCount <= band.soft.over[1]) {\n    result.verdict = 'soft_over';\n    result.direction = 'cut';\n    return result;\n  }\n  result.verdict = 'target';\n  result.direction = null;\n  return result;\n}\n\nfunction wrapLines(text, maxCharsPerLine) {\n  const words = String(text || '').split(/\\s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = line.concat([word]).join(' ');\n    if (candidate.length > maxCharsPerLine && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nfunction splitSentences(text) {\n  const matches = String(text || '').match(/[^.!?]+[.!?]*/g);\n  return matches ? matches.map(function (entry) { return entry.trim(); }).filter(Boolean) : [String(text || '').trim()].filter(Boolean);\n}\n\nfunction splitParagraphs(text, maxWordsBeforeSplit) {\n  const trimmed = String(text || '').trim();\n  const threshold = maxWordsBeforeSplit || 45;\n  if (countWords(trimmed) <= threshold) return [trimmed];\n  const sentences = splitSentences(trimmed);\n  if (sentences.length < 2) return [trimmed];\n  const midpointChar = trimmed.length / 2;\n  let bestIndex = 0;\n  let bestDistance = Infinity;\n  let runningLength = 0;\n  for (let i = 0; i < sentences.length - 1; i++) {\n    runningLength += sentences[i].length + 1;\n    const distance = Math.abs(runningLength - midpointChar);\n    if (distance < bestDistance) {\n      bestDistance = distance;\n      bestIndex = i;\n    }\n  }\n  const first = sentences.slice(0, bestIndex + 1).join(' ').trim();\n  const second = sentences.slice(bestIndex + 1).join(' ').trim();\n  return [first, second].filter(Boolean);\n}\n\nfunction renderedLineCount(paragraphs, maxCharsPerLine) {\n  let total = 0;\n  for (const paragraph of paragraphs) {\n    total += wrapLines(paragraph, maxCharsPerLine).length;\n  }\n  return total;\n}\n\nfunction sentenceMixWarnings(text) {\n  const wordCounts = splitSentences(text).map(function (sentence) {\n    return sentence.split(/\\s+/).filter(Boolean).length;\n  });\n  const warnings = [];\n  if (!wordCounts.some(function (count) { return count <= 8; })) warnings.push('no_short_sentence');\n  for (let i = 0; i < wordCounts.length - 1; i++) {\n    if (wordCounts[i] > 20 && wordCounts[i + 1] > 20) warnings.push('consecutive_long_sentences');\n  }\n  return warnings;\n}\n\nconst upstream = $json.message?.content || $json;\nconst plan = (upstream && typeof upstream === 'object') ? upstream : {};\nconst rawSlides = Array.isArray(plan.slides) ? plan.slides : [];\nconst total = rawSlides.length;\n\nfunction resolvePunchSlideIndex() {\n  const declared = Number(plan.punchSlideIndex);\n  const validRange = rawSlides.some((slide) => Number(slide.order) === declared) && declared > 1 && declared < total;\n  if (declared && validRange) return declared;\n  const midSlides = rawSlides.filter((slide) => Number(slide.order) > 1 && Number(slide.order) < total);\n  if (!midSlides.length) return null;\n  let shortest = { order: Number(midSlides[0].order), words: countWords(midSlides[0].text) };\n  for (const slide of midSlides) {\n    const words = countWords(slide.text);\n    if (words < shortest.words) shortest = { order: Number(slide.order), words };\n  }\n  return shortest.order;\n}\n\nconst punchSlideIndex = resolvePunchSlideIndex();\nconst MAX_CHARS_PER_LINE = 28;\nconst MAX_LINES = 10;\n\nlet working = rawSlides.map((slide) => {\n  const order = Number(slide.order) || 0;\n  const role = classifySlideRole(order, total, punchSlideIndex);\n  return { ...slide, order, role, text: String(slide.text || '').trim() };\n});\n\nfunction bandCheckFor(slide) {\n  return checkBand(slide.role, countWords(slide.text));\n}\n\nconst rewriteSlides = async (targets, instructionForTarget) => {\n  if (!targets.length) return {};\n  const model = process.env.CURATOR_MODEL_MINI || 'gpt-5.4-mini';\n  const payload = targets.map((slide) => ({\n    order: slide.order,\n    role: slide.role,\n    currentText: slide.text,\n    instruction: instructionForTarget(slide),\n  }));\n  const systemPrompt = 'You rewrite single Instagram carousel slides to hit a word-count band without ' +\n    'padding or over-compressing. For an expand instruction, add one concrete detail or one beat of the ' +\n    'character - never filler words. For a cut instruction, remove a clause - never delete words until the ' +\n    'sentence becomes a choppy fragment. Preserve meaning and voice. Output strict JSON ' +\n    '{ \"rewrites\": [ { \"order\": 1, \"text\": \"...\" } ] }.';\n  try {\n    const response = await this.helpers.httpRequestWithAuthentication.call(this, 'openAiApi', {\n      method: 'POST',\n      url: 'https://api.openai.com/v1/chat/completions',\n      body: {\n        model,\n        messages: [\n          { role: 'system', content: systemPrompt },\n          { role: 'user', content: JSON.stringify(payload) },\n        ],\n        response_format: { type: 'json_object' },\n      },\n      json: true,\n    });\n    const parsed = JSON.parse(response.choices?.[0]?.message?.content || '{}');\n    const rewrites = Array.isArray(parsed.rewrites) ? parsed.rewrites : [];\n    const byOrder = {};\n    for (const entry of rewrites) byOrder[Number(entry.order)] = String(entry.text || '').trim();\n    return byOrder;\n  } catch (error) {\n    return {};\n  }\n};\n\nconst bandTargets = working.filter((slide) => bandCheckFor(slide).verdict !== 'target');\n\nif (bandTargets.length) {\n  const rewrites = await rewriteSlides(bandTargets, (slide) => {\n    const check = bandCheckFor(slide);\n    return check.direction === 'expand'\n      ? ('Expand to ' + check.target[0] + '-' + check.target[1] + ' words by adding one concrete detail or one beat of the character. Never pad with adjectives.')\n      : ('Cut to ' + check.target[0] + '-' + check.target[1] + ' words by removing a clause. Never produce a choppy fragment.');\n  });\n  working = working.map((slide) => (rewrites[slide.order] ? { ...slide, text: rewrites[slide.order] } : slide));\n}\n\nfunction paragraphsFor(slide) {\n  if (slide.role === 'punch') return [slide.text];\n  return splitParagraphs(slide.text, 45);\n}\n\nconst overflowTargets = working.filter((slide) => renderedLineCount(paragraphsFor(slide), MAX_CHARS_PER_LINE) > MAX_LINES);\nif (overflowTargets.length) {\n  const rewrites = await rewriteSlides(overflowTargets, () =>\n    ('Cut this slide so it renders in at most ' + MAX_LINES + ' lines on a phone card. Remove a clause, never compress into a fragment.')\n  );\n  working = working.map((slide) => (rewrites[slide.order] ? { ...slide, text: rewrites[slide.order] } : slide));\n}\n\nconst bandReport = [];\nworking = working.map((slide) => {\n  const wordCount = countWords(slide.text);\n  const band = checkBand(slide.role, wordCount);\n  let finalParagraphs = paragraphsFor(slide);\n  let renderOverflow = false;\n  if (renderedLineCount(finalParagraphs, MAX_CHARS_PER_LINE) > MAX_LINES) {\n    renderOverflow = true;\n    const words = slide.text.split(/\\s+/).filter(Boolean);\n    const approxWordsPerLine = MAX_CHARS_PER_LINE / 6;\n    const keepWords = Math.max(10, Math.floor(MAX_LINES * approxWordsPerLine));\n    const trimmedText = words.slice(0, keepWords).join(' ');\n    finalParagraphs = slide.role === 'punch' ? [trimmedText] : splitParagraphs(trimmedText, 45);\n  }\n  const finalText = finalParagraphs.join('\\n\\n');\n  bandReport.push({\n    order: slide.order,\n    role: slide.role,\n    wordCount: countWords(finalText),\n    verdict: band.verdict,\n    lineCount: renderedLineCount(finalParagraphs, MAX_CHARS_PER_LINE),\n    renderOverflow,\n    sentenceMixWarnings: sentenceMixWarnings(finalText),\n  });\n  return { ...slide, text: finalText, paragraphs: finalParagraphs, wordCount: countWords(finalText) };\n});\n\nconst punchCount = working.filter((slide) => slide.role === 'punch').length;\nconst lengthVariety = new Set(working.map((slide) => slide.wordCount)).size > 1;\nconst hasOverflow = bandReport.some((entry) => entry.renderOverflow);\nconst hasHardFail = bandReport.some((entry) => entry.verdict === 'hard_fail');\nlet rhythmScore = 5;\nif (punchCount !== 1) rhythmScore -= 1;\nif (!lengthVariety) rhythmScore -= 1;\nif (hasOverflow) rhythmScore -= 2;\nif (hasHardFail) rhythmScore -= 1;\nrhythmScore = Math.max(1, Math.min(5, rhythmScore));\n\nreturn [{\n  json: {\n    ...plan,\n    slides: working,\n    punchSlideIndex,\n    bandReport,\n    rhythmScore,\n  },\n}];"
         },
         "credentials": {
           "openAiApi": {
@@ -405,7 +418,7 @@
         }
       },
       {
-        "id": "0f074919-794c-4f58-90a5-db28354400b4",
+        "id": "81e43431-46db-4d2e-a0aa-dd292d42b06f",
         "name": "Prepare Carousel Payload",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -418,7 +431,7 @@
         }
       },
       {
-        "id": "23c7f99c-3818-46ff-8045-27287b9dd3dd",
+        "id": "d04dd85c-c701-471a-94bc-977018bd53a2",
         "name": "Upload Carousel Slides",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -431,7 +444,7 @@
         }
       },
       {
-        "id": "fbbb8e89-1a70-4d87-923f-27784c028ca1",
+        "id": "8cc9453a-54dc-465e-9549-7ef411ef27f0",
         "name": "Upsert Draft Record",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -493,7 +506,7 @@
         }
       },
       {
-        "id": "0c8cddbf-1d86-4983-b8dc-c1bdda727271",
+        "id": "65d93b93-8a56-40e4-a23f-5a44c30f5d34",
         "name": "Generate End Response",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -506,7 +519,7 @@
         }
       },
       {
-        "id": "52486019-5706-4dd2-8858-c850ae022678",
+        "id": "3676c460-1ecd-4ebb-9681-d66a8aeb87cc",
         "name": "Get Buffer Organizations",
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -535,7 +548,7 @@
         }
       },
       {
-        "id": "ff07b09d-eba8-4939-a6bf-1bb426f2b9fc",
+        "id": "d6edefb2-37aa-4045-a8b4-f6693a074a65",
         "name": "Pick Buffer Organization",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -548,7 +561,7 @@
         }
       },
       {
-        "id": "0b87ed88-d6dc-49df-9cb2-e9caf5bf65d6",
+        "id": "5eb03cbd-204a-49c5-9fdb-de8ab4d05f8a",
         "name": "Get Buffer Channels",
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -577,7 +590,7 @@
         }
       },
       {
-        "id": "531660a5-806b-4b72-bf31-dd4977921582",
+        "id": "79c88857-675c-4265-b53d-97e685afbd35",
         "name": "Pick Instagram Channel",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -590,7 +603,7 @@
         }
       },
       {
-        "id": "4ae92329-8993-4154-967f-24b48d7a7b94",
+        "id": "4e8bd151-2e24-4db9-97de-7da682d1f2bd",
         "name": "Queue in Buffer",
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -619,7 +632,7 @@
         }
       },
       {
-        "id": "9d7b129f-e4a3-42a9-b60c-85c90cda9ba5",
+        "id": "7a451ede-272e-4023-8284-286de174208f",
         "name": "Upsert Published Record",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -681,7 +694,7 @@
         }
       },
       {
-        "id": "fdbadc69-4318-44de-8064-afd47bfc8505",
+        "id": "4a9cfae3-7370-435b-a6c2-0612cb2f044c",
         "name": "Lookup Carousel",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -709,7 +722,7 @@
         }
       },
       {
-        "id": "558c541a-fb7a-4026-ae3a-ec1bbcf53fb1",
+        "id": "474223d3-0d60-47b6-8315-91df0f4e7e96",
         "name": "Render Slide PNG",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -722,7 +735,7 @@
         }
       },
       {
-        "id": "5e2b24d6-16db-4b58-9851-66bb41c0374c",
+        "id": "22d347a3-5f90-4bb0-a69e-827e5273a1cf",
         "name": "Render Preview PNG",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -735,7 +748,7 @@
         }
       },
       {
-        "id": "b41c54bf-3d23-4cea-993f-6acbaa92adf0",
+        "id": "cedc60eb-fd14-4447-81e0-696b31c1a3be",
         "name": "Respond Slide PNG",
         "type": "n8n-nodes-base.respondToWebhook",
         "typeVersion": 1.5,
@@ -753,7 +766,7 @@
         }
       },
       {
-        "id": "4ea02f36-1de0-43b5-9667-91ae00b68584",
+        "id": "8c12bf0f-534f-46e0-b95e-250cc5abd522",
         "name": "Respond Preview PNG",
         "type": "n8n-nodes-base.respondToWebhook",
         "typeVersion": 1.5,
@@ -828,6 +841,17 @@
         ]
       },
       "Harvest & Categorize": {
+        "main": [
+          [
+            {
+              "node": "Collapse Harvest For Backlog Lookup",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Collapse Harvest For Backlog Lookup": {
         "main": [
           [
             {
@@ -1144,6 +1168,6 @@
     "meta": {
       "templateCredsSetupCompleted": false
     },
-    "versionId": "6cd36d4e-4c98-46ec-9901-e5a61acdb9a9"
+    "versionId": "5a1c0aa2-c8f2-47eb-840e-7282ed32d8d0"
   }
 ]
