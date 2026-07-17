@@ -141,7 +141,7 @@ Production smoke test:
 
 For the Hugging Face route, you will need to set the Space env vars manually in the Hugging Face UI from the values in `.env.hf.example`.
 
-If you are using the Instagram carousel renderer, keep `NODE_FUNCTION_ALLOW_EXTERNAL=sharp` set so the n8n Code node can load `sharp` and return PNG slide images.
+If you are using the Instagram carousel renderer, keep `NODE_FUNCTION_ALLOW_EXTERNAL=sharp,pg` set so the n8n Code node can load `sharp` (PNG rendering) and `pg` (curator tables, see below).
 
 The production publishing path also expects these Supabase storage settings in the Hugging Face Space:
 
@@ -161,3 +161,60 @@ Production bootstrap:
 - On every boot it refreshes the workflow definition, restores `activeVersionId`, and ensures the preview and slide webhook registrations match the export.
 - The import targets hosted project `eY86xW2dysjsQrAK`.
 - The import is idempotent by workflow id, so restarts update the same workflow instead of creating duplicates.
+
+## Curator pipeline (agentic sourcing)
+
+Each trigger run harvests candidates (RSS/Reddit feeds plus Google Trends India), then runs them through a
+curator pipeline before anything gets drafted:
+
+1. **Harvest & Categorize** scores and dedupes raw candidates from all sources.
+2. **Gate Candidates** applies a banned-topic list and reweights scores to fill gaps in the existing backlog
+   (so one category or nerve doesn't dominate).
+3. **Verify Numeric Claims** fetches the source page for any candidate with a number in it; if the number
+   can't be confirmed on the page, the claim is rewritten numberless rather than asserted.
+4. **Redundancy Check** kills anything too similar (Jaccard similarity) to recent backlog rows or to
+   `circulating_takes`, a running log of ideas that have already circulated.
+5. **Concept Pairing** attaches at most one behavioral concept from `concept_library` per card, respecting a
+   90-day reuse cooldown.
+6. **Model Knowledge Lane** occasionally proposes an evergreen, numberless behavioral card from the model's
+   own knowledge (capped at 30% of the backlog, checked against `circulating_takes` at a stricter threshold).
+7. **Curator Enrich & Score** is the one high-value LLM call: it takes the gated candidates and produces
+   topic cards with an inversion, a named reader archetype, an India-causal explanation, and six sub-scores.
+8. **Two-Reader Recheck & Quotas** re-scores a sample with a cheaper model (hostile on freshness for
+   model-knowledge cards) and enforces the model-knowledge cap.
+9. Surviving cards are upserted into `content_topics` as backlog (`status: 'queued'`); the drafting flow then
+   always picks the highest-scoring queued card, so the backlog naturally builds and drains over time instead
+   of every run being forced to harvest something fresh.
+
+Two extra Postgres tables back this (`circulating_takes`, `concept_library`); the workflow creates them itself
+on first use (`CREATE TABLE IF NOT EXISTS`), or you can apply
+`artifacts/hosted-import/instagram-curator-schema.sql` by hand to seed `concept_library` up front. The new
+curator metadata (inversion, reader archetype, concept, sub-scores, etc.) is carried inside the existing
+`candidatePoolJson` column on `content_topics` rather than as new typed columns, since that table is an
+n8n-managed Data Table whose schema this script can't alter.
+
+Optional env vars: `CURATOR_MODEL_TOP` (the enrich-and-score call, defaults to `gpt-5.4`) and
+`CURATOR_MODEL_MINI` (recheck, model-knowledge proposals, and band rewrites, defaults to `gpt-5.4-mini`).
+
+## Rhythm and word-band enforcement
+
+After the carousel copy is written, an `Enforce Word Bands & Rhythm` step runs before anything is rendered:
+
+- Slides 1 and 7 are bookends (38-55 words), one slide among 2-6 is the declared punch slide (28-40 words),
+  and the rest are essay slides (50-65 words). Slides outside the soft band get one targeted expand/cut
+  rewrite; slides still outside the hard band after that get a mechanical safety trim.
+- Any slide over 45 words is split into two paragraphs at the sentence boundary closest to the midpoint
+  (punch slides stay single-paragraph).
+- The renderer enforces a hard 10-line cap per slide at the fitted font size (line-height 1.45, with a 0.8
+  line-height gap between paragraph blocks); this is checked pre-render (with one cut rewrite if needed) and
+  clamped again defensively inside the SVG renderers themselves.
+
+This replaced the old advisory-only `very_short_slide` / `no_short_punch_slide` checks with hard enforcement.
+
+## Known limitation: Reddit pre-validation
+
+The curator model prompt references upvotes as "pre-validation" for Reddit-sourced cards, but this workflow
+fetches Reddit via its public `.rss` feeds, which don't include upvote counts (unlike Reddit's JSON listing
+API). `preValidation` is left `null` for Reddit-sourced candidates rather than faked. Switching the Reddit
+fetch from RSS to `https://www.reddit.com/r/<sub>/top.json` would restore real upvote/comment numbers if
+that matters enough to add the extra HTTP branch.

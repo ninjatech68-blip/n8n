@@ -1,11 +1,11 @@
 [
   {
-    "id": "9ff3df6a-f40c-4f24-8af9-085be9aa09d6",
+    "id": "81ed4084-6014-4b98-8c6f-3c5c98075548",
     "name": "Instagram Carousel Trend Engine",
     "active": true,
     "nodes": [
       {
-        "id": "f40c5ddc-8612-41bd-8c8e-dc055914393f",
+        "id": "8390c105-280b-471a-83bb-7cca39c6e10a",
         "name": "Schedule Trigger",
         "type": "n8n-nodes-base.scheduleTrigger",
         "typeVersion": 1.3,
@@ -24,7 +24,7 @@
         }
       },
       {
-        "id": "147452a0-b6ab-432a-a768-cbc398859adf",
+        "id": "1f492970-0d3c-40e8-99ed-b02a40cf893a",
         "name": "Instagram Slide Webhook",
         "type": "n8n-nodes-base.webhook",
         "typeVersion": 2,
@@ -38,10 +38,10 @@
           "httpMethod": "GET",
           "responseMode": "responseNode"
         },
-        "webhookId": "2e03beb5-6f79-4c14-ae3b-2d1ae75bf6e7"
+        "webhookId": "9fbeb9a5-a450-4ebb-a32b-c1bc209c04a8"
       },
       {
-        "id": "e488ee33-afb6-4511-aa3a-c421ca124104",
+        "id": "bbc7c1d8-ead5-47f3-b707-b0c0bf6a0132",
         "name": "Instagram Preview Webhook",
         "type": "n8n-nodes-base.webhook",
         "typeVersion": 2,
@@ -55,10 +55,10 @@
           "httpMethod": "GET",
           "responseMode": "responseNode"
         },
-        "webhookId": "466e1598-e379-4fbc-a0fe-78c6cebb62b6"
+        "webhookId": "561f2ae8-672b-40b4-a93a-cfc540c26818"
       },
       {
-        "id": "f49dfa9e-0483-481e-84a1-3f37a730851f",
+        "id": "4a362075-6742-4128-a5cd-2b2dc0fa1372",
         "name": "Build Source List",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -67,11 +67,11 @@
           -160
         ],
         "parameters": {
-          "jsCode": "const sources = [\n  {\n    sourceName: 'RBI RSS',\n    sourceType: 'official',\n    feedUrl: 'https://www.rbi.org.in/Scripts/rss.aspx',\n    trustScore: 5,\n    category: 'finance',\n    notes: 'Anchor source for credit, EMIs, inflation, lending, and rates.',\n  },\n  {\n    sourceName: 'Reuters Business',\n    sourceType: 'news',\n    feedUrl: 'https://feeds.reuters.com/reuters/businessNews',\n    trustScore: 5,\n    category: 'business',\n    notes: 'Clean macro and business context.',\n  },\n  {\n    sourceName: 'Scroll',\n    sourceType: 'news',\n    feedUrl: 'https://scroll.in/feed',\n    trustScore: 4,\n    category: 'india',\n    notes: 'India context with readable editorial framing.',\n  },\n  {\n    sourceName: 'r/AmItheAsshole',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/AmItheAsshole/.rss',\n    trustScore: 2,\n    category: 'drama',\n    notes: 'Moral tension, conflict, and judgment bait.',\n  },\n  {\n    sourceName: 'r/relationship_advice',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/relationship_advice/.rss',\n    trustScore: 2,\n    category: 'relationships',\n    notes: 'Relationship friction and emotionally sticky situations.',\n  },\n  {\n    sourceName: 'r/tifu',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/tifu/.rss',\n    trustScore: 2,\n    category: 'drama',\n    notes: 'Mistakes, embarrassment, and human drama.',\n  },\n  {\n    sourceName: 'r/unpopularopinion',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/unpopularopinion/.rss',\n    trustScore: 2,\n    category: 'controversy',\n    notes: 'Hot takes and opinion tension.',\n  },\n  {\n    sourceName: 'r/mildlyinfuriating',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/mildlyinfuriating/.rss',\n    trustScore: 2,\n    category: 'viral',\n    notes: 'Small annoyances and relatable irritation.',\n  },\n  {\n    sourceName: 'r/interestingasfuck',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/interestingasfuck/.rss',\n    trustScore: 2,\n    category: 'curiosity',\n    notes: 'Fast curiosity hooks and shareable weirdness.',\n  },\n  {\n    sourceName: 'r/oddlysatisfying',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/oddlysatisfying/.rss',\n    trustScore: 2,\n    category: 'viral',\n    notes: 'Visual dopamine and oddly satisfying loops.',\n  },\n  {\n    sourceName: 'r/aww',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/aww/.rss',\n    trustScore: 2,\n    category: 'animals',\n    notes: 'Cute animal content for lighter dopamine breaks.',\n  },\n  {\n    sourceName: 'r/worldnews',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/worldnews/.rss',\n    trustScore: 2,\n    category: 'news',\n    notes: 'Broad current events signal and headline gravity.',\n  },\n];\n\nreturn sources.map((source) => ({ json: source }));"
+          "jsCode": "const sources = [\n  {\n    sourceName: 'RBI RSS',\n    sourceType: 'official',\n    feedUrl: 'https://www.rbi.org.in/Scripts/rss.aspx',\n    trustScore: 5,\n    category: 'finance',\n    notes: 'Anchor source for credit, EMIs, inflation, lending, and rates.',\n  },\n  {\n    sourceName: 'Reuters Business',\n    sourceType: 'news',\n    feedUrl: 'https://feeds.reuters.com/reuters/businessNews',\n    trustScore: 5,\n    category: 'business',\n    notes: 'Clean macro and business context.',\n  },\n  {\n    sourceName: 'Scroll',\n    sourceType: 'news',\n    feedUrl: 'https://scroll.in/feed',\n    trustScore: 4,\n    category: 'india',\n    notes: 'India context with readable editorial framing.',\n  },\n  {\n    sourceName: 'Google Trends India',\n    sourceType: 'trends',\n    feedUrl: 'https://trends.google.com/trending/rss?geo=IN',\n    trustScore: 3,\n    category: 'india',\n    notes: 'Live-moment signal for the curator and the daily micro-run.',\n  },\n  {\n    sourceName: 'r/AmItheAsshole',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/AmItheAsshole/.rss',\n    trustScore: 2,\n    category: 'drama',\n    notes: 'Moral tension, conflict, and judgment bait.',\n  },\n  {\n    sourceName: 'r/relationship_advice',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/relationship_advice/.rss',\n    trustScore: 2,\n    category: 'relationships',\n    notes: 'Relationship friction and emotionally sticky situations.',\n  },\n  {\n    sourceName: 'r/tifu',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/tifu/.rss',\n    trustScore: 2,\n    category: 'drama',\n    notes: 'Mistakes, embarrassment, and human drama.',\n  },\n  {\n    sourceName: 'r/unpopularopinion',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/unpopularopinion/.rss',\n    trustScore: 2,\n    category: 'controversy',\n    notes: 'Hot takes and opinion tension.',\n  },\n  {\n    sourceName: 'r/mildlyinfuriating',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/mildlyinfuriating/.rss',\n    trustScore: 2,\n    category: 'viral',\n    notes: 'Small annoyances and relatable irritation.',\n  },\n  {\n    sourceName: 'r/interestingasfuck',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/interestingasfuck/.rss',\n    trustScore: 2,\n    category: 'curiosity',\n    notes: 'Fast curiosity hooks and shareable weirdness.',\n  },\n  {\n    sourceName: 'r/oddlysatisfying',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/oddlysatisfying/.rss',\n    trustScore: 2,\n    category: 'viral',\n    notes: 'Visual dopamine and oddly satisfying loops.',\n  },\n  {\n    sourceName: 'r/aww',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/aww/.rss',\n    trustScore: 2,\n    category: 'animals',\n    notes: 'Cute animal content for lighter dopamine breaks.',\n  },\n  {\n    sourceName: 'r/worldnews',\n    sourceType: 'reddit',\n    feedUrl: 'https://www.reddit.com/r/worldnews/.rss',\n    trustScore: 2,\n    category: 'news',\n    notes: 'Broad current events signal and headline gravity.',\n  },\n];\n\nreturn sources.map((source) => ({ json: source }));"
         }
       },
       {
-        "id": "16eade31-2994-461c-a8cc-97be63723967",
+        "id": "c0e456da-f8f6-4c60-a923-dee1bb95da51",
         "name": "Fetch RSS Feed",
         "type": "n8n-nodes-base.rssFeedRead",
         "typeVersion": 1.2,
@@ -88,8 +88,8 @@
         }
       },
       {
-        "id": "2e801a6a-953e-4a7f-8b20-7fe653d662b5",
-        "name": "Select Top Topic",
+        "id": "46da7581-b4d1-401b-b8f0-072f1c645e20",
+        "name": "Harvest & Categorize",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
@@ -97,11 +97,11 @@
           -160
         ],
         "parameters": {
-          "jsCode": "const items = $input.all();\n\nfunction normalize(value) {\n  return String(value || '')\n    .toLowerCase()\n    .replace(/<[^>]*>/g, ' ')\n    .replace(/[^a-z0-9]+/g, ' ')\n    .replace(/s+/g, ' ')\n    .trim();\n}\n\nfunction hostnameFromUrl(url) {\n  try {\n    return new URL(url).hostname.replace(/^www./, '');\n  } catch (error) {\n    return '';\n  }\n}\n\nfunction tokenize(text) {\n  return normalize(text)\n    .split(' ')\n    .filter(Boolean)\n    .filter((token) => token.length > 2)\n    .filter((token) => !['the','and','for','with','from','that','this','have','will','your','you','are','new','how','can','our','their','about','into','what','when','why','who','but','not','all','now','use','uses','used','india','indian'].includes(token));\n}\n\nfunction pickCategory(text) {\n  if (/cricket|match|ipl|bcci|world cup|sports?/.test(text)) return 'sports';\n  if (/food|restaurant|dosa|biryani|cafe|eat|chef|menu/.test(text)) return 'food';\n  if (/bollywood|actor|actress|movie|film|celebrity|star/.test(text)) return 'culture';\n  if (/startup|founder|business|funding|company|market|economy/.test(text)) return 'business';\n  if (/work|office|job|salary|manager|meeting|career|productivity/.test(text)) return 'work';\n  if (/dating|relationship|marriage|wedding|family|parent|parents|relative|single|breakup|divorce|situationship/.test(text)) return 'relationships';\n  if (/delhi|mumbai|bengaluru|bangalore|pune|hyderabad|chennai|kolkata|city|metro|traffic|weather/.test(text)) return 'cities';\n  if (/tax|invest|mutual fund|stock|price|money|inflation|budget|bank|loan/.test(text)) return 'finance';\n  if (/health|fitness|gym|workout|weight|body|skin|skincare|diet|sleep|mental|mindset|therapy|stress/.test(text)) return 'fitness';\n  if (/travel|trip|flight|hotel|destination|tour|vacation|budget travel|backpack/.test(text)) return 'travel';\n  if (/reddit|viral|satisfying|oddly|interesting|funny|meme|wtf|wow|crazy|shocking|insane/.test(text)) return 'viral';\n  if (/animal|dog|cat|pet|wildlife|nature|aww/.test(text)) return 'animals';\n  if (/opinion|hot take|controversy|outrage|drama|argument|fight|asshole|tifu/.test(text)) return 'drama';\n  if (/curious|obscure|weird|hidden|unknown|history|atlas obscura|wikipedia|nautilus|wait but why/.test(text)) return 'curiosity';\n  return 'india';\n}\n\nfunction scoreItem(item) {\n  const sourceUrl = String(item.json.link || item.json.url || '').trim();\n  const title = String(item.json.title || '').trim();\n  const summary = String(item.json.contentSnippet || item.json.content || item.json.summary || '').replace(/<[^>]*>/g, ' ').replace(/s+/g, ' ').trim();\n  const text = normalize(title + ' ' + summary + ' ' + sourceUrl);\n  const host = hostnameFromUrl(sourceUrl);\n  const category = pickCategory(text);\n\n  const officialHosts = ['rbi.org.in', 'sebi.gov.in', 'pib.gov.in'];\n  const sourceTrust = officialHosts.some((domain) => host.includes(domain))\n    ? 5\n    : host.includes('news.google.com')\n      ? 3\n      : 2;\n\n  const positiveTerms = [\n    /india/i,\n    /indian/i,\n    /cricket/i,\n    /bollywood/i,\n    /food/i,\n    /restaurant/i,\n    /city/i,\n    /metro/i,\n    /traffic/i,\n    /startup/i,\n    /business/i,\n    /work/i,\n    /office/i,\n    /career/i,\n    /relationship/i,\n    /marriage/i,\n    /family/i,\n    /finance/i,\n    /money/i,\n    /tax/i,\n    /travel/i,\n    /trip/i,\n    /flight/i,\n    /hotel/i,\n    /fitness/i,\n    /gym/i,\n    /workout/i,\n    /skin/i,\n    /animal/i,\n    /dog/i,\n    /cat/i,\n    /habit/i,\n    /mindset/i,\n    /people/i,\n    /culture/i,\n  ];\n\n  const twistTerms = [\n    /why/i,\n    /how/i,\n    /what/i,\n    /problem/i,\n    /issue/i,\n    /fails?/i,\n    /why.*matter/i,\n    /trend/i,\n    /viral/i,\n    /viral/i,\n    /launch/i,\n    /new/i,\n    /finally/i,\n    /relatable/i,\n    /funny/i,\n    /awkward/i,\n    /absurd/i,\n    /meme/i,\n    /same/i,\n    /so true/i,\n    /real/i,\n  ];\n\n  let score = 0;\n  for (const pattern of positiveTerms) if (pattern.test(text)) score += 1.25;\n  for (const pattern of twistTerms) if (pattern.test(text)) score += 0.75;\n\n  if (category === 'cities') score += 2;\n  if (category === 'food') score += 2;\n  if (category === 'culture') score += 1.5;\n  if (category === 'work') score += 1.5;\n  if (category === 'finance') score += 1.5;\n  if (category === 'business') score += 1;\n  if (category === 'relationships') score += 1.5;\n  if (category === 'fitness') score += 1.25;\n  if (category === 'travel') score += 1;\n  if (category === 'curiosity') score += 1.25;\n  if (category === 'viral') score += 1.5;\n  if (category === 'animals') score += 1;\n  if (category === 'drama') score += 1.75;\n  if (category === 'mindset') score += 1;\n  if (/funny|awkward|relatable|absurd|same|so true|meme|lol|haha|irony|ironic/i.test(text)) score += 2;\n\n  if (title.length > 45 && title.length < 130) score += 1;\n  if (summary.length > 100) score += 1;\n\n  const publishedAt = String(item.json.isoDate || item.json.pubDate || item.json.publishedAt || '');\n  const recencyBoost = publishedAt ? Math.max(0, 2 - Math.min(2, Math.floor((Date.now() - Date.parse(publishedAt)) / 86400000))) : 0;\n  score = Math.max(0, score + recencyBoost);\n\n  const keywordSignature = tokenize(title + ' ' + summary)\n    .slice(0, 8)\n    .join('-');\n  const dedupeKey = [category, keywordSignature || tokenize(title).slice(0, 5).join('-')].filter(Boolean).join('|');\n\n  return {\n    title,\n    summary,\n    sourceUrl,\n    host,\n    sourceTrust,\n    score,\n    category,\n    publishedAt,\n    dedupeKey,\n  };\n}\n\nconst ranked = items\n  .map(scoreItem)\n  .filter((entry, index, all) => all.findIndex((other) => other.dedupeKey === entry.dedupeKey) === index)\n  .sort((a, b) => b.score - a.score || b.sourceTrust - a.sourceTrust || (Date.parse(b.publishedAt || '') || 0) - (Date.parse(a.publishedAt || '') || 0));\n\nconst picked = ranked[0];\nif (!picked) return [];\nif (picked.score < 3) return [];\n\nconst topicKey = picked.dedupeKey;\nconst angleMap = {\n  food: 'food for thought',\n  cities: 'observation',\n  culture: 'story',\n  work: 'mindset',\n  business: 'framework',\n  finance: 'concept',\n  relationships: 'story',\n  fitness: 'mindset',\n  travel: 'story',\n  curiosity: 'concept',\n  viral: 'witty observation',\n  animals: 'observation',\n  drama: 'story',\n  sports: 'witty observation',\n  mindset: 'mindset',\n  india: 'observation',\n};\n\nreturn [{\n  json: {\n    sourceHash: topicKey,\n    sourceName: picked.host,\n    sourceType: picked.sourceTrust >= 3 ? 'news' : 'trend',\n    title: picked.title,\n    sourceUrl: picked.sourceUrl,\n    publishedAt: picked.publishedAt || new Date().toISOString(),\n    summary: picked.summary,\n    category: picked.category,\n    relevanceScore: Math.min(10, picked.score),\n    trustScore: picked.sourceTrust,\n    autoPublish: true,\n    angle: angleMap[picked.category] || 'observation',\n    status: 'selected',\n  }\n}];"
+          "jsCode": "const items = $input.all();\n\nfunction normalize(value) {\n  return String(value || '')\n    .toLowerCase()\n    .replace(/<[^>]*>/g, ' ')\n    .replace(/[^a-z0-9]+/g, ' ')\n    .replace(/\\s+/g, ' ')\n    .trim();\n}\n\nfunction hostnameFromUrl(url) {\n  try {\n    return new URL(url).hostname.replace(/^www\\./, '');\n  } catch (error) {\n    return '';\n  }\n}\n\nfunction tokenize(text) {\n  return normalize(text)\n    .split(' ')\n    .filter(Boolean)\n    .filter((token) => token.length > 2)\n    .filter((token) => !['the','and','for','with','from','that','this','have','will','your','you','are','new','how','can','our','their','about','into','what','when','why','who','but','not','all','now','use','uses','used','india','indian'].includes(token));\n}\n\nfunction pickCategory(text) {\n  if (/cricket|match|ipl|bcci|world cup|sports?/.test(text)) return 'sports';\n  if (/food|restaurant|dosa|biryani|cafe|eat|chef|menu/.test(text)) return 'food';\n  if (/bollywood|actor|actress|movie|film|celebrity|star/.test(text)) return 'culture';\n  if (/startup|founder|business|funding|company|market|economy/.test(text)) return 'business';\n  if (/work|office|job|salary|manager|meeting|career|productivity/.test(text)) return 'work';\n  if (/dating|relationship|marriage|wedding|family|parent|parents|relative|single|breakup|divorce|situationship/.test(text)) return 'relationships';\n  if (/delhi|mumbai|bengaluru|bangalore|pune|hyderabad|chennai|kolkata|city|metro|traffic|weather/.test(text)) return 'cities';\n  if (/tax|invest|mutual fund|stock|price|money|inflation|budget|bank|loan/.test(text)) return 'finance';\n  if (/health|fitness|gym|workout|weight|body|skin|skincare|diet|sleep|mental|mindset|therapy|stress/.test(text)) return 'fitness';\n  if (/travel|trip|flight|hotel|destination|tour|vacation|budget travel|backpack/.test(text)) return 'travel';\n  if (/reddit|viral|satisfying|oddly|interesting|funny|meme|wtf|wow|crazy|shocking|insane/.test(text)) return 'viral';\n  if (/animal|dog|cat|pet|wildlife|nature|aww/.test(text)) return 'animals';\n  if (/opinion|hot take|controversy|outrage|drama|argument|fight|asshole|tifu/.test(text)) return 'drama';\n  if (/curious|obscure|weird|hidden|unknown|history|atlas obscura|wikipedia|nautilus|wait but why/.test(text)) return 'curiosity';\n  return 'india';\n}\n\nfunction scoreItem(item) {\n  const sourceUrl = String(item.json.link || item.json.url || '').trim();\n  const title = String(item.json.title || '').trim();\n  const summary = String(item.json.contentSnippet || item.json.content || item.json.summary || '').replace(/<[^>]*>/g, ' ').replace(/\\s+/g, ' ').trim();\n  const text = normalize(title + ' ' + summary + ' ' + sourceUrl);\n  const host = hostnameFromUrl(sourceUrl);\n  const category = pickCategory(text);\n\n  const officialHosts = ['rbi.org.in', 'sebi.gov.in', 'pib.gov.in'];\n  const sourceTrust = officialHosts.some((domain) => host.includes(domain))\n    ? 5\n    : host.includes('news.google.com')\n      ? 3\n      : 2;\n\n  const positiveTerms = [\n    /india/i,\n    /indian/i,\n    /cricket/i,\n    /bollywood/i,\n    /food/i,\n    /restaurant/i,\n    /city/i,\n    /metro/i,\n    /traffic/i,\n    /startup/i,\n    /business/i,\n    /work/i,\n    /office/i,\n    /career/i,\n    /relationship/i,\n    /marriage/i,\n    /family/i,\n    /finance/i,\n    /money/i,\n    /tax/i,\n    /travel/i,\n    /trip/i,\n    /flight/i,\n    /hotel/i,\n    /fitness/i,\n    /gym/i,\n    /workout/i,\n    /skin/i,\n    /animal/i,\n    /dog/i,\n    /cat/i,\n    /habit/i,\n    /mindset/i,\n    /people/i,\n    /culture/i,\n  ];\n\n  const twistTerms = [\n    /why/i,\n    /how/i,\n    /what/i,\n    /problem/i,\n    /issue/i,\n    /fails?/i,\n    /why.*matter/i,\n    /trend/i,\n    /viral/i,\n    /viral/i,\n    /launch/i,\n    /new/i,\n    /finally/i,\n    /relatable/i,\n    /funny/i,\n    /awkward/i,\n    /absurd/i,\n    /meme/i,\n    /same/i,\n    /so true/i,\n    /real/i,\n  ];\n\n  let score = 0;\n  for (const pattern of positiveTerms) if (pattern.test(text)) score += 1.25;\n  for (const pattern of twistTerms) if (pattern.test(text)) score += 0.75;\n\n  if (category === 'cities') score += 2;\n  if (category === 'food') score += 2;\n  if (category === 'culture') score += 1.5;\n  if (category === 'work') score += 1.5;\n  if (category === 'finance') score += 1.5;\n  if (category === 'business') score += 1;\n  if (category === 'relationships') score += 1.5;\n  if (category === 'fitness') score += 1.25;\n  if (category === 'travel') score += 1;\n  if (category === 'curiosity') score += 1.25;\n  if (category === 'viral') score += 1.5;\n  if (category === 'animals') score += 1;\n  if (category === 'drama') score += 1.75;\n  if (category === 'mindset') score += 1;\n  if (/funny|awkward|relatable|absurd|same|so true|meme|lol|haha|irony|ironic/i.test(text)) score += 2;\n\n  if (title.length > 45 && title.length < 130) score += 1;\n  if (summary.length > 100) score += 1;\n\n  const publishedAt = String(item.json.isoDate || item.json.pubDate || item.json.publishedAt || '');\n  const recencyBoost = publishedAt ? Math.max(0, 2 - Math.min(2, Math.floor((Date.now() - Date.parse(publishedAt)) / 86400000))) : 0;\n  score = Math.max(0, score + recencyBoost);\n\n  const keywordSignature = tokenize(title + ' ' + summary)\n    .slice(0, 8)\n    .join('-');\n  const dedupeKey = [category, keywordSignature || tokenize(title).slice(0, 5).join('-')].filter(Boolean).join('|');\n\n  return {\n    title,\n    summary,\n    sourceUrl,\n    host,\n    sourceTrust,\n    score,\n    category,\n    publishedAt,\n    dedupeKey,\n  };\n}\n\nconst ranked = items\n  .map(scoreItem)\n  .filter((entry, index, all) => all.findIndex((other) => other.dedupeKey === entry.dedupeKey) === index)\n  .sort((a, b) => b.score - a.score || b.sourceTrust - a.sourceTrust || (Date.parse(b.publishedAt || '') || 0) - (Date.parse(a.publishedAt || '') || 0));\n\nconst angleMap = {\n  food: 'food for thought',\n  cities: 'observation',\n  culture: 'story',\n  work: 'mindset',\n  business: 'framework',\n  finance: 'concept',\n  relationships: 'story',\n  fitness: 'mindset',\n  travel: 'story',\n  curiosity: 'concept',\n  viral: 'witty observation',\n  animals: 'observation',\n  drama: 'story',\n  sports: 'witty observation',\n  mindset: 'mindset',\n  india: 'observation',\n};\n\nfunction sourceEngineFor(host, sourceTrust) {\n  if (host.includes('reddit.com')) return 'reddit';\n  if (host.includes('trends.google.com')) return 'trend';\n  return sourceTrust >= 4 ? 'official' : 'news';\n}\n\n// Harvest is a tool call, not a decision: keep a raw candidate pool (Gate Candidates\n// applies the five gates + banned list downstream). Cap at 25 to bound curator token spend.\nconst survivors = ranked.filter((entry) => entry.score >= 3).slice(0, 25);\n\nreturn survivors.map((picked) => {\n  const sourceEngine = sourceEngineFor(picked.host, picked.sourceTrust);\n  return {\n    json: {\n      sourceHash: picked.dedupeKey,\n      sourceName: picked.host,\n      sourceType: sourceEngine === 'official' ? 'official' : sourceEngine === 'reddit' ? 'reddit' : sourceEngine === 'trend' ? 'trend' : 'news',\n      sourceEngine,\n      title: picked.title,\n      sourceUrl: picked.sourceUrl,\n      publishedAt: picked.publishedAt || new Date().toISOString(),\n      summary: picked.summary,\n      category: picked.category,\n      relevanceScore: Math.min(10, picked.score),\n      trustScore: picked.sourceTrust,\n      // Reddit RSS (unlike Reddit's JSON listing API) does not expose upvote counts, so\n      // pre-validation strength is unavailable here; left null rather than faked.\n      preValidation: sourceEngine === 'reddit' ? null : undefined,\n      angle: angleMap[picked.category] || 'observation',\n    },\n  };\n});"
         }
       },
       {
-        "id": "90c24c7d-6865-48ff-9dbc-903584bac4dd",
+        "id": "e86ddde4-8c10-4583-8677-531dda04b40c",
         "name": "Fetch Recent Topics",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -121,8 +121,8 @@
         }
       },
       {
-        "id": "c81c3dfa-6a44-46d4-9e60-fd68d4c47cde",
-        "name": "Semantic Novelty Filter",
+        "id": "85c4c6d0-4f73-4837-9a85-09fa1c862606",
+        "name": "Gate Candidates",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
@@ -130,20 +130,129 @@
           -320
         ],
         "parameters": {
-          "jsCode": "const selected = $items(\"Select Top Topic\")[0]?.json || {};\nconst recentRows = $input.all().map((item) => item.json).filter(Boolean);\n\nfunction normalize(value) {\n  return String(value || '')\n    .toLowerCase()\n    .replace(/<[^>]*>/g, ' ')\n    .replace(/[^a-z0-9]+/g, ' ')\n    .replace(/s+/g, ' ')\n    .trim();\n}\n\nfunction tokenize(text) {\n  return normalize(text)\n    .split(' ')\n    .filter(Boolean)\n    .filter((token) => token.length > 2)\n    .filter((token) => !['the','and','for','with','from','that','this','have','will','your','you','are','new','how','can','our','their','about','into','what','when','why','who','but','not','all','now','use','used','india','indian','very','more','most','just','also','than','then','them','they','been','been'].includes(token));\n}\n\nfunction setFrom(text) {\n  return new Set(tokenize(text));\n}\n\nfunction jaccard(a, b) {\n  const setA = setFrom(a);\n  const setB = setFrom(b);\n  if (!setA.size || !setB.size) return 0;\n  let overlap = 0;\n  for (const token of setA) if (setB.has(token)) overlap++;\n  return overlap / new Set([...setA, ...setB]).size;\n}\n\nfunction similarity(current, row) {\n  const currentText = [current.title, current.summary, current.category, current.angle].filter(Boolean).join(' ');\n  const rowText = [row.title, row.summary, row.category, row.angle, row.draftText].filter(Boolean).join(' ');\n  const tokenScore = jaccard(currentText, rowText);\n  const titleScore = jaccard(current.title, row.title);\n  const summaryScore = jaccard(current.summary, row.summary);\n  const sameCategory = String(current.category || '') && String(current.category || '') === String(row.category || '') ? 0.08 : 0;\n  return Math.max(tokenScore, titleScore * 0.9, summaryScore * 0.8) + sameCategory;\n}\n\nconst recent = recentRows\n  .sort((a, b) => (Date.parse(b.publishedAt || b.updatedAt || b.createdAt || '') || 0) - (Date.parse(a.publishedAt || a.updatedAt || a.createdAt || '') || 0))\n  .slice(0, 20);\n\nlet strongest = { score: 0, match: null };\nfor (const row of recent) {\n  const score = similarity(selected, row);\n  if (score > strongest.score) {\n    strongest = {\n      score,\n      match: row,\n    };\n  }\n}\n\nif (strongest.score >= 0.38) {\n  return [];\n}\n\nreturn [{\n  json: {\n    ...selected,\n    noveltyScore: Number((1 - strongest.score).toFixed(3)),\n    noveltyClosestMatch: strongest.match?.title || '',\n    noveltyClosestCategory: strongest.match?.category || '',\n  }\n}];"
+          "jsCode": "\nconst BANNED_PATTERNS = [\n  { name: 'partisan_politics', pattern: /\\b(bjp|congress party|\\baap\\b|\\brss\\b|modi govt|election (rigging|fraud)|vote for|political party)\\b/i },\n  { name: 'named_person_criticism', pattern: /\\b(elon musk|mark zuckerberg|narendra modi|rahul gandhi) is (a fraud|a scammer|an idiot|corrupt)\\b/i },\n  { name: 'medical_directive', pattern: /\\b(take (this|these) (pill|medicine|dose)|stop taking your medication|cures? (cancer|diabetes)|do not vaccinate)\\b/i },\n  { name: 'financial_directive', pattern: /\\b(buy (this )?stock|guaranteed returns|invest all your (savings|money) in|financial advice ?:)\\b/i },\n  { name: 'religion_as_opinion', pattern: /\\breligion is (fake|a lie|the problem)|god does not exist|only .* religion is true\\b/i },\n  { name: 'west_first', pattern: /\\b(in america|in the u\\.?s\\.?|americans (always|never)|in the west)\\b/i },\n  { name: 'doom_without_floor', pattern: /\\b(everything is (ruined|doomed|over)|there is no (hope|way out|solution)|nothing (can|will) (fix|change) this)\\b/i },\n];\n\nfunction findBannedMatch(text) {\n  const value = String(text || '');\n  for (const entry of BANNED_PATTERNS) {\n    if (entry.pattern.test(value)) return entry.name;\n  }\n  return null;\n}\n\nconst backlogRows = $input.all().map((item) => item.json).filter(Boolean);\nconst candidates = $items(\"Harvest & Categorize\").map((item) => item.json).filter(Boolean);\n\nconst queuedBacklog = backlogRows.filter((row) => row.status === 'queued');\n\nconst categoryCounts = {};\nconst engineCounts = {};\nfor (const row of queuedBacklog) {\n  const cat = String(row.category || 'india');\n  categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;\n  let engine = row.sourceType || 'news';\n  try {\n    const parsed = row.candidatePoolJson ? JSON.parse(row.candidatePoolJson) : {};\n    engine = parsed.sourceEngine || engine;\n  } catch (error) {\n    // keep sourceType fallback\n  }\n  engineCounts[engine] = (engineCounts[engine] || 0) + 1;\n}\n\nconst totalQueued = queuedBacklog.length || 1;\nconst backlogStats = { totalQueued: queuedBacklog.length, categoryCounts, engineCounts };\n\nfunction gapFillWeight(category) {\n  const share = (categoryCounts[category] || 0) / totalQueued;\n  if (share < 0.05) return 1.35;\n  if (share < 0.12) return 1.15;\n  if (share > 0.30) return 0.75;\n  return 1;\n}\n\nconst gated = [];\nfor (const candidate of candidates) {\n  const text = [candidate.title, candidate.summary].filter(Boolean).join(' ');\n  if (findBannedMatch(text)) continue;\n  gated.push({\n    ...candidate,\n    adjustedScore: Number(candidate.relevanceScore || 0) * gapFillWeight(candidate.category),\n    hasNumericClaim: /\\d/.test(text),\n    _backlogStats: backlogStats,\n  });\n}\n\nconst survivors = gated\n  .sort((a, b) => b.adjustedScore - a.adjustedScore)\n  .slice(0, 20);\n\nreturn survivors.map((entry) => ({ json: entry }));"
         }
       },
       {
-        "id": "e02cd1c1-9cef-4466-b998-6f8d15621729",
-        "name": "Only New Topic?",
+        "id": "f715e84d-e6a9-471a-9231-c2c987056fe2",
+        "name": "Verify Numeric Claims",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -240,
+          -320
+        ],
+        "parameters": {
+          "jsCode": "\nconst WORD_BANDS = {\n  essay: { target: [50, 65], soft: { under: [40, 49], over: [66, 80] }, hard: { min: 30, max: 80 } },\n  punch: { target: [28, 40], soft: { over: [41, 48] }, hard: { min: 18, max: 48 } },\n  bookend: { target: [38, 55], soft: { under: [30, 37], over: [56, 65] }, hard: { min: 25, max: 70 } },\n  mini: { target: [45, 65], soft: { under: [35, 44], over: [66, 75] }, hard: { min: 25, max: 80 } },\n  observation: { target: [38, 50], soft: { under: [30, 37], over: [51, 58] }, hard: { min: 22, max: 60 } },\n  card: { target: [30, 60], soft: { under: [22, 29], over: [61, 70] }, hard: { min: 15, max: 75 } },\n};\n\nfunction countWords(text) {\n  return String(text || '').trim().split(/\\s+/).filter(Boolean).length;\n}\n\nfunction classifySlideRole(order, total, punchSlideIndex) {\n  if (order === 1 || order === total) return 'bookend';\n  if (punchSlideIndex && Number(punchSlideIndex) === Number(order)) return 'punch';\n  return 'essay';\n}\n\nfunction checkBand(role, wordCount) {\n  const band = WORD_BANDS[role] || WORD_BANDS.essay;\n  const result = { role: role, wordCount: wordCount, target: band.target, hardMin: band.hard.min, hardMax: band.hard.max };\n  if (wordCount < band.hard.min || wordCount > band.hard.max) {\n    result.verdict = 'hard_fail';\n    result.direction = wordCount < band.hard.min ? 'expand' : 'cut';\n    return result;\n  }\n  if (wordCount >= band.target[0] && wordCount <= band.target[1]) {\n    result.verdict = 'target';\n    result.direction = null;\n    return result;\n  }\n  if (band.soft.under && wordCount >= band.soft.under[0] && wordCount <= band.soft.under[1]) {\n    result.verdict = 'soft_under';\n    result.direction = 'expand';\n    return result;\n  }\n  if (band.soft.over && wordCount >= band.soft.over[0] && wordCount <= band.soft.over[1]) {\n    result.verdict = 'soft_over';\n    result.direction = 'cut';\n    return result;\n  }\n  result.verdict = 'target';\n  result.direction = null;\n  return result;\n}\n\nfunction wrapLines(text, maxCharsPerLine) {\n  const words = String(text || '').split(/\\s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = line.concat([word]).join(' ');\n    if (candidate.length > maxCharsPerLine && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nfunction splitSentences(text) {\n  const matches = String(text || '').match(/[^.!?]+[.!?]*/g);\n  return matches ? matches.map(function (entry) { return entry.trim(); }).filter(Boolean) : [String(text || '').trim()].filter(Boolean);\n}\n\nfunction splitParagraphs(text, maxWordsBeforeSplit) {\n  const trimmed = String(text || '').trim();\n  const threshold = maxWordsBeforeSplit || 45;\n  if (countWords(trimmed) <= threshold) return [trimmed];\n  const sentences = splitSentences(trimmed);\n  if (sentences.length < 2) return [trimmed];\n  const midpointChar = trimmed.length / 2;\n  let bestIndex = 0;\n  let bestDistance = Infinity;\n  let runningLength = 0;\n  for (let i = 0; i < sentences.length - 1; i++) {\n    runningLength += sentences[i].length + 1;\n    const distance = Math.abs(runningLength - midpointChar);\n    if (distance < bestDistance) {\n      bestDistance = distance;\n      bestIndex = i;\n    }\n  }\n  const first = sentences.slice(0, bestIndex + 1).join(' ').trim();\n  const second = sentences.slice(bestIndex + 1).join(' ').trim();\n  return [first, second].filter(Boolean);\n}\n\nfunction renderedLineCount(paragraphs, maxCharsPerLine) {\n  let total = 0;\n  for (const paragraph of paragraphs) {\n    total += wrapLines(paragraph, maxCharsPerLine).length;\n  }\n  return total;\n}\n\nfunction sentenceMixWarnings(text) {\n  const wordCounts = splitSentences(text).map(function (sentence) {\n    return sentence.split(/\\s+/).filter(Boolean).length;\n  });\n  const warnings = [];\n  if (!wordCounts.some(function (count) { return count <= 8; })) warnings.push('no_short_sentence');\n  for (let i = 0; i < wordCounts.length - 1; i++) {\n    if (wordCounts[i] > 20 && wordCounts[i + 1] > 20) warnings.push('consecutive_long_sentences');\n  }\n  return warnings;\n}\n\nconst candidates = $input.all().map((item) => item.json);\nconst MAX_FETCHES = 8;\nlet fetchesUsed = 0;\n\nfunction stripNumericClauses(text) {\n  const kept = splitSentences(text).filter((sentence) => !/\\d/.test(sentence));\n  return kept.join(' ').trim();\n}\n\nasync function verifyNumberOnPage(url, text) {\n  try {\n    const response = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0 (curator-verifier)' } });\n    if (!response.ok) return false;\n    const pageText = (await response.text()).replace(/<[^>]*>/g, ' ');\n    const numbers = (text.match(/\\d[\\d,.]*/g) || []).map((entry) => entry.replace(/,/g, ''));\n    return numbers.some((number) => number.length >= 2 && pageText.includes(number));\n  } catch (error) {\n    return false;\n  }\n}\n\nconst results = [];\nfor (const candidate of candidates) {\n  const text = [candidate.title, candidate.summary].filter(Boolean).join(' ');\n  if (!candidate.hasNumericClaim) {\n    results.push({ ...candidate, numberless: false, numberVerified: null });\n    continue;\n  }\n  if (candidate.sourceType === 'official') {\n    results.push({ ...candidate, numberless: false, numberVerified: true });\n    continue;\n  }\n  if (fetchesUsed >= MAX_FETCHES || !candidate.sourceUrl) {\n    // Budget spent or nothing to fetch: never assert an unverified figure, rewrite numberless instead.\n    results.push({ ...candidate, summary: stripNumericClauses(candidate.summary) || candidate.summary, numberless: true, numberVerified: false });\n    continue;\n  }\n  fetchesUsed += 1;\n  const verified = await verifyNumberOnPage(candidate.sourceUrl, text);\n  if (verified) {\n    results.push({ ...candidate, numberless: false, numberVerified: true });\n  } else {\n    results.push({ ...candidate, summary: stripNumericClauses(candidate.summary) || candidate.summary, numberless: true, numberVerified: false });\n  }\n}\n\nreturn results.map((entry) => ({ json: entry }));"
+        }
+      },
+      {
+        "id": "447aff1a-6cc6-4513-bb23-f19ea3107cfd",
+        "name": "Redundancy Check",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          0,
+          -320
+        ],
+        "parameters": {
+          "jsCode": "\nfunction normalizeCorpusText(value) {\n  return String(value || '')\n    .toLowerCase()\n    .replace(/<[^>]*>/g, ' ')\n    .replace(/[^a-z0-9]+/g, ' ')\n    .replace(/\\s+/g, ' ')\n    .trim();\n}\n\nconst CORPUS_STOPWORDS = ['the','and','for','with','from','that','this','have','will','your','you','are','new','how','can','our','their','about','into','what','when','why','who','but','not','all','now','use','uses','used','india','indian','very','more','most','just','also','than','then','them','they','been'];\n\nfunction tokenizeCorpusText(text) {\n  return normalizeCorpusText(text)\n    .split(' ')\n    .filter(Boolean)\n    .filter(function (token) { return token.length > 2; })\n    .filter(function (token) { return CORPUS_STOPWORDS.indexOf(token) === -1; });\n}\n\nfunction jaccardSimilarity(a, b) {\n  const setA = new Set(tokenizeCorpusText(a));\n  const setB = new Set(tokenizeCorpusText(b));\n  if (!setA.size || !setB.size) return 0;\n  let overlap = 0;\n  for (const token of setA) if (setB.has(token)) overlap++;\n  const union = new Set(Array.from(setA).concat(Array.from(setB)));\n  return overlap / union.size;\n}\n\nasync function withPgClient(fn) {\n  const { Client } = require('pg');\n  const client = new Client({\n    host: process.env.DB_POSTGRESDB_HOST,\n    port: Number(process.env.DB_POSTGRESDB_PORT || 5432),\n    database: process.env.DB_POSTGRESDB_DATABASE,\n    user: process.env.DB_POSTGRESDB_USER,\n    password: process.env.DB_POSTGRESDB_PASSWORD,\n    ssl: String(process.env.DB_POSTGRESDB_SSL_MODE || '').toLowerCase() === 'require' ? { rejectUnauthorized: false } : undefined,\n  });\n  await client.connect();\n  try {\n    return await fn(client);\n  } finally {\n    await client.end();\n  }\n}\n\nasync function ensureCuratorTables(client) {\n  await client.query(\n    'CREATE TABLE IF NOT EXISTS circulating_takes (' +\n    'id uuid PRIMARY KEY DEFAULT gen_random_uuid(), ' +\n    'text text NOT NULL, ' +\n    'source_engine text, ' +\n    'category text, ' +\n    'created_at timestamptz NOT NULL DEFAULT now())'\n  );\n  await client.query(\n    'CREATE TABLE IF NOT EXISTS concept_library (' +\n    'id uuid PRIMARY KEY DEFAULT gen_random_uuid(), ' +\n    'name text UNIQUE NOT NULL, ' +\n    'nerve text NOT NULL, ' +\n    'description text, ' +\n    'last_used_at timestamptz, ' +\n    'created_at timestamptz NOT NULL DEFAULT now())'\n  );\n}\n\nconst candidates = $input.all().map((item) => item.json);\nconst backlogRows = $items(\"Fetch Recent Topics\").map((item) => item.json).filter(Boolean).slice(0, 60);\n\nconst survivors = [];\n\nawait withPgClient(async (client) => {\n  await ensureCuratorTables(client);\n  const takesResult = await client.query('SELECT text FROM circulating_takes ORDER BY created_at DESC LIMIT 200');\n  const circulatingTakes = takesResult.rows;\n\n  for (const candidate of candidates) {\n    const candidateText = [candidate.title, candidate.summary].filter(Boolean).join(' ');\n    const threshold = candidate.sourceEngine === 'model_knowledge' ? 0.80 : 0.86;\n\n    let maxSimilarity = 0;\n    for (const row of backlogRows) {\n      const rowText = [row.title, row.summary, row.category].filter(Boolean).join(' ');\n      maxSimilarity = Math.max(maxSimilarity, jaccardSimilarity(candidateText, rowText));\n    }\n    for (const take of circulatingTakes) {\n      maxSimilarity = Math.max(maxSimilarity, jaccardSimilarity(candidateText, take.text));\n    }\n\n    if (maxSimilarity >= threshold) {\n      await client.query(\n        'INSERT INTO circulating_takes (text, source_engine, category) VALUES ($1, $2, $3)',\n        [candidateText.slice(0, 2000), candidate.sourceEngine || 'unknown', candidate.category || null]\n      );\n      continue;\n    }\n\n    survivors.push({ ...candidate, noveltyScore: Number((1 - maxSimilarity).toFixed(3)) });\n  }\n});\n\nreturn survivors.map((entry) => ({ json: entry }));"
+        }
+      },
+      {
+        "id": "26c4c438-79ea-485e-959b-4ca7397360c4",
+        "name": "Concept Pairing",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          240,
+          -320
+        ],
+        "parameters": {
+          "jsCode": "\nasync function withPgClient(fn) {\n  const { Client } = require('pg');\n  const client = new Client({\n    host: process.env.DB_POSTGRESDB_HOST,\n    port: Number(process.env.DB_POSTGRESDB_PORT || 5432),\n    database: process.env.DB_POSTGRESDB_DATABASE,\n    user: process.env.DB_POSTGRESDB_USER,\n    password: process.env.DB_POSTGRESDB_PASSWORD,\n    ssl: String(process.env.DB_POSTGRESDB_SSL_MODE || '').toLowerCase() === 'require' ? { rejectUnauthorized: false } : undefined,\n  });\n  await client.connect();\n  try {\n    return await fn(client);\n  } finally {\n    await client.end();\n  }\n}\n\nasync function ensureCuratorTables(client) {\n  await client.query(\n    'CREATE TABLE IF NOT EXISTS circulating_takes (' +\n    'id uuid PRIMARY KEY DEFAULT gen_random_uuid(), ' +\n    'text text NOT NULL, ' +\n    'source_engine text, ' +\n    'category text, ' +\n    'created_at timestamptz NOT NULL DEFAULT now())'\n  );\n  await client.query(\n    'CREATE TABLE IF NOT EXISTS concept_library (' +\n    'id uuid PRIMARY KEY DEFAULT gen_random_uuid(), ' +\n    'name text UNIQUE NOT NULL, ' +\n    'nerve text NOT NULL, ' +\n    'description text, ' +\n    'last_used_at timestamptz, ' +\n    'created_at timestamptz NOT NULL DEFAULT now())'\n  );\n}\n\nconst candidates = $input.all().map((item) => item.json);\n\nconst NERVE_KEYWORDS = {\n  money: ['finance', 'business'],\n  status: ['work', 'culture', 'sports'],\n  belonging: ['relationships', 'drama'],\n  control: ['fitness', 'mindset'],\n  curiosity: ['curiosity', 'viral', 'animals', 'travel', 'food', 'cities', 'india'],\n};\n\nfunction nerveForCategory(category) {\n  for (const nerve of Object.keys(NERVE_KEYWORDS)) {\n    if (NERVE_KEYWORDS[nerve].includes(category)) return nerve;\n  }\n  return 'curiosity';\n}\n\nconst paired = await withPgClient(async (client) => {\n  await ensureCuratorTables(client);\n  const result = await client.query(\n    \"SELECT id, name, nerve, description FROM concept_library WHERE last_used_at IS NULL OR last_used_at < now() - interval '90 days' ORDER BY random() LIMIT 200\"\n  );\n  const available = result.rows;\n\n  return candidates.map((candidate) => {\n    const nerve = nerveForCategory(candidate.category);\n    const match = available.find((concept) => concept.nerve === nerve) || available[0] || null;\n    return {\n      ...candidate,\n      nerve,\n      concept: match ? { id: match.id, name: match.name, description: match.description } : null,\n    };\n  });\n});\n\nreturn paired.map((entry) => ({ json: entry }));"
+        }
+      },
+      {
+        "id": "f2d7c9d1-8aaf-408f-be5d-f40e53e4ff7e",
+        "name": "Model Knowledge Lane",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          480,
+          -320
+        ],
+        "parameters": {
+          "jsCode": "\nfunction normalizeCorpusText(value) {\n  return String(value || '')\n    .toLowerCase()\n    .replace(/<[^>]*>/g, ' ')\n    .replace(/[^a-z0-9]+/g, ' ')\n    .replace(/\\s+/g, ' ')\n    .trim();\n}\n\nconst CORPUS_STOPWORDS = ['the','and','for','with','from','that','this','have','will','your','you','are','new','how','can','our','their','about','into','what','when','why','who','but','not','all','now','use','uses','used','india','indian','very','more','most','just','also','than','then','them','they','been'];\n\nfunction tokenizeCorpusText(text) {\n  return normalizeCorpusText(text)\n    .split(' ')\n    .filter(Boolean)\n    .filter(function (token) { return token.length > 2; })\n    .filter(function (token) { return CORPUS_STOPWORDS.indexOf(token) === -1; });\n}\n\nfunction jaccardSimilarity(a, b) {\n  const setA = new Set(tokenizeCorpusText(a));\n  const setB = new Set(tokenizeCorpusText(b));\n  if (!setA.size || !setB.size) return 0;\n  let overlap = 0;\n  for (const token of setA) if (setB.has(token)) overlap++;\n  const union = new Set(Array.from(setA).concat(Array.from(setB)));\n  return overlap / union.size;\n}\n\nasync function withPgClient(fn) {\n  const { Client } = require('pg');\n  const client = new Client({\n    host: process.env.DB_POSTGRESDB_HOST,\n    port: Number(process.env.DB_POSTGRESDB_PORT || 5432),\n    database: process.env.DB_POSTGRESDB_DATABASE,\n    user: process.env.DB_POSTGRESDB_USER,\n    password: process.env.DB_POSTGRESDB_PASSWORD,\n    ssl: String(process.env.DB_POSTGRESDB_SSL_MODE || '').toLowerCase() === 'require' ? { rejectUnauthorized: false } : undefined,\n  });\n  await client.connect();\n  try {\n    return await fn(client);\n  } finally {\n    await client.end();\n  }\n}\n\nasync function ensureCuratorTables(client) {\n  await client.query(\n    'CREATE TABLE IF NOT EXISTS circulating_takes (' +\n    'id uuid PRIMARY KEY DEFAULT gen_random_uuid(), ' +\n    'text text NOT NULL, ' +\n    'source_engine text, ' +\n    'category text, ' +\n    'created_at timestamptz NOT NULL DEFAULT now())'\n  );\n  await client.query(\n    'CREATE TABLE IF NOT EXISTS concept_library (' +\n    'id uuid PRIMARY KEY DEFAULT gen_random_uuid(), ' +\n    'name text UNIQUE NOT NULL, ' +\n    'nerve text NOT NULL, ' +\n    'description text, ' +\n    'last_used_at timestamptz, ' +\n    'created_at timestamptz NOT NULL DEFAULT now())'\n  );\n}\n\nconst candidates = $input.all().map((item) => item.json);\nconst backlogStats = candidates[0]?._backlogStats || { totalQueued: 0, engineCounts: {} };\nconst modelKnowledgeCount = Number(backlogStats.engineCounts?.model_knowledge || 0);\nconst ratio = backlogStats.totalQueued ? modelKnowledgeCount / backlogStats.totalQueued : 0;\n\n// Cap already at or above 30% of the backlog, or this run simply did not roll the lane: pass through.\nif (ratio >= 0.30 || Math.random() > (1 / 3)) {\n  return candidates.map((entry) => ({ json: entry }));\n}\n\nconst model = process.env.CURATOR_MODEL_MINI || 'gpt-5.4-mini';\nconst recentTitles = candidates.slice(0, 15).map((c) => c.title).filter(Boolean);\n\nconst systemPrompt = 'You propose ONE evergreen behavioral observation card from your own knowledge for an ' +\n  'Indian Instagram insight-carousel account (startups, consumer behaviour, psychology, D2C). It must be ' +\n  'numberless (never state a statistic), timeless (not tied to a news event), and genuinely fresh, not a take ' +\n  'that already circulates widely online. Output strict JSON: { \"title\": \"...\", \"summary\": \"one to two sentence ' +\n  'behavioral observation\", \"category\": \"mindset|work|relationships|business|finance|culture|fitness\" }.';\n\nconst userPrompt = 'Avoid anything resembling these recently curated titles:\\n' + recentTitles.map((t) => '- ' + t).join('\\n');\n\nlet proposal = null;\ntry {\n  const response = await this.helpers.httpRequestWithAuthentication.call(this, 'openAiApi', {\n    method: 'POST',\n    url: 'https://api.openai.com/v1/chat/completions',\n    body: {\n      model,\n      messages: [\n        { role: 'system', content: systemPrompt },\n        { role: 'user', content: userPrompt },\n      ],\n      response_format: { type: 'json_object' },\n    },\n    json: true,\n  });\n  proposal = JSON.parse(response.choices?.[0]?.message?.content || '{}');\n} catch (error) {\n  proposal = null;\n}\n\nif (!proposal || !proposal.title || !proposal.summary) {\n  return candidates.map((entry) => ({ json: entry }));\n}\n\nconst candidateText = [proposal.title, proposal.summary].join(' ');\n\nconst accepted = await withPgClient(async (client) => {\n  await ensureCuratorTables(client);\n  const takesResult = await client.query('SELECT text FROM circulating_takes ORDER BY created_at DESC LIMIT 200');\n  let maxSimilarity = 0;\n  for (const take of takesResult.rows) {\n    maxSimilarity = Math.max(maxSimilarity, jaccardSimilarity(candidateText, take.text));\n  }\n  await client.query(\n    'INSERT INTO circulating_takes (text, source_engine, category) VALUES ($1, $2, $3)',\n    [candidateText.slice(0, 2000), 'model_knowledge', proposal.category || null]\n  );\n  return maxSimilarity < 0.80;\n});\n\nif (!accepted) {\n  return candidates.map((entry) => ({ json: entry }));\n}\n\nconst modelKnowledgeCard = {\n  sourceHash: 'mk-' + Buffer.from(candidateText).toString('base64').replace(/[^a-zA-Z0-9]/g, '').slice(0, 24),\n  sourceName: 'model_knowledge',\n  sourceType: 'model_knowledge',\n  sourceEngine: 'model_knowledge',\n  title: proposal.title,\n  summary: proposal.summary,\n  sourceUrl: '',\n  publishedAt: new Date().toISOString(),\n  category: proposal.category || 'mindset',\n  relevanceScore: 6,\n  trustScore: 3,\n  preValidation: null,\n  numberless: true,\n  numberVerified: null,\n  angle: 'observation',\n  nerve: 'curiosity',\n  concept: null,\n  _backlogStats: backlogStats,\n};\n\nreturn candidates.concat([modelKnowledgeCard]).map((entry) => ({ json: entry }));"
+        },
+        "credentials": {
+          "openAiApi": {
+            "id": "7Ji76LZT6LXmqLQT",
+            "name": "OpenAI account"
+          }
+        }
+      },
+      {
+        "id": "393948de-db56-434f-93dd-7d4fd6220ffd",
+        "name": "Curator Enrich & Score",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          720,
+          -320
+        ],
+        "parameters": {
+          "jsCode": "const candidates = $input.all().map((item) => item.json);\nif (!candidates.length) return [];\n\nconst model = process.env.CURATOR_MODEL_TOP || 'gpt-5.4';\n\nconst systemPrompt = 'You are the topic curator for an Indian insight-carousel account (startups, consumer ' +\n  'behaviour, psychology, D2C). You run this session over pre-harvested candidates - you are a filter and a ' +\n  'collider, not a writer: your output is topic cards, never prose.\\n\\n' +\n  'WHAT MAKES A CARD (all four, or drop it):\\n' +\n  '1. A behavioral contradiction, a one-breath verified statistic, a pre-validated confession pattern, or a ' +\n  'person who proves a thesis.\\n' +\n  '2. An India-causal explanation (family, history, infrastructure) - if it works for any country, dig or drop.\\n' +\n  '3. An unclaimed angle - candidates already passed a corpus-redundancy gate, but if two survivors are the ' +\n  'same angle, keep only the sharper one.\\n' +\n  '4. A reader who will comment \"that is me\" - name that person specifically in readerArchetype.\\n' +\n  'For reframes, produce an inversion in the exact form \"It is not X. It is Y.\" in the inversion field.\\n\\n' +\n  'DISCIPLINE:\\n' +\n  '- Fill backlog gaps from backlogStats, do not over-serve one category.\\n' +\n  '- Numbers exist only if numberVerified is true; if numberless is true, write the card with no figures at all.\\n' +\n  '- Pair each card with the provided concept only if it genuinely fits; otherwise omit concept.\\n\\n' +\n  'OUTPUT: strict JSON { \"cards\": [ { \"sourceHash\", \"title\", \"summary\", \"category\", \"angle\", \"inversion\", ' +\n  '\"readerArchetype\", \"indiaContext\", \"juxtapositionPair\", \"payloadType\", \"nerve\", \"concept\", ' +\n  '\"subScores\": { \"s1\": 0-2, \"s2\": 0-2, \"s3\": 0-2, \"s4\": 0-2, \"s5\": 0-2, \"s6\": 0-2 }, ' +\n  '\"justifications\": { \"s1\": \"...\", \"s2\": \"...\", \"s3\": \"...\", \"s4\": \"...\", \"s5\": \"...\", \"s6\": \"...\" } } ] }. ' +\n  'Target 8 to 12 cards for this run. Fewer good cards beat the target count.';\n\nconst userPayload = {\n  backlogStats: candidates[0]?._backlogStats || null,\n  candidates: candidates.map((c) => ({\n    sourceHash: c.sourceHash,\n    title: c.title,\n    summary: String(c.summary || '').slice(0, 600),\n    category: c.category,\n    sourceEngine: c.sourceEngine,\n    numberless: !!c.numberless,\n    numberVerified: c.numberVerified,\n    preValidation: c.preValidation,\n    nerve: c.nerve,\n    concept: c.concept ? c.concept.name : null,\n    noveltyScore: c.noveltyScore,\n  })),\n};\n\nconst response = await this.helpers.httpRequestWithAuthentication.call(this, 'openAiApi', {\n  method: 'POST',\n  url: 'https://api.openai.com/v1/chat/completions',\n  body: {\n    model,\n    messages: [\n      { role: 'system', content: systemPrompt },\n      { role: 'user', content: JSON.stringify(userPayload) },\n    ],\n    response_format: { type: 'json_object' },\n  },\n  json: true,\n});\n\nlet parsed = {};\ntry {\n  parsed = JSON.parse(response.choices?.[0]?.message?.content || '{}');\n} catch (error) {\n  parsed = {};\n}\n\nconst cardsByHash = new Map(candidates.map((c) => [c.sourceHash, c]));\nconst cards = Array.isArray(parsed.cards) ? parsed.cards : [];\n\nconst enriched = cards\n  .map((card) => {\n    const original = cardsByHash.get(card.sourceHash);\n    if (!original) return null;\n    const subScores = card.subScores || {};\n    const total = ['s1', 's2', 's3', 's4', 's5', 's6'].reduce((sum, key) => sum + Number(subScores[key] || 0), 0);\n    return {\n      ...original,\n      title: card.title || original.title,\n      summary: card.summary || original.summary,\n      angle: card.angle || original.angle,\n      inversion: card.inversion || null,\n      readerArchetype: card.readerArchetype || null,\n      indiaContext: card.indiaContext || null,\n      juxtapositionPair: card.juxtapositionPair || null,\n      payloadType: card.payloadType || null,\n      nerve: card.nerve || original.nerve,\n      concept: card.concept ? original.concept : null,\n      subScores,\n      justifications: card.justifications || {},\n      totalScore: total,\n    };\n  })\n  .filter(Boolean);\n\nreturn enriched.map((entry) => ({ json: entry }));"
+        },
+        "credentials": {
+          "openAiApi": {
+            "id": "7Ji76LZT6LXmqLQT",
+            "name": "OpenAI account"
+          }
+        }
+      },
+      {
+        "id": "a9657cc3-bd0e-4385-876b-9150e1287479",
+        "name": "Two-Reader Recheck & Quotas",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          960,
+          -320
+        ],
+        "parameters": {
+          "jsCode": "const cards = $input.all().map((item) => item.json);\nif (!cards.length) return [];\n\nconst model = process.env.CURATOR_MODEL_MINI || 'gpt-5.4-mini';\nconst sample = cards.slice(0, Math.min(cards.length, 6));\n\nconst systemPrompt = 'You are a hostile second reader. For each card, re-score s1 (does it truly meet the card ' +\n  'bar) and s4 (will a specific reader actually comment \"that is me\") from 0-2, and for any model_knowledge ' +\n  'card be hostile about freshness: if it reads like a take you have seen circulate before, score it low and ' +\n  'set freshnessFlag true. Output strict JSON { \"rechecks\": [ { \"sourceHash\", \"s1\", \"s4\", \"freshnessFlag\" } ] }.';\n\nconst userPayload = sample.map((card) => ({\n  sourceHash: card.sourceHash,\n  title: card.title,\n  summary: card.summary,\n  sourceEngine: card.sourceEngine,\n  readerArchetype: card.readerArchetype,\n}));\n\nlet rechecks = [];\ntry {\n  const response = await this.helpers.httpRequestWithAuthentication.call(this, 'openAiApi', {\n    method: 'POST',\n    url: 'https://api.openai.com/v1/chat/completions',\n    body: {\n      model,\n      messages: [\n        { role: 'system', content: systemPrompt },\n        { role: 'user', content: JSON.stringify(userPayload) },\n      ],\n      response_format: { type: 'json_object' },\n    },\n    json: true,\n  });\n  const parsed = JSON.parse(response.choices?.[0]?.message?.content || '{}');\n  rechecks = Array.isArray(parsed.rechecks) ? parsed.rechecks : [];\n} catch (error) {\n  rechecks = [];\n}\n\nconst rechecksByHash = new Map(rechecks.map((r) => [r.sourceHash, r]));\n\nlet rescored = cards.map((card) => {\n  const recheck = rechecksByHash.get(card.sourceHash);\n  if (!recheck) return card;\n  const subScores = { ...card.subScores, s1: recheck.s1 ?? card.subScores?.s1, s4: recheck.s4 ?? card.subScores?.s4 };\n  const total = ['s1', 's2', 's3', 's4', 's5', 's6'].reduce((sum, key) => sum + Number(subScores[key] || 0), 0);\n  return { ...card, subScores, totalScore: total, freshnessFlag: !!recheck.freshnessFlag };\n});\n\nrescored = rescored.filter((card) => !card.freshnessFlag);\n\nconst cap = Math.floor(rescored.length * 0.30);\nconst modelKnowledgeCards = rescored\n  .filter((card) => card.sourceEngine === 'model_knowledge')\n  .sort((a, b) => b.totalScore - a.totalScore)\n  .slice(0, cap);\nconst otherCards = rescored.filter((card) => card.sourceEngine !== 'model_knowledge');\nconst final = otherCards.concat(modelKnowledgeCards).sort((a, b) => b.totalScore - a.totalScore);\n\nreturn final.map((entry) => ({ json: entry }));"
+        },
+        "credentials": {
+          "openAiApi": {
+            "id": "7Ji76LZT6LXmqLQT",
+            "name": "OpenAI account"
+          }
+        }
+      },
+      {
+        "id": "9526e149-49a6-4759-b5c3-bd56198ddb16",
+        "name": "Mark Concepts Used",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1200,
+          -320
+        ],
+        "parameters": {
+          "jsCode": "\nasync function withPgClient(fn) {\n  const { Client } = require('pg');\n  const client = new Client({\n    host: process.env.DB_POSTGRESDB_HOST,\n    port: Number(process.env.DB_POSTGRESDB_PORT || 5432),\n    database: process.env.DB_POSTGRESDB_DATABASE,\n    user: process.env.DB_POSTGRESDB_USER,\n    password: process.env.DB_POSTGRESDB_PASSWORD,\n    ssl: String(process.env.DB_POSTGRESDB_SSL_MODE || '').toLowerCase() === 'require' ? { rejectUnauthorized: false } : undefined,\n  });\n  await client.connect();\n  try {\n    return await fn(client);\n  } finally {\n    await client.end();\n  }\n}\n\nasync function ensureCuratorTables(client) {\n  await client.query(\n    'CREATE TABLE IF NOT EXISTS circulating_takes (' +\n    'id uuid PRIMARY KEY DEFAULT gen_random_uuid(), ' +\n    'text text NOT NULL, ' +\n    'source_engine text, ' +\n    'category text, ' +\n    'created_at timestamptz NOT NULL DEFAULT now())'\n  );\n  await client.query(\n    'CREATE TABLE IF NOT EXISTS concept_library (' +\n    'id uuid PRIMARY KEY DEFAULT gen_random_uuid(), ' +\n    'name text UNIQUE NOT NULL, ' +\n    'nerve text NOT NULL, ' +\n    'description text, ' +\n    'last_used_at timestamptz, ' +\n    'created_at timestamptz NOT NULL DEFAULT now())'\n  );\n}\n\nconst cards = $input.all().map((item) => item.json);\nconst conceptIds = Array.from(new Set(\n  cards.map((card) => (card.concept && typeof card.concept === 'object' ? card.concept.id : null)).filter(Boolean)\n));\n\nif (conceptIds.length) {\n  await withPgClient(async (client) => {\n    await ensureCuratorTables(client);\n    for (const conceptId of conceptIds) {\n      await client.query('UPDATE concept_library SET last_used_at = now() WHERE id = $1', [conceptId]);\n    }\n  });\n}\n\nreturn cards.map((card) => {\n  const flattened = {\n    ...card,\n    concept: card.concept && typeof card.concept === 'object' ? card.concept.name : (card.concept || null),\n  };\n  return { json: { ...flattened, candidatePoolJson: JSON.stringify(flattened) } };\n});"
+        }
+      },
+      {
+        "id": "5453a6b3-b61d-4e11-ae5a-042e9e9f502f",
+        "name": "Insert Backlog Cards",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
         "position": [
-          -720,
-          -160
+          1440,
+          -320
         ],
         "parameters": {
-          "operation": "rowNotExists",
+          "operation": "upsert",
           "dataTableId": {
             "__rl": true,
             "mode": "id",
@@ -157,11 +266,90 @@
                 "keyValue": "={{ $json.sourceHash }}"
               }
             ]
-          }
+          },
+          "columns": {
+            "mappingMode": "defineBelow",
+            "matchingColumns": [
+              "sourceHash"
+            ],
+            "value": {
+              "sourceHash": "={{ $json.sourceHash }}",
+              "sourceName": "={{ $json.sourceName }}",
+              "sourceType": "={{ $json.sourceType }}",
+              "title": "={{ $json.title }}",
+              "sourceUrl": "={{ $json.sourceUrl }}",
+              "publishedAt": "={{ $json.publishedAt }}",
+              "summary": "={{ $json.summary }}",
+              "category": "={{ $json.category }}",
+              "relevanceScore": "={{ $json.totalScore }}",
+              "trustScore": "={{ $json.trustScore }}",
+              "autoPublish": true,
+              "status": "queued",
+              "angle": "={{ $json.angle }}",
+              "draftText": "",
+              "imagePrompt": "",
+              "approvalToken": "",
+              "approvalStatus": "queued",
+              "approvalDecision": "",
+              "candidatePoolJson": "={{ $json.candidatePoolJson }}",
+              "error": "",
+              "bufferPostId": "",
+              "bufferDueAt": "",
+              "bufferStatus": "",
+              "imageUrl": ""
+            }
+          },
+          "options": {}
         }
       },
       {
-        "id": "58fa0195-b4da-4c75-8271-303adc4b4527",
+        "id": "1b196d09-4bfc-4703-b84a-6be2364e4447",
+        "name": "Collapse After Insert",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1680,
+          -320
+        ],
+        "parameters": {
+          "jsCode": "const insertedCount = $input.all().length;\nreturn [{ json: { insertedCount } }];"
+        }
+      },
+      {
+        "id": "59ec05ac-948c-4913-a877-439d4bf05e64",
+        "name": "Fetch Backlog For Selection",
+        "type": "n8n-nodes-base.dataTable",
+        "typeVersion": 1.1,
+        "position": [
+          -720,
+          -160
+        ],
+        "parameters": {
+          "operation": "get",
+          "dataTableId": {
+            "__rl": true,
+            "mode": "id",
+            "value": "JDO5bEKUCJ1T57Pf",
+            "cachedResultName": "content_topics"
+          },
+          "returnAll": true
+        }
+      },
+      {
+        "id": "73b6264f-e9bb-431d-a626-26a96c0c4ece",
+        "name": "Select Top Backlog Topic",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -480,
+          -160
+        ],
+        "parameters": {
+          "jsCode": "const rows = $input.all().map((item) => item.json).filter(Boolean);\nconst queued = rows.filter((row) => row.status === 'queued');\n\nif (!queued.length) return [];\n\nconst best = queued.sort((a, b) =>\n  Number(b.relevanceScore || 0) - Number(a.relevanceScore || 0)\n  || (Date.parse(b.publishedAt || '') || 0) - (Date.parse(a.publishedAt || '') || 0)\n)[0];\n\nlet curated = {};\ntry {\n  curated = best.candidatePoolJson ? JSON.parse(best.candidatePoolJson) : {};\n} catch (error) {\n  curated = {};\n}\n\nreturn [{\n  json: {\n    sourceHash: best.sourceHash,\n    sourceName: best.sourceName,\n    sourceType: best.sourceType,\n    sourceEngine: curated.sourceEngine || best.sourceType,\n    title: best.title,\n    sourceUrl: best.sourceUrl,\n    publishedAt: best.publishedAt,\n    summary: best.summary,\n    category: best.category,\n    relevanceScore: best.relevanceScore,\n    trustScore: best.trustScore,\n    autoPublish: true,\n    angle: best.angle,\n    status: 'selected',\n    nerve: curated.nerve || null,\n    concept: curated.concept || null,\n    inversion: curated.inversion || null,\n    readerArchetype: curated.readerArchetype || null,\n    indiaContext: curated.indiaContext || null,\n    juxtapositionPair: curated.juxtapositionPair || null,\n    payloadType: curated.payloadType || null,\n    numberless: !!curated.numberless,\n    subScores: curated.subScores || null,\n  },\n}];"
+        }
+      },
+      {
+        "id": "492fc3e5-e75e-48a5-87de-3478d0b09acc",
         "name": "Write Carousel Plan",
         "type": "@n8n/n8n-nodes-langchain.openAi",
         "typeVersion": 2.3,
@@ -181,10 +369,10 @@
             "values": [
               {
                 "role": "system",
-                "content": "You write short Instagram carousel copy for an Indian audience.\n\nVoice:\n- observational\n- relatable\n- a little witty only when the topic allows it\n- simple English\n- clear argument, not a generic thread\n- the lens must stay rooted in unfiltered insights on startups, consumer behaviour, psychology, and D2C\n\nRules:\n- output only valid JSON\n- make exactly 7 slides unless the topic truly does not support it\n- each slide should be short enough to fit on a clean Instagram card\n- no long paragraphs\n- no marketing speak\n- no forced inspiration\n- keep it useful, memorable, or quietly sharp\n- prefer a clear point of view over generic inspiration\n- when a topic is ordinary, find the hidden mechanism inside it\n- when a topic is serious, stay calm and exact\n- every slide must add new information\n- the post must build like an argument, not a list\n- the final slide must reframe the entire post\n\nFramework:\n- Slide 1: sharp claim\n- Slide 2: reject the obvious explanation\n- Slide 3: reveal the real system or force\n- Slide 4: show how it appears in ordinary life\n- Slide 5: show the hidden cost\n- Slide 6: show what people misread\n- Slide 7: close with a blunt, memorable truth\n\nTone reference:\n- certain\n- calm\n- specific\n- unsentimental\n- empathetic without being soft\n- plainspoken, not performative\n- the point of view should feel like a sharp X post, not an Instagram caption\n\nJSON schema:\n{\n  \"framework\": {\n    \"claim\": \"one sentence\",\n    \"system\": \"one sentence\",\n    \"cost\": \"one sentence\",\n    \"reframe\": \"one sentence\"\n  },\n  \"angle\": \"story | concept | mindset | framework | food for thought | observation | witty observation\",\n  \"caption\": \"short supporting caption\",\n  \"hashtags\": [\"#tag1\", \"#tag2\"],\n  \"slides\": [\n    {\n      \"order\": 1,\n      \"role\": \"claim | correction | system | ordinary_life | cost | misread | close\",\n      \"text\": \"short slide copy\",\n      \"styleNote\": \"tiny note about layout or emphasis\"\n    }\n  ]\n}"
+                "content": "You write short Instagram carousel copy for an Indian audience.\n\nVoice:\n- observational\n- relatable\n- a little witty only when the topic allows it\n- simple English\n- clear argument, not a generic thread\n- the lens must stay rooted in unfiltered insights on startups, consumer behaviour, psychology, and D2C\n\nRules:\n- output only valid JSON\n- make exactly 7 slides unless the topic truly does not support it\n- each slide should be short enough to fit on a clean Instagram card\n- no long paragraphs\n- no marketing speak\n- no forced inspiration\n- keep it useful, memorable, or quietly sharp\n- prefer a clear point of view over generic inspiration\n- when a topic is ordinary, find the hidden mechanism inside it\n- when a topic is serious, stay calm and exact\n- every slide must add new information\n- the post must build like an argument, not a list\n- the final slide must reframe the entire post\n- if the topic card is numberless, do not invent or estimate any figure\n\nFramework:\n- Slide 1 (bookend): sharp claim\n- Slide 2: reject the obvious explanation\n- Slide 3: reveal the real system or force\n- Slide 4: show how it appears in ordinary life\n- Slide 5: show the hidden cost\n- Slide 6: show what people misread\n- Slide 7 (bookend): close with a blunt, memorable truth\n\nRHYTHM:\n- Cruising altitude is 50-65 words per slide. Count silently.\n- Exactly ONE slide among slides 2 through 6 is a punch slide: 28-40 words, declared in\n  \"punchSlideIndex\" as that slide's order number. Make it the shock (slide 2) or the\n  juxtaposition landing (slide 6), whichever lands harder for this topic.\n- Bookend slides (1 and 7) run 38-55 words.\n- Any slide over 45 words breaks into two short paragraphs at the natural pause.\n- Every slide contains at least one sentence of eight words or fewer.\n- Never pad to reach a count. Never compress to fit one. Add a concrete detail, or cut a clause.\n\nTone reference:\n- certain\n- calm\n- specific\n- unsentimental\n- empathetic without being soft\n- plainspoken, not performative\n- the point of view should feel like a sharp X post, not an Instagram caption\n\nJSON schema:\n{\n  \"framework\": {\n    \"claim\": \"one sentence\",\n    \"system\": \"one sentence\",\n    \"cost\": \"one sentence\",\n    \"reframe\": \"one sentence\"\n  },\n  \"angle\": \"story | concept | mindset | framework | food for thought | observation | witty observation\",\n  \"caption\": \"short supporting caption\",\n  \"hashtags\": [\"#tag1\", \"#tag2\"],\n  \"punchSlideIndex\": 2,\n  \"slides\": [\n    {\n      \"order\": 1,\n      \"role\": \"claim | correction | system | ordinary_life | cost | misread | close\",\n      \"text\": \"short slide copy\",\n      \"styleNote\": \"tiny note about layout or emphasis\"\n    }\n  ]\n}"
               },
               {
-                "content": "Topic title: {{$json.title}}\nTopic summary: {{$json.summary}}\nTopic category: {{$json.category}}\nTopic angle: {{$json.angle}}\nAudience: Indian Instagram users\nTone reference: calm, sharp, specific, unsentimental\n\nUse the framework exactly:\n1. sharp claim\n2. reject the obvious explanation\n3. reveal the real system or force\n4. show how it appears in ordinary life\n5. show the hidden cost\n6. show what people misread\n7. close with a blunt, memorable truth\n\nDo not make every slide independently clever. Make the sequence build.\nThe first slide should create a question.\nThe middle slides should tighten the argument.\nThe last slide should reframe the whole thing."
+                "content": "Topic title: {{$json.title}}\nTopic summary: {{$json.summary}}\nTopic category: {{$json.category}}\nTopic angle: {{$json.angle}}\nNumberless: {{$json.numberless}}\nCurator inversion: {{$json.inversion}}\nCurator reader archetype: {{$json.readerArchetype}}\nCurator India context: {{$json.indiaContext}}\nCurator juxtaposition pair: {{$json.juxtapositionPair}}\nCurator nerve: {{$json.nerve}}\nCurator concept: {{$json.concept}}\nAudience: Indian Instagram users\nTone reference: calm, sharp, specific, unsentimental\n\nUse the framework exactly:\n1. sharp claim (bookend)\n2. reject the obvious explanation\n3. reveal the real system or force\n4. show how it appears in ordinary life\n5. show the hidden cost\n6. show what people misread\n7. close with a blunt, memorable truth (bookend)\n\nUse the curator's inversion, reader archetype, India context, and juxtaposition pair above when they are\npresent - they were produced by a separate collision pass and should sharpen, not just decorate, the copy.\n\nDo not make every slide independently clever. Make the sequence build.\nThe first slide should create a question.\nThe middle slides should tighten the argument.\nThe last slide should reframe the whole thing."
               }
             ]
           },
@@ -198,7 +386,26 @@
         }
       },
       {
-        "id": "e2cd1636-a29f-41d1-8553-b166e90273cf",
+        "id": "1b435bf0-6d54-4deb-bf59-0a899b98556f",
+        "name": "Enforce Word Bands & Rhythm",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -360,
+          -160
+        ],
+        "parameters": {
+          "jsCode": "\nconst WORD_BANDS = {\n  essay: { target: [50, 65], soft: { under: [40, 49], over: [66, 80] }, hard: { min: 30, max: 80 } },\n  punch: { target: [28, 40], soft: { over: [41, 48] }, hard: { min: 18, max: 48 } },\n  bookend: { target: [38, 55], soft: { under: [30, 37], over: [56, 65] }, hard: { min: 25, max: 70 } },\n  mini: { target: [45, 65], soft: { under: [35, 44], over: [66, 75] }, hard: { min: 25, max: 80 } },\n  observation: { target: [38, 50], soft: { under: [30, 37], over: [51, 58] }, hard: { min: 22, max: 60 } },\n  card: { target: [30, 60], soft: { under: [22, 29], over: [61, 70] }, hard: { min: 15, max: 75 } },\n};\n\nfunction countWords(text) {\n  return String(text || '').trim().split(/\\s+/).filter(Boolean).length;\n}\n\nfunction classifySlideRole(order, total, punchSlideIndex) {\n  if (order === 1 || order === total) return 'bookend';\n  if (punchSlideIndex && Number(punchSlideIndex) === Number(order)) return 'punch';\n  return 'essay';\n}\n\nfunction checkBand(role, wordCount) {\n  const band = WORD_BANDS[role] || WORD_BANDS.essay;\n  const result = { role: role, wordCount: wordCount, target: band.target, hardMin: band.hard.min, hardMax: band.hard.max };\n  if (wordCount < band.hard.min || wordCount > band.hard.max) {\n    result.verdict = 'hard_fail';\n    result.direction = wordCount < band.hard.min ? 'expand' : 'cut';\n    return result;\n  }\n  if (wordCount >= band.target[0] && wordCount <= band.target[1]) {\n    result.verdict = 'target';\n    result.direction = null;\n    return result;\n  }\n  if (band.soft.under && wordCount >= band.soft.under[0] && wordCount <= band.soft.under[1]) {\n    result.verdict = 'soft_under';\n    result.direction = 'expand';\n    return result;\n  }\n  if (band.soft.over && wordCount >= band.soft.over[0] && wordCount <= band.soft.over[1]) {\n    result.verdict = 'soft_over';\n    result.direction = 'cut';\n    return result;\n  }\n  result.verdict = 'target';\n  result.direction = null;\n  return result;\n}\n\nfunction wrapLines(text, maxCharsPerLine) {\n  const words = String(text || '').split(/\\s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = line.concat([word]).join(' ');\n    if (candidate.length > maxCharsPerLine && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nfunction splitSentences(text) {\n  const matches = String(text || '').match(/[^.!?]+[.!?]*/g);\n  return matches ? matches.map(function (entry) { return entry.trim(); }).filter(Boolean) : [String(text || '').trim()].filter(Boolean);\n}\n\nfunction splitParagraphs(text, maxWordsBeforeSplit) {\n  const trimmed = String(text || '').trim();\n  const threshold = maxWordsBeforeSplit || 45;\n  if (countWords(trimmed) <= threshold) return [trimmed];\n  const sentences = splitSentences(trimmed);\n  if (sentences.length < 2) return [trimmed];\n  const midpointChar = trimmed.length / 2;\n  let bestIndex = 0;\n  let bestDistance = Infinity;\n  let runningLength = 0;\n  for (let i = 0; i < sentences.length - 1; i++) {\n    runningLength += sentences[i].length + 1;\n    const distance = Math.abs(runningLength - midpointChar);\n    if (distance < bestDistance) {\n      bestDistance = distance;\n      bestIndex = i;\n    }\n  }\n  const first = sentences.slice(0, bestIndex + 1).join(' ').trim();\n  const second = sentences.slice(bestIndex + 1).join(' ').trim();\n  return [first, second].filter(Boolean);\n}\n\nfunction renderedLineCount(paragraphs, maxCharsPerLine) {\n  let total = 0;\n  for (const paragraph of paragraphs) {\n    total += wrapLines(paragraph, maxCharsPerLine).length;\n  }\n  return total;\n}\n\nfunction sentenceMixWarnings(text) {\n  const wordCounts = splitSentences(text).map(function (sentence) {\n    return sentence.split(/\\s+/).filter(Boolean).length;\n  });\n  const warnings = [];\n  if (!wordCounts.some(function (count) { return count <= 8; })) warnings.push('no_short_sentence');\n  for (let i = 0; i < wordCounts.length - 1; i++) {\n    if (wordCounts[i] > 20 && wordCounts[i + 1] > 20) warnings.push('consecutive_long_sentences');\n  }\n  return warnings;\n}\n\nconst upstream = $json.message?.content || $json;\nconst plan = (upstream && typeof upstream === 'object') ? upstream : {};\nconst rawSlides = Array.isArray(plan.slides) ? plan.slides : [];\nconst total = rawSlides.length;\n\nfunction resolvePunchSlideIndex() {\n  const declared = Number(plan.punchSlideIndex);\n  const validRange = rawSlides.some((slide) => Number(slide.order) === declared) && declared > 1 && declared < total;\n  if (declared && validRange) return declared;\n  const midSlides = rawSlides.filter((slide) => Number(slide.order) > 1 && Number(slide.order) < total);\n  if (!midSlides.length) return null;\n  let shortest = { order: Number(midSlides[0].order), words: countWords(midSlides[0].text) };\n  for (const slide of midSlides) {\n    const words = countWords(slide.text);\n    if (words < shortest.words) shortest = { order: Number(slide.order), words };\n  }\n  return shortest.order;\n}\n\nconst punchSlideIndex = resolvePunchSlideIndex();\nconst MAX_CHARS_PER_LINE = 28;\nconst MAX_LINES = 10;\n\nlet working = rawSlides.map((slide) => {\n  const order = Number(slide.order) || 0;\n  const role = classifySlideRole(order, total, punchSlideIndex);\n  return { ...slide, order, role, text: String(slide.text || '').trim() };\n});\n\nfunction bandCheckFor(slide) {\n  return checkBand(slide.role, countWords(slide.text));\n}\n\nasync function rewriteSlides(targets, instructionForTarget) {\n  if (!targets.length) return {};\n  const model = process.env.CURATOR_MODEL_MINI || 'gpt-5.4-mini';\n  const payload = targets.map((slide) => ({\n    order: slide.order,\n    role: slide.role,\n    currentText: slide.text,\n    instruction: instructionForTarget(slide),\n  }));\n  const systemPrompt = 'You rewrite single Instagram carousel slides to hit a word-count band without ' +\n    'padding or over-compressing. For an expand instruction, add one concrete detail or one beat of the ' +\n    'character - never filler words. For a cut instruction, remove a clause - never delete words until the ' +\n    'sentence becomes a choppy fragment. Preserve meaning and voice. Output strict JSON ' +\n    '{ \"rewrites\": [ { \"order\": 1, \"text\": \"...\" } ] }.';\n  try {\n    const response = await this.helpers.httpRequestWithAuthentication.call(this, 'openAiApi', {\n      method: 'POST',\n      url: 'https://api.openai.com/v1/chat/completions',\n      body: {\n        model,\n        messages: [\n          { role: 'system', content: systemPrompt },\n          { role: 'user', content: JSON.stringify(payload) },\n        ],\n        response_format: { type: 'json_object' },\n      },\n      json: true,\n    });\n    const parsed = JSON.parse(response.choices?.[0]?.message?.content || '{}');\n    const rewrites = Array.isArray(parsed.rewrites) ? parsed.rewrites : [];\n    const byOrder = {};\n    for (const entry of rewrites) byOrder[Number(entry.order)] = String(entry.text || '').trim();\n    return byOrder;\n  } catch (error) {\n    return {};\n  }\n}\n\nconst bandTargets = working.filter((slide) => bandCheckFor(slide).verdict !== 'target');\n\nif (bandTargets.length) {\n  const rewrites = await rewriteSlides(bandTargets, (slide) => {\n    const check = bandCheckFor(slide);\n    return check.direction === 'expand'\n      ? ('Expand to ' + check.target[0] + '-' + check.target[1] + ' words by adding one concrete detail or one beat of the character. Never pad with adjectives.')\n      : ('Cut to ' + check.target[0] + '-' + check.target[1] + ' words by removing a clause. Never produce a choppy fragment.');\n  });\n  working = working.map((slide) => (rewrites[slide.order] ? { ...slide, text: rewrites[slide.order] } : slide));\n}\n\nfunction paragraphsFor(slide) {\n  if (slide.role === 'punch') return [slide.text];\n  return splitParagraphs(slide.text, 45);\n}\n\nconst overflowTargets = working.filter((slide) => renderedLineCount(paragraphsFor(slide), MAX_CHARS_PER_LINE) > MAX_LINES);\nif (overflowTargets.length) {\n  const rewrites = await rewriteSlides(overflowTargets, () =>\n    ('Cut this slide so it renders in at most ' + MAX_LINES + ' lines on a phone card. Remove a clause, never compress into a fragment.')\n  );\n  working = working.map((slide) => (rewrites[slide.order] ? { ...slide, text: rewrites[slide.order] } : slide));\n}\n\nconst bandReport = [];\nworking = working.map((slide) => {\n  const wordCount = countWords(slide.text);\n  const band = checkBand(slide.role, wordCount);\n  let finalParagraphs = paragraphsFor(slide);\n  let renderOverflow = false;\n  if (renderedLineCount(finalParagraphs, MAX_CHARS_PER_LINE) > MAX_LINES) {\n    renderOverflow = true;\n    const words = slide.text.split(/\\s+/).filter(Boolean);\n    const approxWordsPerLine = MAX_CHARS_PER_LINE / 6;\n    const keepWords = Math.max(10, Math.floor(MAX_LINES * approxWordsPerLine));\n    const trimmedText = words.slice(0, keepWords).join(' ');\n    finalParagraphs = slide.role === 'punch' ? [trimmedText] : splitParagraphs(trimmedText, 45);\n  }\n  const finalText = finalParagraphs.join('\\n\\n');\n  bandReport.push({\n    order: slide.order,\n    role: slide.role,\n    wordCount: countWords(finalText),\n    verdict: band.verdict,\n    lineCount: renderedLineCount(finalParagraphs, MAX_CHARS_PER_LINE),\n    renderOverflow,\n    sentenceMixWarnings: sentenceMixWarnings(finalText),\n  });\n  return { ...slide, text: finalText, paragraphs: finalParagraphs, wordCount: countWords(finalText) };\n});\n\nconst punchCount = working.filter((slide) => slide.role === 'punch').length;\nconst lengthVariety = new Set(working.map((slide) => slide.wordCount)).size > 1;\nconst hasOverflow = bandReport.some((entry) => entry.renderOverflow);\nconst hasHardFail = bandReport.some((entry) => entry.verdict === 'hard_fail');\nlet rhythmScore = 5;\nif (punchCount !== 1) rhythmScore -= 1;\nif (!lengthVariety) rhythmScore -= 1;\nif (hasOverflow) rhythmScore -= 2;\nif (hasHardFail) rhythmScore -= 1;\nrhythmScore = Math.max(1, Math.min(5, rhythmScore));\n\nreturn [{\n  json: {\n    ...plan,\n    slides: working,\n    punchSlideIndex,\n    bandReport,\n    rhythmScore,\n  },\n}];"
+        },
+        "credentials": {
+          "openAiApi": {
+            "id": "7Ji76LZT6LXmqLQT",
+            "name": "OpenAI account"
+          }
+        }
+      },
+      {
+        "id": "0f074919-794c-4f58-90a5-db28354400b4",
         "name": "Prepare Carousel Payload",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -207,11 +414,11 @@
           -160
         ],
         "parameters": {
-          "jsCode": "const plan = $node[\"Write Carousel Plan\"]?.json?.message?.content || {};\nconst token = Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);\nconst slideCount = Array.isArray(plan.slides) ? plan.slides.length : 0;\nconst supabaseUrl = String(process.env.SUPABASE_URL || 'https://nlmthljrbgnaevheszvg.supabase.co').replace(//+$/, '');\nconst supabaseBucket = String(process.env.SUPABASE_STORAGE_BUCKET || 'instagram-carousel-assets').trim();\nconst carouselBaseUrl = supabaseUrl + '/storage/v1/object/public/' + supabaseBucket;\n\nreturn [{\n  json: {\n    ...$json,\n    angle: plan.angle || $json.angle || 'observation',\n    captionText: plan.caption || '',\n    hashtags: Array.isArray(plan.hashtags) ? plan.hashtags : [],\n    slides: Array.isArray(plan.slides) ? plan.slides : [],\n    slideCount,\n    carouselToken: token,\n    approvalToken: token,\n    imagePrompt: JSON.stringify(plan, null, 2),\n    candidatePoolJson: JSON.stringify(plan),\n    draftText: plan.caption || '',\n    carouselAssetBase: carouselBaseUrl,\n    carouselAssets: [],\n    carouselStoragePrefix: 'instagram-carousel/' + token,\n    storageBucket: supabaseBucket,\n    bufferChannelId: '',\n    publishStatus: 'queued',\n    publishUrl: '',\n  }\n}];"
+          "jsCode": "const plan = $json || {};\nconst token = Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);\nconst slideCount = Array.isArray(plan.slides) ? plan.slides.length : 0;\nconst supabaseUrl = String(process.env.SUPABASE_URL || 'https://nlmthljrbgnaevheszvg.supabase.co').replace(/\\/+$/, '');\nconst supabaseBucket = String(process.env.SUPABASE_STORAGE_BUCKET || 'instagram-carousel-assets').trim();\nconst carouselBaseUrl = supabaseUrl + '/storage/v1/object/public/' + supabaseBucket;\n\nreturn [{\n  json: {\n    ...$json,\n    angle: plan.angle || $json.angle || 'observation',\n    captionText: plan.caption || '',\n    hashtags: Array.isArray(plan.hashtags) ? plan.hashtags : [],\n    slides: Array.isArray(plan.slides) ? plan.slides : [],\n    slideCount,\n    carouselToken: token,\n    approvalToken: token,\n    imagePrompt: JSON.stringify(plan, null, 2),\n    candidatePoolJson: JSON.stringify(plan),\n    draftText: plan.caption || '',\n    carouselAssetBase: carouselBaseUrl,\n    carouselAssets: [],\n    carouselStoragePrefix: 'instagram-carousel/' + token,\n    storageBucket: supabaseBucket,\n    bufferChannelId: '',\n    publishStatus: 'queued',\n    publishUrl: '',\n  }\n}];"
         }
       },
       {
-        "id": "0fa8203a-d546-4ee1-be0a-d93bcafca69a",
+        "id": "23c7f99c-3818-46ff-8045-27287b9dd3dd",
         "name": "Upload Carousel Slides",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -220,11 +427,11 @@
           -160
         ],
         "parameters": {
-          "jsCode": "const sharp = require('sharp');\nconst plan = $json;\nconst slides = Array.isArray(plan.slides) ? plan.slides : [];\nconst token = String(plan.approvalToken || plan.carouselToken || '').trim();\nconst supabaseUrl = String(process.env.SUPABASE_URL || 'https://nlmthljrbgnaevheszvg.supabase.co').replace(//+$/, '');\nconst supabaseKey = String(process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim();\nconst supabaseBucket = String(process.env.SUPABASE_STORAGE_BUCKET || plan.storageBucket || 'instagram-carousel-assets').trim();\nconst storagePrefix = String(plan.carouselStoragePrefix || ('instagram-carousel/' + token)).replace(/^/+|/+$/g, '');\nconst channelName = 'thoughts @ 3:18AM';\n\nif (!supabaseKey) {\n  throw new Error('SUPABASE_SERVICE_ROLE_KEY is required to upload carousel assets.');\n}\n\nif (!supabaseBucket) {\n  throw new Error('SUPABASE_STORAGE_BUCKET is required to upload carousel assets.');\n}\n\nfunction esc(value) {\n  return String(value || '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;');\n}\n\nfunction lines(text, max = 28) {\n  const words = String(text || '').split(/s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = [...line, word].join(' ');\n    if (candidate.length > max && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nfunction slideSvg(text, index, total) {\n  const bodyLines = lines(text, 30).slice(0, 8);\n  const bodySvg = bodyLines.map((line, i) => '<text x=\"128\" y=\"' + (250 + i * 72) + '\" fill=\"#111111\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"54\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\n  return '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\" viewBox=\"0 0 1080 1350\">' +\n    '<rect width=\"1080\" height=\"1350\" fill=\"#ffffff\"/>' +\n    '<circle cx=\"84\" cy=\"86\" r=\"48\" fill=\"#e9e2d7\" stroke=\"#111111\" stroke-width=\"2\"/>' +\n    '<circle cx=\"84\" cy=\"86\" r=\"34\" fill=\"#d4c8b8\"/>' +\n    '<text x=\"152\" y=\"74\" fill=\"#111111\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"60\" font-weight=\"700\">' + esc(channelName) + '</text>' +\n    '<text x=\"152\" y=\"124\" fill=\"#666666\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"30\">Just now • 🌐</text>' +\n    '<circle cx=\"980\" cy=\"82\" r=\"6\" fill=\"#666666\"/>' +\n    '<circle cx=\"1002\" cy=\"82\" r=\"6\" fill=\"#666666\"/>' +\n    '<circle cx=\"1024\" cy=\"82\" r=\"6\" fill=\"#666666\"/>' +\n    '<text x=\"128\" y=\"198\" fill=\"#666666\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\">' + esc('Card ' + index + ' of ' + total) + '</text>' +\n    '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"#111111\">' +\n      bodySvg +\n    '</g>' +\n    '</svg>';\n}\n\nasync function uploadPng(buffer, filePath) {\n  const path = filePath.split('/').map(encodeURIComponent).join('/');\n  const uploadUrl = supabaseUrl + '/storage/v1/object/' + supabaseBucket + '/' + path;\n  const response = await fetch(uploadUrl, {\n    method: 'POST',\n    headers: {\n      apikey: supabaseKey,\n      Authorization: 'Bearer ' + supabaseKey,\n      'Content-Type': 'image/png',\n      'x-upsert': 'true',\n    },\n    body: buffer,\n  });\n\n  if (!response.ok) {\n    const body = await response.text().catch(() => '');\n    throw new Error('Supabase upload failed for ' + filePath + ': ' + response.status + ' ' + response.statusText + ' ' + body);\n  }\n\n  return supabaseUrl + '/storage/v1/object/public/' + supabaseBucket + '/' + path;\n}\n\nconst assets = [];\nfor (let index = 0; index < slides.length; index++) {\n  const slide = slides[index] || {};\n  const slideNumber = Number(slide.order || index + 1);\n  const text = String(slide.text || '').trim();\n  const pngBuffer = await sharp(Buffer.from(slideSvg(text, slideNumber, Math.max(slides.length, 1)))).png().toBuffer();\n  const objectPath = storagePrefix + '/slide-' + slideNumber + '.png';\n  const publicUrl = await uploadPng(pngBuffer, objectPath);\n  assets.push({\n    image: {\n      url: publicUrl,\n    },\n  });\n}\n\nreturn [{\n  json: {\n    ...plan,\n    carouselAssets: assets,\n    carouselAssetBase: supabaseUrl + '/storage/v1/object/public/' + supabaseBucket + '/' + storagePrefix,\n    storageBucket: supabaseBucket,\n    uploadedSlideCount: assets.length,\n    imageUrl: assets[0]?.image?.url || '',\n  }\n}];"
+          "jsCode": "const sharp = require('sharp');\nconst plan = $json;\nconst slides = Array.isArray(plan.slides) ? plan.slides : [];\nconst token = String(plan.approvalToken || plan.carouselToken || '').trim();\nconst supabaseUrl = String(process.env.SUPABASE_URL || 'https://nlmthljrbgnaevheszvg.supabase.co').replace(/\\/+$/, '');\nconst supabaseKey = String(process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim();\nconst supabaseBucket = String(process.env.SUPABASE_STORAGE_BUCKET || plan.storageBucket || 'instagram-carousel-assets').trim();\nconst storagePrefix = String(plan.carouselStoragePrefix || ('instagram-carousel/' + token)).replace(/^\\/+|\\/+$/g, '');\nconst channelName = 'thoughts @ 3:18AM';\n\nif (!supabaseKey) {\n  throw new Error('SUPABASE_SERVICE_ROLE_KEY is required to upload carousel assets.');\n}\n\nif (!supabaseBucket) {\n  throw new Error('SUPABASE_STORAGE_BUCKET is required to upload carousel assets.');\n}\n\nfunction esc(value) {\n  return String(value || '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;');\n}\n\nfunction lines(text, max = 28) {\n  const words = String(text || '').split(/\\s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = [...line, word].join(' ');\n    if (candidate.length > max && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nconst MAX_CHARS_PER_LINE = 28;\nconst MAX_RENDER_LINES = 10;\n\nfunction paragraphsFromText(text) {\n  const parts = String(text || '').split('\\n\\n').map((part) => part.trim()).filter(Boolean);\n  return parts.length ? parts : [String(text || '').trim()];\n}\n\n// render_overflow safety clamp: word-band + line-cap enforcement already runs upstream\n// (Enforce Word Bands & Rhythm), so this should be a no-op in the normal path.\nfunction layoutLines(text, maxCharsPerLine, maxLines) {\n  const paragraphs = paragraphsFromText(text);\n  let flat = [];\n  paragraphs.forEach((paragraph, index) => {\n    if (index > 0) flat.push({ gap: true });\n    for (const lineText of lines(paragraph, maxCharsPerLine)) flat.push({ gap: false, text: lineText });\n  });\n  const textLineCount = flat.filter((entry) => !entry.gap).length;\n  if (textLineCount > maxLines) {\n    let kept = 0;\n    flat = flat.filter((entry) => {\n      if (entry.gap) return true;\n      if (kept >= maxLines) return false;\n      kept += 1;\n      return true;\n    });\n  }\n  return flat;\n}\n\nfunction slideSvg(text, index, total) {\n  const fontSize = 54;\n  const lineHeight = Math.round(fontSize * 1.45);\n  const paragraphGap = Math.round(lineHeight * 0.8);\n  const layout = layoutLines(text, MAX_CHARS_PER_LINE, MAX_RENDER_LINES);\n  let cursorY = 250;\n  const bodySvg = layout.map((entry) => {\n    if (entry.gap) {\n      cursorY += paragraphGap;\n      return '';\n    }\n    const svgLine = '<text x=\"128\" y=\"' + cursorY + '\" fill=\"#111111\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"' + fontSize + '\" font-weight=\"700\">' + esc(entry.text) + '</text>';\n    cursorY += lineHeight;\n    return svgLine;\n  }).filter(Boolean).join('\\n    ');\n  return '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\" viewBox=\"0 0 1080 1350\">' +\n    '<rect width=\"1080\" height=\"1350\" fill=\"#ffffff\"/>' +\n    '<circle cx=\"84\" cy=\"86\" r=\"48\" fill=\"#e9e2d7\" stroke=\"#111111\" stroke-width=\"2\"/>' +\n    '<circle cx=\"84\" cy=\"86\" r=\"34\" fill=\"#d4c8b8\"/>' +\n    '<text x=\"152\" y=\"74\" fill=\"#111111\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"60\" font-weight=\"700\">' + esc(channelName) + '</text>' +\n    '<text x=\"152\" y=\"124\" fill=\"#666666\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"30\">Just now • 🌐</text>' +\n    '<circle cx=\"980\" cy=\"82\" r=\"6\" fill=\"#666666\"/>' +\n    '<circle cx=\"1002\" cy=\"82\" r=\"6\" fill=\"#666666\"/>' +\n    '<circle cx=\"1024\" cy=\"82\" r=\"6\" fill=\"#666666\"/>' +\n    '<text x=\"128\" y=\"198\" fill=\"#666666\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\">' + esc('Card ' + index + ' of ' + total) + '</text>' +\n    '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"#111111\">' +\n      bodySvg +\n    '</g>' +\n    '</svg>';\n}\n\nasync function uploadPng(buffer, filePath) {\n  const path = filePath.split('/').map(encodeURIComponent).join('/');\n  const uploadUrl = supabaseUrl + '/storage/v1/object/' + supabaseBucket + '/' + path;\n  const response = await fetch(uploadUrl, {\n    method: 'POST',\n    headers: {\n      apikey: supabaseKey,\n      Authorization: 'Bearer ' + supabaseKey,\n      'Content-Type': 'image/png',\n      'x-upsert': 'true',\n    },\n    body: buffer,\n  });\n\n  if (!response.ok) {\n    const body = await response.text().catch(() => '');\n    throw new Error('Supabase upload failed for ' + filePath + ': ' + response.status + ' ' + response.statusText + ' ' + body);\n  }\n\n  return supabaseUrl + '/storage/v1/object/public/' + supabaseBucket + '/' + path;\n}\n\nconst assets = [];\nfor (let index = 0; index < slides.length; index++) {\n  const slide = slides[index] || {};\n  const slideNumber = Number(slide.order || index + 1);\n  const text = String(slide.text || '').trim();\n  const pngBuffer = await sharp(Buffer.from(slideSvg(text, slideNumber, Math.max(slides.length, 1)))).png().toBuffer();\n  const objectPath = storagePrefix + '/slide-' + slideNumber + '.png';\n  const publicUrl = await uploadPng(pngBuffer, objectPath);\n  assets.push({\n    image: {\n      url: publicUrl,\n    },\n  });\n}\n\nreturn [{\n  json: {\n    ...plan,\n    carouselAssets: assets,\n    carouselAssetBase: supabaseUrl + '/storage/v1/object/public/' + supabaseBucket + '/' + storagePrefix,\n    storageBucket: supabaseBucket,\n    uploadedSlideCount: assets.length,\n    imageUrl: assets[0]?.image?.url || '',\n  }\n}];"
         }
       },
       {
-        "id": "5d8c6c62-f8d8-4a90-8946-ddb0406608d2",
+        "id": "fbbb8e89-1a70-4d87-923f-27784c028ca1",
         "name": "Upsert Draft Record",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -265,7 +472,7 @@
               "relevanceScore": "={{ $json.relevanceScore }}",
               "trustScore": "={{ $json.trustScore }}",
               "autoPublish": "={{ $json.autoPublish }}",
-              "status": "queued",
+              "status": "drafted",
               "angle": "={{ $json.angle }}",
               "draftText": "={{ $json.draftText }}",
               "imagePrompt": "={{ $json.imagePrompt }}",
@@ -286,7 +493,7 @@
         }
       },
       {
-        "id": "18855294-fc4d-46d6-814a-ab388146b83a",
+        "id": "0c8cddbf-1d86-4983-b8dc-c1bdda727271",
         "name": "Generate End Response",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -299,7 +506,7 @@
         }
       },
       {
-        "id": "4609057a-69ea-4334-a6a8-2241664ea4dd",
+        "id": "52486019-5706-4dd2-8858-c850ae022678",
         "name": "Get Buffer Organizations",
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -328,7 +535,7 @@
         }
       },
       {
-        "id": "7060c049-eb0e-4d05-a395-6d51353279d7",
+        "id": "ff07b09d-eba8-4939-a6bf-1bb426f2b9fc",
         "name": "Pick Buffer Organization",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -341,7 +548,7 @@
         }
       },
       {
-        "id": "782b8d4a-3570-4e69-9ac1-6893fea9ae6d",
+        "id": "0b87ed88-d6dc-49df-9cb2-e9caf5bf65d6",
         "name": "Get Buffer Channels",
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -370,7 +577,7 @@
         }
       },
       {
-        "id": "0eb4cd10-bd44-4a0d-92ba-f3ef07a3a9f6",
+        "id": "531660a5-806b-4b72-bf31-dd4977921582",
         "name": "Pick Instagram Channel",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -383,7 +590,7 @@
         }
       },
       {
-        "id": "f286d5a6-cbe7-4b73-839d-7263f3a8b21e",
+        "id": "4ae92329-8993-4154-967f-24b48d7a7b94",
         "name": "Queue in Buffer",
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -412,7 +619,7 @@
         }
       },
       {
-        "id": "839d197e-2f99-40c5-afb7-be1278e721a5",
+        "id": "9d7b129f-e4a3-42a9-b60c-85c90cda9ba5",
         "name": "Upsert Published Record",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -474,7 +681,7 @@
         }
       },
       {
-        "id": "6df725bb-ed59-4626-843b-1ffae3add42e",
+        "id": "fdbadc69-4318-44de-8064-afd47bfc8505",
         "name": "Lookup Carousel",
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1,
@@ -502,7 +709,7 @@
         }
       },
       {
-        "id": "06e9743c-f8b4-4abf-9155-6c89098fe41c",
+        "id": "558c541a-fb7a-4026-ae3a-ec1bbcf53fb1",
         "name": "Render Slide PNG",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -511,11 +718,11 @@
           320
         ],
         "parameters": {
-          "jsCode": "const sharp = require('sharp');\nconst request = $node[\"Instagram Slide Webhook\"]?.json || $json;\nconst token = String(request.query?.token || '').trim();\nconst slideIndex = Math.max(1, Number(request.query?.slide || 1));\nconst record = $input.first()?.json || {};\n\nif (!token) {\n  const errorSvg = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\"><rect width=\"1080\" height=\"1350\" fill=\"#111\"/><text x=\"70\" y=\"110\" fill=\"#fff\" font-size=\"44\" font-family=\"Arial\">Missing token</text></svg>';\n  const errorPng = await sharp(Buffer.from(errorSvg)).png().toBuffer();\n  return [{\n    json: {\n      mimeType: 'image/png',\n      fileName: 'instagram-slide-error.png',\n    },\n    binary: {\n      data: await this.helpers.prepareBinaryData(errorPng, 'instagram-slide-error.png', 'image/png'),\n    },\n  }];\n}\n\nlet plan = {};\ntry {\n  plan = record.candidatePoolJson ? JSON.parse(record.candidatePoolJson) : {};\n} catch (error) {\n  plan = {};\n}\n\nconst slides = Array.isArray(plan.slides) ? plan.slides : [];\nconst slide = slides.find((entry) => Number(entry.order || 0) === slideIndex) || slides[slideIndex - 1] || { text: 'Missing slide text.' };\nconst title = String(record.title || plan.title || '');\nconst body = String(slide.text || '').trim();\nconst bg = '#0b0f14';\nconst panel = '#11161d';\nconst panelEdge = '#253041';\nconst dark = '#f5f7fa';\nconst subtle = '#8b98a5';\nconst channelName = 'unfiltered.insights';\nconst handle = '@startup-psych-d2c';\n\nfunction esc(value) {\n  return String(value || '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;');\n}\n\nfunction lines(text, max = 28) {\n  const words = String(text || '').split(/s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = [...line, word].join(' ');\n    if (candidate.length > max && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nconst bodyLines = lines(body, 28).slice(0, 10);\nconst titleLines = lines(title, 30).slice(0, 2);\n\nconst titleSvg = titleLines.map((line, index) => '<text x=\"144\" y=\"' + (190 + index * 42) + '\" fill=\"' + dark + '\" font-size=\"30\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\nconst bodySvg = bodyLines.map((line, index) => '<text x=\"144\" y=\"' + (320 + index * 64) + '\" fill=\"' + dark + '\" font-size=\"46\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\n\nconst svg = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\" viewBox=\"0 0 1080 1350\">' +\n  '<rect width=\"1080\" height=\"1350\" fill=\"' + bg + '\"/>' +\n  '<rect x=\"88\" y=\"70\" width=\"904\" height=\"1210\" rx=\"36\" fill=\"' + panel + '\" stroke=\"' + panelEdge + '\" stroke-width=\"2\"/>' +\n  '<circle cx=\"150\" cy=\"150\" r=\"28\" fill=\"#0f141a\" stroke=\"' + panelEdge + '\" stroke-width=\"2\"/>' +\n  '<text x=\"214\" y=\"143\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"44\" font-weight=\"700\">' + esc(channelName) + '</text>' +\n  '<text x=\"214\" y=\"180\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\">' + esc(handle) + ' · Just now</text>' +\n  '<text x=\"928\" y=\"142\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"44\" font-weight=\"700\">...</text>' +\n  '<rect x=\"116\" y=\"230\" width=\"848\" height=\"1\" fill=\"' + panelEdge + '\"/>' +\n  '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n    titleSvg +\n  '</g>' +\n  '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n    bodySvg +\n  '</g>' +\n  '<rect x=\"116\" y=\"1148\" width=\"848\" height=\"1\" fill=\"' + panelEdge + '\"/>' +\n  '<text x=\"144\" y=\"1200\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\">Reply · Repost · Like · Bookmark</text>' +\n'</svg>';\n\nconst pngBuffer = await sharp(Buffer.from(svg)).png().toBuffer();\n\nreturn [{\n  json: {\n    mimeType: 'image/png',\n    fileName: 'instagram-slide-' + slideIndex + '.png',\n  },\n  binary: {\n    data: await this.helpers.prepareBinaryData(pngBuffer, 'instagram-slide-' + slideIndex + '.png', 'image/png'),\n  },\n}];"
+          "jsCode": "const sharp = require('sharp');\nconst request = $node[\"Instagram Slide Webhook\"]?.json || $json;\nconst token = String(request.query?.token || '').trim();\nconst slideIndex = Math.max(1, Number(request.query?.slide || 1));\nconst record = $input.first()?.json || {};\n\nif (!token) {\n  const errorSvg = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\"><rect width=\"1080\" height=\"1350\" fill=\"#111\"/><text x=\"70\" y=\"110\" fill=\"#fff\" font-size=\"44\" font-family=\"Arial\">Missing token</text></svg>';\n  const errorPng = await sharp(Buffer.from(errorSvg)).png().toBuffer();\n  return [{\n    json: {\n      mimeType: 'image/png',\n      fileName: 'instagram-slide-error.png',\n    },\n    binary: {\n      data: await this.helpers.prepareBinaryData(errorPng, 'instagram-slide-error.png', 'image/png'),\n    },\n  }];\n}\n\nlet plan = {};\ntry {\n  plan = record.candidatePoolJson ? JSON.parse(record.candidatePoolJson) : {};\n} catch (error) {\n  plan = {};\n}\n\nconst slides = Array.isArray(plan.slides) ? plan.slides : [];\nconst slide = slides.find((entry) => Number(entry.order || 0) === slideIndex) || slides[slideIndex - 1] || { text: 'Missing slide text.' };\nconst title = String(record.title || plan.title || '');\nconst body = String(slide.text || '').trim();\nconst bg = '#0b0f14';\nconst panel = '#11161d';\nconst panelEdge = '#253041';\nconst dark = '#f5f7fa';\nconst subtle = '#8b98a5';\nconst channelName = 'unfiltered.insights';\nconst handle = '@startup-psych-d2c';\n\nfunction esc(value) {\n  return String(value || '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;');\n}\n\nfunction lines(text, max = 28) {\n  const words = String(text || '').split(/\\s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = [...line, word].join(' ');\n    if (candidate.length > max && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nconst MAX_CHARS_PER_LINE = 28;\nconst MAX_RENDER_LINES = 10;\n\nfunction paragraphsFromText(text) {\n  const parts = String(text || '').split('\\n\\n').map((part) => part.trim()).filter(Boolean);\n  return parts.length ? parts : [String(text || '').trim()];\n}\n\n// render_overflow safety clamp: word-band + line-cap enforcement already runs upstream\n// (Enforce Word Bands & Rhythm), so this should be a no-op in the normal path.\nfunction layoutLines(text, maxCharsPerLine, maxLines) {\n  const paragraphs = paragraphsFromText(text);\n  let flat = [];\n  paragraphs.forEach((paragraph, index) => {\n    if (index > 0) flat.push({ gap: true });\n    for (const lineText of lines(paragraph, maxCharsPerLine)) flat.push({ gap: false, text: lineText });\n  });\n  const textLineCount = flat.filter((entry) => !entry.gap).length;\n  if (textLineCount > maxLines) {\n    let kept = 0;\n    flat = flat.filter((entry) => {\n      if (entry.gap) return true;\n      if (kept >= maxLines) return false;\n      kept += 1;\n      return true;\n    });\n  }\n  return flat;\n}\n\nconst titleLines = lines(title, 30).slice(0, 2);\nconst titleFontSize = 30;\nconst titleLineHeight = Math.round(titleFontSize * 1.45);\nconst titleSvg = titleLines.map((line, index) => '<text x=\"144\" y=\"' + (190 + index * titleLineHeight) + '\" fill=\"' + dark + '\" font-size=\"' + titleFontSize + '\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\n\nconst bodyFontSize = 46;\nconst bodyLineHeight = Math.round(bodyFontSize * 1.45);\nconst bodyParagraphGap = Math.round(bodyLineHeight * 0.8);\nconst bodyLayout = layoutLines(body, MAX_CHARS_PER_LINE, MAX_RENDER_LINES);\nlet bodyCursorY = 320;\nconst bodySvg = bodyLayout.map((entry) => {\n  if (entry.gap) {\n    bodyCursorY += bodyParagraphGap;\n    return '';\n  }\n  const svgLine = '<text x=\"144\" y=\"' + bodyCursorY + '\" fill=\"' + dark + '\" font-size=\"' + bodyFontSize + '\" font-weight=\"700\">' + esc(entry.text) + '</text>';\n  bodyCursorY += bodyLineHeight;\n  return svgLine;\n}).filter(Boolean).join('\\n    ');\n\nconst svg = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\" viewBox=\"0 0 1080 1350\">' +\n  '<rect width=\"1080\" height=\"1350\" fill=\"' + bg + '\"/>' +\n  '<rect x=\"88\" y=\"70\" width=\"904\" height=\"1210\" rx=\"36\" fill=\"' + panel + '\" stroke=\"' + panelEdge + '\" stroke-width=\"2\"/>' +\n  '<circle cx=\"150\" cy=\"150\" r=\"28\" fill=\"#0f141a\" stroke=\"' + panelEdge + '\" stroke-width=\"2\"/>' +\n  '<text x=\"214\" y=\"143\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"44\" font-weight=\"700\">' + esc(channelName) + '</text>' +\n  '<text x=\"214\" y=\"180\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\">' + esc(handle) + ' · Just now</text>' +\n  '<text x=\"928\" y=\"142\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"44\" font-weight=\"700\">...</text>' +\n  '<rect x=\"116\" y=\"230\" width=\"848\" height=\"1\" fill=\"' + panelEdge + '\"/>' +\n  '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n    titleSvg +\n  '</g>' +\n  '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n    bodySvg +\n  '</g>' +\n  '<rect x=\"116\" y=\"1148\" width=\"848\" height=\"1\" fill=\"' + panelEdge + '\"/>' +\n  '<text x=\"144\" y=\"1200\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\">Reply · Repost · Like · Bookmark</text>' +\n'</svg>';\n\nconst pngBuffer = await sharp(Buffer.from(svg)).png().toBuffer();\n\nreturn [{\n  json: {\n    mimeType: 'image/png',\n    fileName: 'instagram-slide-' + slideIndex + '.png',\n  },\n  binary: {\n    data: await this.helpers.prepareBinaryData(pngBuffer, 'instagram-slide-' + slideIndex + '.png', 'image/png'),\n  },\n}];"
         }
       },
       {
-        "id": "bf0f10c7-cccf-4a1f-bdea-5a0cdea5cd6d",
+        "id": "5e2b24d6-16db-4b58-9851-66bb41c0374c",
         "name": "Render Preview PNG",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -524,11 +731,11 @@
           520
         ],
         "parameters": {
-          "jsCode": "const sharp = require('sharp');\nconst request = $node[\"Instagram Preview Webhook\"]?.json || $json;\nconst showSet = String(request.query?.set || request.query?.mode || '').toLowerCase() === '1' || String(request.query?.mode || '').toLowerCase() === 'set';\nconst bg = '#0b0f14';\nconst panel = '#11161d';\nconst panelEdge = '#253041';\nconst dark = '#f5f7fa';\nconst subtle = '#8b98a5';\nconst channelName = 'unfiltered.insights';\nconst handle = '@startup-psych-d2c';\n\nfunction esc(value) {\n  return String(value || '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;');\n}\n\nfunction lines(text, max = 30) {\n  const words = String(text || '').split(/s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = [...line, word].join(' ');\n    if (candidate.length > max && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nfunction slideSvg(text, idx, total) {\n  const bodyLines = lines(text, 28).slice(0, 10);\n  const bodySvg = bodyLines.map((line, i) => '<text x=\"144\" y=\"' + (300 + i * 64) + '\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"46\" font-weight=\"700\">' + esc(line) + '</text>').join('\\n    ');\n  return '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\" viewBox=\"0 0 1080 1350\">' +\n    '<rect width=\"1080\" height=\"1350\" fill=\"' + bg + '\"/>' +\n    '<rect x=\"88\" y=\"70\" width=\"904\" height=\"1210\" rx=\"36\" fill=\"' + panel + '\" stroke=\"' + panelEdge + '\" stroke-width=\"2\"/>' +\n    '<circle cx=\"150\" cy=\"150\" r=\"28\" fill=\"#0f141a\" stroke=\"' + panelEdge + '\" stroke-width=\"2\"/>' +\n    '<text x=\"214\" y=\"143\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"44\" font-weight=\"700\">' + esc(channelName) + '</text>' +\n    '<text x=\"214\" y=\"180\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\">' + esc(handle) + ' · Just now</text>' +\n    '<text x=\"928\" y=\"142\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"44\" font-weight=\"700\">...</text>' +\n    '<rect x=\"116\" y=\"230\" width=\"848\" height=\"1\" fill=\"' + panelEdge + '\"/>' +\n    '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n      bodySvg +\n    '</g>' +\n    '<rect x=\"116\" y=\"1148\" width=\"848\" height=\"1\" fill=\"' + panelEdge + '\"/>' +\n    '<text x=\"144\" y=\"1200\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\">Reply · Repost · Like · Bookmark</text>' +\n    '</svg>';\n}\n\nconst sampleSlides = [\n  'The greatest creative work ever made was not made by people who had it figured out.',\n  'It was made by people who felt too much, noticed too much, and cared too much.',\n  'Instead of numbing it, they made something out of it.',\n  'Sensitivity was not what they overcame to create.',\n  'It was what they created from.',\n  'Ordinary life gets harder when you feel things a little more deeply.',\n  'That is not a flaw. It is the raw material.',\n];\n\nif (showSet) {\n  const slideBuffers = [];\n  for (let i = 0; i < sampleSlides.length; i++) {\n    const png = await sharp(Buffer.from(slideSvg(sampleSlides[i], i + 1, sampleSlides.length))).png().toBuffer();\n    slideBuffers.push(png);\n  }\n\n  const width = 1080;\n  const height = 1350 * sampleSlides.length;\n  const composite = slideBuffers.map((buffer, index) => ({\n    input: buffer,\n    left: 0,\n    top: index * 1350,\n  }));\n\n  const sheet = await sharp({\n    create: {\n      width,\n      height,\n      channels: 4,\n      background: '#ffffff',\n    },\n  }).composite(composite).png().toBuffer();\n\n  return [{\n    json: {\n      mimeType: 'image/png',\n      fileName: 'instagram-preview-set.png',\n    },\n    binary: {\n      data: await this.helpers.prepareBinaryData(sheet, 'instagram-preview-set.png', 'image/png'),\n    },\n  }];\n}\n\nconst previewPng = await sharp(Buffer.from(slideSvg(sampleSlides[0], 1, sampleSlides.length))).png().toBuffer();\n\nreturn [{\n  json: {\n    mimeType: 'image/png',\n    fileName: 'instagram-preview.png',\n  },\n  binary: {\n    data: await this.helpers.prepareBinaryData(previewPng, 'instagram-preview.png', 'image/png'),\n  },\n}];"
+          "jsCode": "const sharp = require('sharp');\nconst request = $node[\"Instagram Preview Webhook\"]?.json || $json;\nconst showSet = String(request.query?.set || request.query?.mode || '').toLowerCase() === '1' || String(request.query?.mode || '').toLowerCase() === 'set';\nconst bg = '#0b0f14';\nconst panel = '#11161d';\nconst panelEdge = '#253041';\nconst dark = '#f5f7fa';\nconst subtle = '#8b98a5';\nconst channelName = 'unfiltered.insights';\nconst handle = '@startup-psych-d2c';\n\nfunction esc(value) {\n  return String(value || '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;');\n}\n\nfunction lines(text, max = 30) {\n  const words = String(text || '').split(/\\s+/).filter(Boolean);\n  const out = [];\n  let line = [];\n  for (const word of words) {\n    const candidate = [...line, word].join(' ');\n    if (candidate.length > max && line.length) {\n      out.push(line.join(' '));\n      line = [word];\n    } else {\n      line.push(word);\n    }\n  }\n  if (line.length) out.push(line.join(' '));\n  return out;\n}\n\nfunction slideSvg(text, idx, total) {\n  const fontSize = 46;\n  const lineHeight = Math.round(fontSize * 1.45);\n  const bodyLines = lines(text, 28).slice(0, 10);\n  let cursorY = 300;\n  const bodySvg = bodyLines.map((line) => {\n    const svgLine = '<text x=\"144\" y=\"' + cursorY + '\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"' + fontSize + '\" font-weight=\"700\">' + esc(line) + '</text>';\n    cursorY += lineHeight;\n    return svgLine;\n  }).join('\\n    ');\n  return '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1080\" height=\"1350\" viewBox=\"0 0 1080 1350\">' +\n    '<rect width=\"1080\" height=\"1350\" fill=\"' + bg + '\"/>' +\n    '<rect x=\"88\" y=\"70\" width=\"904\" height=\"1210\" rx=\"36\" fill=\"' + panel + '\" stroke=\"' + panelEdge + '\" stroke-width=\"2\"/>' +\n    '<circle cx=\"150\" cy=\"150\" r=\"28\" fill=\"#0f141a\" stroke=\"' + panelEdge + '\" stroke-width=\"2\"/>' +\n    '<text x=\"214\" y=\"143\" fill=\"' + dark + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"44\" font-weight=\"700\">' + esc(channelName) + '</text>' +\n    '<text x=\"214\" y=\"180\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\">' + esc(handle) + ' · Just now</text>' +\n    '<text x=\"928\" y=\"142\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"44\" font-weight=\"700\">...</text>' +\n    '<rect x=\"116\" y=\"230\" width=\"848\" height=\"1\" fill=\"' + panelEdge + '\"/>' +\n    '<g font-family=\"Arial, Helvetica, sans-serif\" fill=\"' + dark + '\">' +\n      bodySvg +\n    '</g>' +\n    '<rect x=\"116\" y=\"1148\" width=\"848\" height=\"1\" fill=\"' + panelEdge + '\"/>' +\n    '<text x=\"144\" y=\"1200\" fill=\"' + subtle + '\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\">Reply · Repost · Like · Bookmark</text>' +\n    '</svg>';\n}\n\nconst sampleSlides = [\n  'The greatest creative work ever made was not made by people who had it figured out.',\n  'It was made by people who felt too much, noticed too much, and cared too much.',\n  'Instead of numbing it, they made something out of it.',\n  'Sensitivity was not what they overcame to create.',\n  'It was what they created from.',\n  'Ordinary life gets harder when you feel things a little more deeply.',\n  'That is not a flaw. It is the raw material.',\n];\n\nif (showSet) {\n  const slideBuffers = [];\n  for (let i = 0; i < sampleSlides.length; i++) {\n    const png = await sharp(Buffer.from(slideSvg(sampleSlides[i], i + 1, sampleSlides.length))).png().toBuffer();\n    slideBuffers.push(png);\n  }\n\n  const width = 1080;\n  const height = 1350 * sampleSlides.length;\n  const composite = slideBuffers.map((buffer, index) => ({\n    input: buffer,\n    left: 0,\n    top: index * 1350,\n  }));\n\n  const sheet = await sharp({\n    create: {\n      width,\n      height,\n      channels: 4,\n      background: '#ffffff',\n    },\n  }).composite(composite).png().toBuffer();\n\n  return [{\n    json: {\n      mimeType: 'image/png',\n      fileName: 'instagram-preview-set.png',\n    },\n    binary: {\n      data: await this.helpers.prepareBinaryData(sheet, 'instagram-preview-set.png', 'image/png'),\n    },\n  }];\n}\n\nconst previewPng = await sharp(Buffer.from(slideSvg(sampleSlides[0], 1, sampleSlides.length))).png().toBuffer();\n\nreturn [{\n  json: {\n    mimeType: 'image/png',\n    fileName: 'instagram-preview.png',\n  },\n  binary: {\n    data: await this.helpers.prepareBinaryData(previewPng, 'instagram-preview.png', 'image/png'),\n  },\n}];"
         }
       },
       {
-        "id": "0bf580a7-d5d0-4b6c-8d0c-1885975722c4",
+        "id": "b41c54bf-3d23-4cea-993f-6acbaa92adf0",
         "name": "Respond Slide PNG",
         "type": "n8n-nodes-base.respondToWebhook",
         "typeVersion": 1.5,
@@ -546,7 +753,7 @@
         }
       },
       {
-        "id": "f642fbc0-2ebc-49dc-b2b5-870b091c15b6",
+        "id": "4ea02f36-1de0-43b5-9667-91ae00b68584",
         "name": "Respond Preview PNG",
         "type": "n8n-nodes-base.respondToWebhook",
         "typeVersion": 1.5,
@@ -613,14 +820,14 @@
         "main": [
           [
             {
-              "node": "Select Top Topic",
+              "node": "Harvest & Categorize",
               "type": "main",
               "index": 0
             }
           ]
         ]
       },
-      "Select Top Topic": {
+      "Harvest & Categorize": {
         "main": [
           [
             {
@@ -635,25 +842,135 @@
         "main": [
           [
             {
-              "node": "Semantic Novelty Filter",
+              "node": "Gate Candidates",
               "type": "main",
               "index": 0
             }
           ]
         ]
       },
-      "Semantic Novelty Filter": {
+      "Gate Candidates": {
         "main": [
           [
             {
-              "node": "Only New Topic?",
+              "node": "Verify Numeric Claims",
               "type": "main",
               "index": 0
             }
           ]
         ]
       },
-      "Only New Topic?": {
+      "Verify Numeric Claims": {
+        "main": [
+          [
+            {
+              "node": "Redundancy Check",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Redundancy Check": {
+        "main": [
+          [
+            {
+              "node": "Concept Pairing",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Concept Pairing": {
+        "main": [
+          [
+            {
+              "node": "Model Knowledge Lane",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Model Knowledge Lane": {
+        "main": [
+          [
+            {
+              "node": "Curator Enrich & Score",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Curator Enrich & Score": {
+        "main": [
+          [
+            {
+              "node": "Two-Reader Recheck & Quotas",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Two-Reader Recheck & Quotas": {
+        "main": [
+          [
+            {
+              "node": "Mark Concepts Used",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Mark Concepts Used": {
+        "main": [
+          [
+            {
+              "node": "Insert Backlog Cards",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Insert Backlog Cards": {
+        "main": [
+          [
+            {
+              "node": "Collapse After Insert",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Collapse After Insert": {
+        "main": [
+          [
+            {
+              "node": "Fetch Backlog For Selection",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Fetch Backlog For Selection": {
+        "main": [
+          [
+            {
+              "node": "Select Top Backlog Topic",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Select Top Backlog Topic": {
         "main": [
           [
             {
@@ -665,6 +982,17 @@
         ]
       },
       "Write Carousel Plan": {
+        "main": [
+          [
+            {
+              "node": "Enforce Word Bands & Rhythm",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Enforce Word Bands & Rhythm": {
         "main": [
           [
             {
@@ -816,6 +1144,6 @@
     "meta": {
       "templateCredsSetupCompleted": false
     },
-    "versionId": "354d3c4d-abb3-4e9f-9338-8890bc38b028"
+    "versionId": "6cd36d4e-4c98-46ec-9901-e5a61acdb9a9"
   }
 ]
